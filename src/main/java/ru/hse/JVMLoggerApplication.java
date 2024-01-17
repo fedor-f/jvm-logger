@@ -1,44 +1,32 @@
 package ru.hse;
 
-import jdk.jfr.ValueDescriptor;
-import jdk.jfr.consumer.RecordedEvent;
-import jdk.jfr.consumer.RecordingFile;
+import ext.org.deckfour.xes.factory.XFactoryBufferedImpl;
+import ext.org.deckfour.xes.out.XesXmlSerializer;
 import ru.hse.collector.JarRunner;
+import ru.hse.processor.JFREventProcessor;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
 
 public class JVMLoggerApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         var runner = new JarRunner();
 
         System.out.println("Executing .jar");
-
-        runner.run("/users/fedorfilippov/Desktop/helloWorldEvents-1.0-SNAPSHOT-jar-with-dependencies.jar",
-                "flight.jfr",
-                "200s"
+        var thread = new Thread(() ->
+                runner.run("/users/fedorfilippov/Desktop/Jigsaw.jar",
+                        "/users/fedorfilippov/Desktop/flight.jfr",
+                        "3s"
+                )
         );
+        thread.start();
+
+        Thread.sleep(4000);
 
         System.out.println(".jfr file collected");
 
         System.out.println("Collected events: ");
-        try (RecordingFile recordingFile = new RecordingFile(Paths.get("flight.jfr"))) {
-            while (recordingFile.hasMoreEvents()) {
-                RecordedEvent event = recordingFile.readEvent();
 
-                System.out.println("Event: " + event.getEventType().getName());
+        var jfrEventProcessor = new JFREventProcessor();
 
-                List<ValueDescriptor> fields = event.getFields();
-
-                for (ValueDescriptor field : fields) {
-                    Object value = event.getValue(field.getName());
-
-                    System.out.println("  " + field.getName() + " (" + field.getTypeName() + "): " + value);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        jfrEventProcessor.processEventsFromFile("/users/fedorfilippov/Desktop/flight.jfr");
     }
 }

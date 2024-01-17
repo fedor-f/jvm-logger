@@ -16,12 +16,8 @@ public class JarRunner {
 
             Process process = pb.start();
 
-            printProcessOutput(process);
-
             int exitCode = process.waitFor();
-            System.out.println("Process exited with code: " + exitCode);
-
-            // TODO: log errors
+            System.out.println("Executable .jar process exited with code: " + exitCode);
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
