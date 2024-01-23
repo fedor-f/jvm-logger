@@ -43,7 +43,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import org.deckfour.xes.info.impl.XAttributeNameMapImpl;
+import ext.org.deckfour.xes.info.impl.XAttributeNameMapImpl;
 import ext.org.deckfour.xes.model.XAttribute;
 
 /**

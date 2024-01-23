@@ -39,7 +39,7 @@
 package ext.org.deckfour.xes.info;
 
 import ext.org.deckfour.xes.classification.XEventClassifier;
-import org.deckfour.xes.info.impl.XLogInfoImpl;
+import ext.org.deckfour.xes.info.impl.XLogInfoImpl;
 import ext.org.deckfour.xes.model.XLog;
 
 /**

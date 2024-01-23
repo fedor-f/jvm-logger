@@ -57,7 +57,7 @@ import ext.org.deckfour.xes.extension.XExtension;
 import ext.org.deckfour.xes.extension.XExtensionManager;
 import ext.org.deckfour.xes.factory.XFactory;
 import ext.org.deckfour.xes.factory.XFactoryRegistry;
-import org.deckfour.xes.id.XID;
+import ext.org.deckfour.xes.id.XID;
 import ext.org.deckfour.xes.model.XAttributable;
 import ext.org.deckfour.xes.model.XAttribute;
 import ext.org.deckfour.xes.model.XAttributeCollection;

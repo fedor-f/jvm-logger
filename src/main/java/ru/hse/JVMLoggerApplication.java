@@ -1,10 +1,7 @@
 package ru.hse;
 
-import ext.org.deckfour.xes.factory.XFactoryBufferedImpl;
-import ext.org.deckfour.xes.out.XesXmlSerializer;
 import ru.hse.collector.JarRunner;
-import ru.hse.processor.JFREventProcessor;
-
+import ru.hse.eventProcessing.JFREventProcessor;
 
 public class JVMLoggerApplication {
     public static void main(String[] args) throws InterruptedException {
@@ -14,12 +11,12 @@ public class JVMLoggerApplication {
         var thread = new Thread(() ->
                 runner.run("/users/fedorfilippov/Desktop/Jigsaw.jar",
                         "/users/fedorfilippov/Desktop/flight.jfr",
-                        "3s"
+                        "20s"
                 )
         );
         thread.start();
 
-        Thread.sleep(4000);
+        Thread.sleep(21000);
 
         System.out.println(".jfr file collected");
 
@@ -27,6 +24,6 @@ public class JVMLoggerApplication {
 
         var jfrEventProcessor = new JFREventProcessor();
 
-        jfrEventProcessor.processEventsFromFile("/users/fedorfilippov/Desktop/flight.jfr");
+        jfrEventProcessor.processEventsFromFile("/users/fedorfilippov/Desktop/flight.jfr", "output.xes");
     }
 }

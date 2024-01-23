@@ -38,7 +38,7 @@
  */
 package ext.org.deckfour.xes.logging;
 
-import org.deckfour.xes.logging.XLogging.Importance;
+import ext.org.deckfour.xes.logging.XLogging.Importance;
 
 /**
  * Default STDOUT logging listener.
