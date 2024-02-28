@@ -15,9 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class XESSerializerWrapper {
-
-    private XFactory factory;
-
     private final XLog log;
 
     private final XTrace trace;
@@ -25,7 +22,7 @@ public class XESSerializerWrapper {
     private final XSerializer serializer;
 
     public XESSerializerWrapper() {
-        this.factory = new XFactoryBufferedImpl();
+        XFactory factory = new XFactoryBufferedImpl();
         this.log = factory.createLog();
         this.serializer = new XesXmlSerializer();
 

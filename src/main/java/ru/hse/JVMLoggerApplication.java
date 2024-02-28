@@ -9,14 +9,14 @@ public class JVMLoggerApplication {
 
         System.out.println("Executing .jar");
         var thread = new Thread(() ->
-                runner.run("/users/fedorfilippov/Desktop/Jigsaw.jar",
+                runner.run("/users/fedorfilippov/Desktop/Server.jar",
                         "/users/fedorfilippov/Desktop/flight.jfr",
-                        "20s"
+                        "3s"
                 )
         );
         thread.start();
 
-        Thread.sleep(21000);
+        Thread.sleep(4000);
 
         System.out.println(".jfr file collected");
 

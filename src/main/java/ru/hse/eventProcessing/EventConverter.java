@@ -32,6 +32,17 @@ public class EventConverter {
         XAttribute attributeEventType = factory.createAttributeLiteral("concept:name", eventType, null);
         attributes.put("concept:name", attributeEventType);
 
+        long threadId;
+        XAttribute attributeThreadId;
+        if (jfrEvent.getThread() != null) {
+            threadId = jfrEvent.getThread().getId();
+            attributeThreadId = factory.createAttributeLiteral("Thread ID", String.valueOf(threadId), null);
+        } else {
+            attributeThreadId = factory.createAttributeLiteral("Thread ID", "null", null);
+        }
+
+        attributes.put("Thread ID", attributeThreadId);
+
         event.setAttributes(attributes);
 
         return event;
