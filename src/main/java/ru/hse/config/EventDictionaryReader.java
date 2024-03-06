@@ -10,15 +10,15 @@ import java.util.List;
 
 public class EventDictionaryReader {
 
-    private static final String EVENT_DICTIONARY_FILE_NAME = "event_dictionary_filtered.csv";
+    private static final String EVENT_DICTIONARY_FILE_PATH = "docs/event_dictionary_filtered.tsv";
 
     public List<EventDescription> readEventDictionary() throws IOException {
         List<EventDescription> result = new ArrayList<>();
 
-        try (var bufferedReader = new BufferedReader(new FileReader(EVENT_DICTIONARY_FILE_NAME))) {
+        try (var bufferedReader = new BufferedReader(new FileReader(EVENT_DICTIONARY_FILE_PATH))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                var splittedElements = line.split(",");
+                var splittedElements = line.split("\t");
                 result.add(new EventDescription(splittedElements[0], splittedElements[1], splittedElements[2], splittedElements[3]));
             }
         }
