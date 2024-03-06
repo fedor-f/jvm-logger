@@ -3,8 +3,10 @@ package ru.hse;
 import ru.hse.collector.JarRunner;
 import ru.hse.eventProcessing.JFREventProcessor;
 
+import java.io.IOException;
+
 public class JVMLoggerApplication {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         var runner = new JarRunner();
 
         System.out.println("Executing .jar");
