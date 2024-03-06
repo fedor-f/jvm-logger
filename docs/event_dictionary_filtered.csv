@@ -1,0 +1,166 @@
+Name,Category,Description,Included
+jdk.AllocationRequiringGC,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",,TRUE
+jdk.BiasedLockClassRevocation,"{""Java Virtual Machine"", ""Runtime""}",Revoked biases for all instances of a class,TRUE
+jdk.BiasedLockRevocation,"{""Java Virtual Machine"", ""Runtime""}",Revoked bias of object,TRUE
+jdk.BiasedLockSelfRevocation,"{""Java Virtual Machine"", ""Runtime""}",Revoked bias of object biased towards own thread,TRUE
+jdk.BooleanFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.ClassDefine,"{""Java Virtual Machine"", ""Class Loading""}",,TRUE
+jdk.ClassLoad,"{""Java Virtual Machine"", ""Class Loading""}",,TRUE
+jdk.ClassRedefinition,"{""Java Virtual Machine"", ""Class Loading""}",,TRUE
+jdk.ClassUnload,"{""Java Virtual Machine"", ""Class Loading""}",,TRUE
+jdk.CodeCacheFull,"{""Java Virtual Machine"", ""Code Cache""}",,TRUE
+jdk.Compilation,"{""Java Virtual Machine"", ""Compiler""}",,TRUE
+jdk.CompilationFailure,"{""Java Virtual Machine"", ""Compiler""}",,TRUE
+jdk.CompilerInlining,"{""Java Virtual Machine"", ""Compiler"", ""Optimization""}",,TRUE
+jdk.CompilerPhase,"{""Java Virtual Machine"", ""Compiler""}",,TRUE
+"""jdk.ConcurrentModeFailure""","{""Java Virtual Machine"", ""GC"", ""Detailed""}",Concurrent Mode failed,TRUE
+jdk.DataLoss,Flight Recorder,"Data could not be copied out from a buffer, typically because of contention",TRUE
+jdk.Deoptimization,"{""Java Virtual Machine"", ""Compiler""}",,TRUE
+jdk.Deserialization,"{""Java Development Kit"", ""Serialization""}",Results of deserialization and ObjectInputFilter checks,TRUE
+jdk.DoubleFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.DumpReason,Flight Recorder,Who requested the recording and why,TRUE
+jdk.EvacuationFailed,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Evacuation of an object failed,TRUE
+jdk.ExecuteVMOperation,"{""Java Virtual Machine"", ""Runtime""}",Execution of a VM Operation,TRUE
+jdk.FileForce,Java Application,Force updates to be written to file,TRUE
+jdk.FileRead,Java Application,Reading data from a file,TRUE
+jdk.FileWrite,Java Application,Writing data to a file,TRUE
+jdk.Flush,Flight Recorder,,TRUE
+jdk.HeapDump,"{""Java Virtual Machine"", ""Diagnostics""}",,TRUE
+jdk.IntFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.JavaErrorThrow,Java Application,An object derived from java.lang.Error has been created. OutOfMemoryErrors are ignored,TRUE
+jdk.JavaExceptionThrow,Java Application,An object derived from java.lang.Exception has been created,TRUE
+jdk.JavaMonitorEnter,Java Application,,TRUE
+jdk.JavaMonitorInflate,Java Application,Java Monitor Inflated,TRUE
+jdk.JavaMonitorWait,Java Application,Waiting on a Java monitor,TRUE
+jdk.LongFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.MetaspaceAllocationFailure,"{""Java Virtual Machine"", ""GC"", ""Metaspace""}",,TRUE
+jdk.MetaspaceGCThreshold,"{""Java Virtual Machine"", ""GC"", ""Metaspace""}",,TRUE
+jdk.MetaspaceOOM,"{""Java Virtual Machine"", ""GC"", ""Metaspace""}",Metaspace Out of Memory,TRUE
+jdk.ModuleExport,"{""Java Virtual Machine"", ""Runtime"", ""Modules""}",,TRUE
+jdk.ModuleRequire,"{""Java Virtual Machine"", ""Runtime"", ""Modules""}",A directed edge representing a dependency,TRUE
+jdk.NativeLibrary,"{""Java Virtual Machine"", ""Runtime""}",,TRUE
+jdk.ObjectAllocationInNewTLAB,Java Application,Allocation in new Thread Local Allocation Buffer,TRUE
+jdk.ObjectAllocationOutsideTLAB,Java Application,Allocation outside Thread Local Allocation Buffers,TRUE
+jdk.ProcessStart,Operating System,Operating system process started,TRUE
+jdk.PromoteObjectInNewPLAB,"{""Java Virtual Machine"", ""GC"", ""Detailed""}","Object survived scavenge and was copied to a new Promotion Local Allocation Buffer (PLAB). Supported GCs are Parallel Scavange, G1 and CMS with Parallel New. Due to promotion being done in parallel an object might be reported multiple times as the GC threads race to copy all objects.",TRUE
+jdk.PromoteObjectOutsidePLAB,"{""Java Virtual Machine"", ""GC"", ""Detailed""}","Object survived scavenge and was copied directly to the heap. Supported GCs are Parallel Scavange, G1 and CMS with Parallel New. Due to promotion being done in parallel an object might be reported multiple times as the GC threads race to copy all objects.",TRUE
+jdk.PromotionFailed,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Promotion of an object failed,TRUE
+jdk.RedefineClasses,"{""Java Virtual Machine"", ""Class Loading""}",,TRUE
+jdk.ReservedStackActivation,"{""Java Virtual Machine"", ""Runtime""}",Activation of Reserved Stack Area caused by stack overflow with ReservedStackAccess annotated method in call stack,TRUE
+jdk.RetransformClasses,"{""Java Virtual Machine"", ""Class Loading""}",,TRUE
+jdk.SafepointBegin,"{""Java Virtual Machine"", ""Runtime"", ""Safepoint""}",Safepointing begin,TRUE
+jdk.SafepointCleanup,"{""Java Virtual Machine"", ""Runtime"", ""Safepoint""}",Safepointing begin running cleanup tasks,TRUE
+jdk.SafepointCleanupTask,"{""Java Virtual Machine"", ""Runtime"", ""Safepoint""}",Safepointing begin running cleanup tasks,TRUE
+jdk.SafepointEnd,"{""Java Virtual Machine"", ""Runtime"", ""Safepoint""}",Safepointing end,TRUE
+jdk.SafepointStateSynchronization,"{""Java Virtual Machine"", ""Runtime"", ""Safepoint""}",Synchronize run state of threads,TRUE
+jdk.SecurityPropertyModification,"{""Java Development Kit"", ""Security""}",Modification of Security property,TRUE
+jdk.Shutdown,"{""Java Virtual Machine"", ""Runtime""}",JVM shutting down,TRUE
+jdk.SocketRead,Java Application,Reading data from a socket,TRUE
+jdk.SocketWrite,Java Application,Writing data to a socket,TRUE
+jdk.StringFlag,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.StringFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.SyncOnValueBasedClass,"{""Java Virtual Machine"", ""Diagnostics""}",,TRUE
+jdk.SystemGC,"{""Java Virtual Machine"", ""GC"", ""Collector""}",,TRUE
+jdk.SystemProcess,Operating System,,TRUE
+jdk.ThreadDump,"{""Java Virtual Machine"", ""Runtime""}",,TRUE
+jdk.ThreadEnd,Java Application,Java Thread End,TRUE
+jdk.ThreadPark,Java Application,Java Thread Park,TRUE
+jdk.ThreadSleep,Java Application,Java Thread Sleep,TRUE
+jdk.ThreadStart,Java Application,Java Thread Start,TRUE
+jdk.UnsignedIntFlag,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.UnsignedIntFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.UnsignedLongFlag,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.UnsignedLongFlagChanged,"{""Java Virtual Machine"", ""Flag""}",,TRUE
+jdk.ZPageAllocation,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Allocation of a ZPage,TRUE
+jdk.ZRelocationSet,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",ZGC Relocation Set,TRUE
+jdk.ZRelocationSetGroup,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",ZGC Relocation Set Group,TRUE
+jdk.ZThreadPhase,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",ZGC Thread Phase,TRUE
+jdk.ZUncommit,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Uncommitting of memory,TRUE
+jdk.ZUnmap,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Unmapping of memory,TRUE
+jdk.BooleanFlag,"{""Java Virtual Machine"", ""Flag""}",,FALSE
+jdk.CPUInformation,"{""Operating System"", ""Processor""}",,FALSE
+jdk.CPULoad,"{""Operating System"", ""Processor""}",OS CPU Load,FALSE
+jdk.CPUTimeStampCounter,"{""Operating System"", ""Processor""}",,FALSE
+jdk.ClassLoaderStatistics,"{""Java Application"", ""Statistics""}",,FALSE
+jdk.ClassLoadingStatistics,"{""Java Application"", ""Statistics""}",,FALSE
+jdk.CodeCacheConfiguration,"{""Java Virtual Machine"", ""Code Cache""}",,FALSE
+jdk.CodeCacheStatistics,"{""Java Virtual Machine"", ""Code Cache""}",,FALSE
+jdk.CodeSweeperConfiguration,"{""Java Virtual Machine"", ""Code Sweeper""}",,FALSE
+jdk.CodeSweeperStatistics,"{""Java Virtual Machine"", ""Code Sweeper""}",,FALSE
+"""jdk.CompilerConfiguration""","{""Java Virtual Machine"", ""Compiler""}",,FALSE
+jdk.CompilerStatistics,"{""Java Virtual Machine"", ""Compiler""}",,FALSE
+jdk.ContainerCPUThrottling,"{""Operating System"", ""Processor""}",Container CPU throttling related information,FALSE
+jdk.ContainerCPUUsage,"{""Operating System"", ""Processor""}",Container CPU usage related information,FALSE
+jdk.ContainerConfiguration,Operating System,A set of container specific attributes,FALSE
+jdk.ContainerIOUsage,"{""Operating System"", ""File System""}",Container IO usage related information,FALSE
+jdk.ContainerMemoryUsage,"{""Operating System"", ""Memory""}",Container memory usage related information,FALSE
+jdk.DirectBufferStatistics,"{""Java Application"", ""Statistics""}",Statistics of direct buffer,FALSE
+jdk.DoubleFlag,"{""Java Virtual Machine"", ""Flag""}",,FALSE
+jdk.EvacuationInformation,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",,FALSE
+jdk.ExceptionStatistics,"{""Java Application"", ""Statistics""}",Number of objects derived from java.lang.Throwable that have been created,FALSE
+jdk.ExecutionSample,"{""Java Virtual Machine"", ""Profiling""}",Snapshot of a threads state,FALSE
+jdk.G1AdaptiveIHOP,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Statistics related to current adaptive IHOP calculation,FALSE
+jdk.G1BasicIHOP,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Basic statistics related to current IHOP calculation,FALSE
+jdk.G1EvacuationOldStatistics,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Memory related evacuation statistics during GC for the old generation,FALSE
+jdk.G1EvacuationYoungStatistics,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Memory related evacuation statistics during GC for the young generation,FALSE
+jdk.G1GarbageCollection,"{""Java Virtual Machine"", ""GC"", ""Collector""}",Extra information specific to G1 Young Garbage Collections,FALSE
+jdk.G1HeapRegionInformation,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Information about a specific heap region in the G1 GC,FALSE
+jdk.G1HeapRegionTypeChange,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Information about a G1 heap region type change,FALSE
+jdk.G1HeapSummary,"{""Java Virtual Machine"", ""GC"", ""Heap""}",,FALSE
+jdk.G1MMU,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",G1 MMU Information,FALSE
+jdk.GCConfiguration,"{""Java Virtual Machine"", ""GC"", ""Configuration""}",The configuration of the garbage collector,FALSE
+jdk.GCHeapConfiguration,"{""Java Virtual Machine"", ""GC"", ""Configuration""}",The configuration of the garbage collected heap,FALSE
+jdk.GCHeapSummary,"{""Java Virtual Machine"", ""GC"", ""Heap""}",Heap Summary,FALSE
+jdk.GCLocker,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",,FALSE
+jdk.GCPhaseConcurrent,"{""Java Virtual Machine"", ""GC"", ""Phases""}",GC Phase Concurrent,FALSE
+jdk.GCPhaseConcurrentLevel1,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCPhaseParallel,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCPhasePause,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCPhasePauseLevel1,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCPhasePauseLevel2,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCPhasePauseLevel3,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCPhasePauseLevel4,"{""Java Virtual Machine"", ""GC"", ""Phases""}",,FALSE
+jdk.GCReferenceStatistics,"{""Java Virtual Machine"", ""GC"", ""Reference""}",Total count of processed references during GC,FALSE
+jdk.GCSurvivorConfiguration,"{""Java Virtual Machine"", ""GC"", ""Configuration""}",The configuration of the survivors of garbage collection,FALSE
+jdk.GCTLABConfiguration,"{""Java Virtual Machine"", ""GC"", ""Configuration""}",The configuration of the Thread Local Allocation Buffers (TLABs),FALSE
+jdk.GarbageCollection,"{""Java Virtual Machine"", ""GC"", ""Collector""}",Garbage collection performed by the JVM,FALSE
+jdk.InitialEnvironmentVariable,Operating System,,FALSE
+jdk.InitialSystemProperty,Java Virtual Machine,System Property at JVM start,FALSE
+jdk.IntFlag,"{""Java Virtual Machine"", ""Flag""}",,FALSE
+jdk.JVMInformation,Java Virtual Machine,Description of JVM and the Java application,FALSE
+jdk.JavaThreadStatistics,"{""Java Application"", ""Statistics""}",,FALSE
+jdk.LoaderConstraintsTableStatistics,"{""Java Virtual Machine"", ""Runtime"", ""Tables""}",,FALSE
+jdk.LongFlag,"{""Java Virtual Machine"", ""Flag""}",,FALSE
+jdk.MetaspaceChunkFreeListSummary,"{""Java Virtual Machine"", ""GC"", ""Metaspace""}",,FALSE
+jdk.MetaspaceSummary,"{""Java Virtual Machine"", ""GC"", ""Heap""}",Metaspace Summary,FALSE
+jdk.NativeMethodSample,"{""Java Virtual Machine"", ""Profiling""}",Snapshot of a threads state when in native,FALSE
+jdk.NetworkUtilization,"{""Operating System"", ""Network""}",,FALSE
+jdk.OSInformation,Operating System,,FALSE
+jdk.ObjectAllocationSample,Java Application,,FALSE
+jdk.ObjectCount,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",,FALSE
+jdk.ObjectCountAfterGC,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",,FALSE
+jdk.OldGarbageCollection,"{""Java Virtual Machine"", ""GC"", ""Collector""}",Extra information specific to Old Garbage Collections,FALSE
+jdk.OldObjectSample,"{""Java Virtual Machine"", ""Profiling""}",A potential memory leak,FALSE
+jdk.PSHeapSummary,"{""Java Virtual Machine"", ""GC"", ""Heap""}",Parallel Scavenge Heap Summary,FALSE
+jdk.ParallelOldGarbageCollection,"{""Java Virtual Machine"", ""GC"", ""Collector""}",Extra information specific to Parallel Old Garbage Collections,FALSE
+jdk.PhysicalMemory,"{""Operating System"", ""Memory""}",OS Physical Memory,FALSE
+jdk.PlaceholderTableStatistics,"{""Java Virtual Machine"", ""Runtime"", ""Tables""}",,FALSE
+dk.ProtectionDomainCacheTableStatistics,"{""Java Virtual Machine"", ""Runtime"", ""Tables""}",,FALSE
+jdk.ShenandoahHeapRegionInformation,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Information about a specific heap region in the Shenandoah GC,FALSE
+jdk.ShenandoahHeapRegionStateChange,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Information about a Shenandoah heap region state change,FALSE
+jdk.StringTableStatistics,"{""Java Virtual Machine"", ""Runtime"", ""Tables""}",,FALSE
+jdk.SweepCodeCache,"{""Java Virtual Machine"", ""Code Sweeper""}",,FALSE
+jdk.SymbolTableStatistics,"{""Java Virtual Machine"", ""Runtime"", ""Tables""}",,FALSE
+jdk.TLSHandshake,"{""Java Development Kit"", ""Security""}",Parameters used in TLS Handshake,FALSE
+jdk.TenuringDistribution,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",,FALSE
+jdk.ThreadAllocationStatistics,"{""Java Application"", ""Statistics""}",,FALSE
+jdk.ThreadCPULoad,"{""Operating System"", ""Processor""}",,FALSE
+jdk.ThreadContextSwitchRate,"{""Operating System"", ""Processor""}",,FALSE
+jdk.VirtualizationInformation,Operating System,,FALSE
+jdk.X509Certificate,"{""Java Development Kit"", ""Security""}",Details of X.509 Certificate parsed by JDK,FALSE
+jdk.X509Validation,"{""Java Development Kit"", ""Security""}",Serial numbers from X.509 Certificates forming chain of trust,FALSE
+jdk.YoungGarbageCollection,"{""Java Virtual Machine"", ""GC"", ""Collector""}",Extra information specific to Young Garbage Collections,FALSE
+jdk.YoungGenerationConfiguration,"{""Java Virtual Machine"", ""GC"", ""Configuration""}",The configuration of the young generation of the garbage collected heap,FALSE
+jdk.ZAllocationStall,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",Time spent waiting for memory to become available,FALSE
+jdk.ZStatisticsCounter,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",ZGC Statistics Counter,FALSE
+jdk.ZStatisticsSampler,"{""Java Virtual Machine"", ""GC"", ""Detailed""}",ZGC Statistics Sampler,FALSE
