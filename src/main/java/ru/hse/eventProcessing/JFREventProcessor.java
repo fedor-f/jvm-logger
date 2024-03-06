@@ -37,8 +37,10 @@ public class JFREventProcessor {
 //                    System.out.println("  " + field.getName() + " (" + field.getTypeName() + "): " + value);
 //                }
 
-                XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
-                serializer.addEventToTrace(convertedEvent);
+                if (eventDescriptions.containsKey(event.getEventType().getName())) {
+                    XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                    serializer.addEventToTrace(convertedEvent);
+                }
             }
 
             serializer.serializeLog(outputXesFilePath);
