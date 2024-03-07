@@ -6,4 +6,6 @@ public class Module {
     private String version;
 
     private String location;
+
+    private ClassLoader classLoader;
 }
