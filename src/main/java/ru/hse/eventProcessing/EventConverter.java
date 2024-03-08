@@ -9,6 +9,8 @@ import ext.org.deckfour.xes.model.XEvent;
 import ext.org.deckfour.xes.model.impl.XAttributeMapImpl;
 import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
+import ru.hse.eventProcessing.entity.Module;
+import ru.hse.eventProcessing.entity.Package;
 
 import java.util.Date;
 import java.util.List;
@@ -53,10 +55,40 @@ public class EventConverter {
             if (checkIfTypeNamePrimitive(field.getTypeName())) {
                 XAttribute attributeEventType = factory.createAttributeLiteral(field.getName(), value.toString(), null);
                 attributes.put(field.getName(), attributeEventType);
+            } else if (field.getTypeName().equals("jdk.types.Package")) {
+                addPackageAttribute(attributes, (Package) value);
+            } else if (field.getTypeName().equals("jdk.types.Module")) {
+                addModuleAttributes(attributes, (Module) value);
+            } else if (field.getTypeName().equals("java.lang.Thread")) {
             }
 
             // TODO: add processing of complex types
         }
+    }
+
+    private void addPackageAttribute(XAttributeMap attributes, Package value) {
+        XAttribute attributePackageName = factory.createAttributeLiteral("package.name", value.getName(), null);
+        attributes.put("package.name", attributePackageName);
+
+        Module module = value.getModule();
+        addModuleAttributes(attributes, module);
+
+        XAttribute attributePackageExported = factory.createAttributeLiteral("package.exported", value.getExported().toString(), null);
+        attributes.put("package.exported", attributePackageExported);
+    }
+
+    private void addModuleAttributes(XAttributeMap attributes, Module module) {
+        XAttribute attributeModuleName = factory.createAttributeLiteral("package.module.name", module.getName(), null);
+        attributes.put("package.module.name", attributeModuleName);
+
+        XAttribute attributeModuleVersion = factory.createAttributeLiteral("package.module.version", module.getVersion(), null);
+        attributes.put("package.module.version", attributeModuleVersion);
+
+        XAttribute attributeModuleLocation = factory.createAttributeLiteral("package.module.location", module.getLocation(), null);
+        attributes.put("package.module.location", attributeModuleLocation);
+
+        XAttribute attributeModuleClassLoader = factory.createAttributeLiteral("package.module.classLoader.name", module.getClassLoader().getName(), null);
+        attributes.put("package.module.classLoader.name", attributeModuleClassLoader);
     }
 
     private boolean checkIfTypeNamePrimitive(String name) {
