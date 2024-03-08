@@ -56,7 +56,12 @@ public class EventConverter {
 
             if (checkIfTypeNamePrimitiveOrString(field.getTypeName())) {
                 Object primitiveValue = event.getValue(field.getName());
-                XAttribute attributeEventType = factory.createAttributeLiteral(field.getName(), primitiveValue.toString(), null);
+                XAttribute attributeEventType;
+                if (primitiveValue != null) {
+                    attributeEventType = factory.createAttributeLiteral(field.getName(), primitiveValue.toString(), null);
+                } else {
+                    attributeEventType = factory.createAttributeLiteral(field.getName(), "null", null);
+                }
                 attributes.put(field.getName(), attributeEventType);
             } else if (field.getTypeName().equals("jdk.types.Package")) {
                 RecordedObject value = event.getValue(field.getName());
@@ -66,24 +71,24 @@ public class EventConverter {
                 if (value != null) {
                     addModuleAttributes(attributes, value);
                 }
+            } else if (field.getTypeName().equals("java.lang.Thread")) {
+                RecordedObject value = event.getValue(field.getName());
+                if (value != null) {
+                    addThreadAttributes(attributes, value);
+                }
             }
-//            else if (field.getTypeName().equals("java.lang.Thread")) {
-//                addThreadAttributes(attributes, (Thread) value);
-//            }
-
             // TODO: add processing for java.lang.Class
         }
     }
 
-    private void addThreadAttributes(XAttributeMap attributes, Thread value) {
-        XAttribute attributeEventThreadName = factory.createAttributeLiteral("eventThread.name", value.getName(), null);
+    private void addThreadAttributes(XAttributeMap attributes, RecordedObject value) {
+        String threadName = value.getValue("javaName");
+        XAttribute attributeEventThreadName = factory.createAttributeLiteral("eventThread.name", Objects.requireNonNullElse(threadName, "null"), null);
         attributes.put("eventThread.name", attributeEventThreadName);
 
-        XAttribute attributeEventThreadId = factory.createAttributeLiteral("eventThread.id", String.valueOf(value.getId()), null);
+        Long threadId = value.getValue("javaThreadId");
+        XAttribute attributeEventThreadId = factory.createAttributeLiteral("eventThread.id", Objects.requireNonNullElse(String.valueOf(threadId), "null"), null);
         attributes.put("eventThread.id", attributeEventThreadId);
-
-        XAttribute attributeEventThreadState = factory.createAttributeLiteral("eventThread.state", value.getState().name(), null);
-        attributes.put("eventThread.state", attributeEventThreadState);
 
         // TODO: add thread group processing
     }
