@@ -60,10 +60,24 @@ public class EventConverter {
             } else if (field.getTypeName().equals("jdk.types.Module")) {
                 addModuleAttributes(attributes, (Module) value);
             } else if (field.getTypeName().equals("java.lang.Thread")) {
+                addThreadAttributes(attributes, (Thread) value);
             }
 
-            // TODO: add processing of complex types
+            // TODO: add processing for java.lang.Class
         }
+    }
+
+    private void addThreadAttributes(XAttributeMap attributes, Thread value) {
+        XAttribute attributeEventThreadName = factory.createAttributeLiteral("eventThread.osName", value.getName(), null);
+        attributes.put("eventThread.name", attributeEventThreadName);
+
+        XAttribute attributeEventThreadId = factory.createAttributeLiteral("eventThread.id", String.valueOf(value.getId()), null);
+        attributes.put("eventThread.id", attributeEventThreadId);
+
+        XAttribute attributeEventThreadState = factory.createAttributeLiteral("eventThread.state", value.getState().name(), null);
+        attributes.put("eventThread.state", attributeEventThreadState);
+
+        // TODO: add thread group processing
     }
 
     private void addPackageAttribute(XAttributeMap attributes, Package value) {
