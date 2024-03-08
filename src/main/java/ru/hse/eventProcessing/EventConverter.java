@@ -54,7 +54,7 @@ public class EventConverter {
                 continue;
             }
 
-            if (checkIfTypeNamePrimitive(field.getTypeName())) {
+            if (checkIfTypeNamePrimitiveOrString(field.getTypeName())) {
                 Object primitiveValue = event.getValue(field.getName());
                 XAttribute attributeEventType = factory.createAttributeLiteral(field.getName(), primitiveValue.toString(), null);
                 attributes.put(field.getName(), attributeEventType);
@@ -121,8 +121,8 @@ public class EventConverter {
         attributes.put("package.module.classLoader.name", attributeModuleClassLoader);
     }
 
-    private boolean checkIfTypeNamePrimitive(String name) {
+    private boolean checkIfTypeNamePrimitiveOrString(String name) {
         return name.equals("long") || name.equals("int") || name.equals("float")
-                || name.equals("boolean") || name.equals("double") || name.equals("char");
+                || name.equals("boolean") || name.equals("double") || name.equals("char") || name.equals("java.lang.String");
     }
 }
