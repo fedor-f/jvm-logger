@@ -9,11 +9,13 @@ import ext.org.deckfour.xes.model.XEvent;
 import ext.org.deckfour.xes.model.impl.XAttributeMapImpl;
 import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
+import jdk.jfr.consumer.RecordedObject;
 import ru.hse.eventProcessing.entity.Module;
 import ru.hse.eventProcessing.entity.Package;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class EventConverter {
 
@@ -23,7 +25,6 @@ public class EventConverter {
         this.factory = new XFactoryBufferedImpl();
     }
 
-    // TODO: add more attributes if possible
     public XEvent getConvertedEventFromJFRFile(RecordedEvent jfrEvent) {
         XEvent event = factory.createEvent();
         XAttributeMap attributes = new XAttributeMapImpl();
@@ -54,25 +55,30 @@ public class EventConverter {
             if (field.getName().equals("startTime")) {
                 continue;
             }
-            Object value = event.getValue(field.getName());
 
             if (checkIfTypeNamePrimitive(field.getTypeName())) {
-                XAttribute attributeEventType = factory.createAttributeLiteral(field.getName(), value.toString(), null);
+                Object primitiveValue = event.getValue(field.getName());
+                XAttribute attributeEventType = factory.createAttributeLiteral(field.getName(), primitiveValue.toString(), null);
                 attributes.put(field.getName(), attributeEventType);
             } else if (field.getTypeName().equals("jdk.types.Package")) {
-                addPackageAttribute(attributes, (Package) value);
+                RecordedObject value = event.getValue(field.getName());
+                addPackageAttribute(attributes, value);
             } else if (field.getTypeName().equals("jdk.types.Module")) {
-                addModuleAttributes(attributes, (Module) value);
-            } else if (field.getTypeName().equals("java.lang.Thread")) {
-                addThreadAttributes(attributes, (Thread) value);
+                RecordedObject value = event.getValue(field.getName());
+                if (value != null) {
+                    addModuleAttributes(attributes, value);
+                }
             }
+//            else if (field.getTypeName().equals("java.lang.Thread")) {
+//                addThreadAttributes(attributes, (Thread) value);
+//            }
 
             // TODO: add processing for java.lang.Class
         }
     }
 
     private void addThreadAttributes(XAttributeMap attributes, Thread value) {
-        XAttribute attributeEventThreadName = factory.createAttributeLiteral("eventThread.osName", value.getName(), null);
+        XAttribute attributeEventThreadName = factory.createAttributeLiteral("eventThread.name", value.getName(), null);
         attributes.put("eventThread.name", attributeEventThreadName);
 
         XAttribute attributeEventThreadId = factory.createAttributeLiteral("eventThread.id", String.valueOf(value.getId()), null);
@@ -84,28 +90,36 @@ public class EventConverter {
         // TODO: add thread group processing
     }
 
-    private void addPackageAttribute(XAttributeMap attributes, Package value) {
-        XAttribute attributePackageName = factory.createAttributeLiteral("package.name", value.getName(), null);
+    private void addPackageAttribute(XAttributeMap attributes, RecordedObject value) {
+        XAttribute attributePackageName = factory.createAttributeLiteral("package.name", value.getValue("name"), null);
         attributes.put("package.name", attributePackageName);
 
-        Module module = value.getModule();
-        addModuleAttributes(attributes, module);
+        RecordedObject module = value.getValue("module");
+        if (module != null) {
+            addModuleAttributes(attributes, module);
+        }
 
-        XAttribute attributePackageExported = factory.createAttributeLiteral("package.exported", value.getExported().toString(), null);
+        Boolean exported = value.getValue("exported");
+        XAttribute attributePackageExported = factory.createAttributeLiteral("package.exported", exported.toString(), null);
         attributes.put("package.exported", attributePackageExported);
     }
 
-    private void addModuleAttributes(XAttributeMap attributes, Module module) {
-        XAttribute attributeModuleName = factory.createAttributeLiteral("package.module.name", module.getName(), null);
+    private void addModuleAttributes(XAttributeMap attributes, RecordedObject module) {
+        String moduleName = module.getValue("name");
+        XAttribute attributeModuleName = factory.createAttributeLiteral("package.module.name", Objects.requireNonNullElse(moduleName, "null"), null);
         attributes.put("package.module.name", attributeModuleName);
 
-        XAttribute attributeModuleVersion = factory.createAttributeLiteral("package.module.version", module.getVersion(), null);
+        String version = module.getValue("version");
+        XAttribute attributeModuleVersion = factory.createAttributeLiteral("package.module.version", Objects.requireNonNullElse(version, "null"), null);
         attributes.put("package.module.version", attributeModuleVersion);
 
-        XAttribute attributeModuleLocation = factory.createAttributeLiteral("package.module.location", module.getLocation(), null);
+        String location = module.getValue("location");
+        XAttribute attributeModuleLocation = factory.createAttributeLiteral("package.module.location", Objects.requireNonNullElse(location, "null"), null);
         attributes.put("package.module.location", attributeModuleLocation);
 
-        XAttribute attributeModuleClassLoader = factory.createAttributeLiteral("package.module.classLoader.name", module.getClassLoader().getName(), null);
+        RecordedObject classLoader = module.getValue("classLoader");
+        String classLoaderName = classLoader.getValue("name");
+        XAttribute attributeModuleClassLoader = factory.createAttributeLiteral("package.module.classLoader.name", Objects.requireNonNullElse(classLoaderName, "null"), null);
         attributes.put("package.module.classLoader.name", attributeModuleClassLoader);
     }
 
