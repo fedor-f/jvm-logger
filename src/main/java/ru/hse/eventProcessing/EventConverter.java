@@ -10,8 +10,6 @@ import ext.org.deckfour.xes.model.impl.XAttributeMapImpl;
 import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordedObject;
-import ru.hse.eventProcessing.entity.Module;
-import ru.hse.eventProcessing.entity.Package;
 
 import java.util.Date;
 import java.util.List;
