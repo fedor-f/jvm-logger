@@ -28,6 +28,16 @@ public class EventConverter {
         XEvent event = factory.createEvent();
         XAttributeMap attributes = new XAttributeMapImpl();
 
+        addTimestampAndConceptNameAttributes(jfrEvent, attributes);
+
+        processEventFields(jfrEvent, attributes);
+
+        event.setAttributes(attributes);
+
+        return event;
+    }
+
+    private void addTimestampAndConceptNameAttributes(RecordedEvent jfrEvent, XAttributeMap attributes) {
         var time = jfrEvent.getStartTime();
         XAttributeTimestamp timeAttr = factory.createAttributeTimestamp("time:timestamp", Date.from(time), null);
         attributes.put("time:timestamp", timeAttr);
@@ -35,12 +45,6 @@ public class EventConverter {
         var eventType = jfrEvent.getEventType().getName();
         XAttribute attributeEventType = factory.createAttributeLiteral("concept:name", eventType, null);
         attributes.put("concept:name", attributeEventType);
-
-        processEventFields(jfrEvent, attributes);
-
-        event.setAttributes(attributes);
-
-        return event;
     }
 
     private void processEventFields(RecordedEvent event, XAttributeMap attributes) {
