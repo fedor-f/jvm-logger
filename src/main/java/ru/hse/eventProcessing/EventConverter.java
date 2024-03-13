@@ -6,7 +6,6 @@ import ext.org.deckfour.xes.model.XAttribute;
 import ext.org.deckfour.xes.model.XAttributeMap;
 import ext.org.deckfour.xes.model.XAttributeTimestamp;
 import ext.org.deckfour.xes.model.XEvent;
-import ext.org.deckfour.xes.model.impl.XAttributeMapImpl;
 import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordedObject;
@@ -25,7 +24,7 @@ public class EventConverter {
 
     public XEvent getConvertedEventFromJFRFile(RecordedEvent jfrEvent) {
         XEvent event = factory.createEvent();
-        XAttributeMap attributes = new XAttributeMapImpl();
+        XAttributeMap attributes = new XAttributeLinkedMapImpl();
 
         addTimestampAndConceptNameAttributes(jfrEvent, attributes);
 
