@@ -68,7 +68,7 @@ public class EventConverter {
             } else if (field.getTypeName().equals("jdk.types.Module")) {
                 RecordedObject value = event.getValue(field.getName());
                 if (value != null) {
-                    addModuleAttributes(attributes, value);
+                    addModuleAttributes(attributes, value, "module");
                 }
             } else if (field.getTypeName().equals("java.lang.Thread")) {
                 RecordedObject value = event.getValue(field.getName());
@@ -98,7 +98,7 @@ public class EventConverter {
 
         RecordedObject module = value.getValue("module");
         if (module != null) {
-            addModuleAttributes(attributes, module);
+            addModuleAttributes(attributes, module, "package.module");
         }
 
         Boolean exported = value.getValue("exported");
@@ -106,22 +106,22 @@ public class EventConverter {
         attributes.put("package.exported", attributePackageExported);
     }
 
-    private void addModuleAttributes(XAttributeMap attributes, RecordedObject module) {
+    private void addModuleAttributes(XAttributeMap attributes, RecordedObject module, String attributeStringPrefix) {
         String moduleName = module.getValue("name");
-        XAttribute attributeModuleName = factory.createAttributeLiteral("package.module.name", Objects.requireNonNullElse(moduleName, "null"), null);
+        XAttribute attributeModuleName = factory.createAttributeLiteral(String.format("%s.name", attributeStringPrefix), Objects.requireNonNullElse(moduleName, "null"), null);
         attributes.put("package.module.name", attributeModuleName);
 
         String version = module.getValue("version");
-        XAttribute attributeModuleVersion = factory.createAttributeLiteral("package.module.version", Objects.requireNonNullElse(version, "null"), null);
+        XAttribute attributeModuleVersion = factory.createAttributeLiteral(String.format("%s.version", attributeStringPrefix), Objects.requireNonNullElse(version, "null"), null);
         attributes.put("package.module.version", attributeModuleVersion);
 
         String location = module.getValue("location");
-        XAttribute attributeModuleLocation = factory.createAttributeLiteral("package.module.location", Objects.requireNonNullElse(location, "null"), null);
+        XAttribute attributeModuleLocation = factory.createAttributeLiteral(String.format("%s.location", attributeStringPrefix), Objects.requireNonNullElse(location, "null"), null);
         attributes.put("package.module.location", attributeModuleLocation);
 
         RecordedObject classLoader = module.getValue("classLoader");
         String classLoaderName = classLoader.getValue("name");
-        XAttribute attributeModuleClassLoader = factory.createAttributeLiteral("package.module.classLoader.name", Objects.requireNonNullElse(classLoaderName, "null"), null);
+        XAttribute attributeModuleClassLoader = factory.createAttributeLiteral(String.format("%s.classLoader.name", attributeStringPrefix), Objects.requireNonNullElse(classLoaderName, "null"), null);
         attributes.put("package.module.classLoader.name", attributeModuleClassLoader);
     }
 
