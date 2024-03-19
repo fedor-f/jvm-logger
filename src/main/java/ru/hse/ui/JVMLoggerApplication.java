@@ -6,6 +6,7 @@ import static picocli.CommandLine.Option;
 import picocli.CommandLine;
 import ru.hse.collector.JarRunner;
 import ru.hse.eventProcessing.JFREventProcessor;
+import ru.hse.util.DurationUtil;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
@@ -42,7 +43,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         thread.start();
 
         try {
-            Thread.sleep(4000);
+            Thread.sleep(DurationUtil.parseDuration(recordingDuration) * 1000 + 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
