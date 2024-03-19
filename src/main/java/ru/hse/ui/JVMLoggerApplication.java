@@ -15,14 +15,14 @@ public class JVMLoggerApplication implements Callable<Integer> {
     String input;
 
     // not mandatory for user
-    @Option(names = {"-jfr", "--jfr-output"}, description = "JFR events output file path", defaultValue = "./")
+    @Option(names = {"-jfr", "--jfr-output"}, description = "JFR events output file path", defaultValue = "./flight.jfr")
     String jfrOutput;
 
     // set default value
     @Option(names = {"-d", "--duration"}, description = "Event recording duration", defaultValue = "2s")
     String recordingDuration;
 
-    @Option(names = {"-o", "--output"}, description = ".xes file output path", required = true)
+    @Option(names = {"-o", "--output"}, description = ".xes file output path", defaultValue = "./output.xes")
     String xesOutput;
 
     public static void main(String[] args) {
