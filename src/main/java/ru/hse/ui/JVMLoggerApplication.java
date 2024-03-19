@@ -8,7 +8,7 @@ import ru.hse.core.CommandExecutor;
 
 import java.util.concurrent.Callable;
 
-@Command(name = "jvm-logger", description = "collects JVM events", version = "0.0.1")
+@Command(name = "jvm-logger", description = "collects JVM events", version = "0.0.1", mixinStandardHelpOptions = true)
 public class JVMLoggerApplication implements Callable<Integer> {
 
     @Option(names = {"-i", "--input"}, description = "Input .jar file path", required = true)
