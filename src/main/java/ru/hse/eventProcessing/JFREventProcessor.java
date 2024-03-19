@@ -9,6 +9,8 @@ import ru.hse.config.EventDictionaryReader;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,34 @@ public class JFREventProcessor {
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
+                }
+            }
+
+            serializer.serializeLog(outputXesFilePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, String[] categories) throws IOException {
+        var serializer = new XESSerializerWrapper();
+        var converter = new EventConverter();
+
+        var configReader = new EventDictionaryReader();
+        Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
+
+        try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
+            while (recordingFile.hasMoreEvents()) {
+                RecordedEvent event = recordingFile.readEvent();
+
+                if (eventDescriptions.containsKey(event.getEventType().getName())) {
+                    if (new HashSet<>(event.getEventType().getCategoryNames())
+                            .containsAll(Arrays.stream(categories).toList())) {
+                        logAllCollectedEventsFromJFRFile(event);
+
+                        XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                        serializer.addEventToTrace(convertedEvent);
+                    }
                 }
             }
 
