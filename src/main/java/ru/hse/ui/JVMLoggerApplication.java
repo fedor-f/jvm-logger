@@ -1,6 +1,7 @@
 package ru.hse.ui;
 
 import static picocli.CommandLine.Command;
+import static picocli.CommandLine.Option;
 
 import picocli.CommandLine;
 import ru.hse.collector.JarRunner;
@@ -11,8 +12,23 @@ import java.util.concurrent.Callable;
 
 @Command(name = "jvm-logger", description = "collects JVM events", version = "0.0.1")
 public class JVMLoggerApplication implements Callable<Integer> {
+
+    @Option(names = {"-i", "--input"}, description = "Input .jar file path", required = true)
+    String input;
+
+    // not mandatory for user
+    @Option(names = {"-jfr", "--jfr-output"}, description = "JFR events output file path", defaultValue = "./")
+    String jfrOutput;
+
+    // set default value
+    @Option(names = {"-d", "--duration"}, description = "Event recording duration", defaultValue = "2s")
+    String recordingDuration;
+
+    @Option(names = {"-o", "--output"}, description = ".xes file output path", required = true)
+    String xesOutput;
+
     public static void main(String[] args) {
-        new CommandLine(new JVMLoggerApplication()).execute();
+        new CommandLine(new JVMLoggerApplication()).execute(args);
     }
 
     @Override
@@ -21,10 +37,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         System.out.println("Executing .jar");
         var thread = new Thread(() ->
-                runner.run("/users/fedorfilippov/Desktop/Server.jar",
-                        "/users/fedorfilippov/Desktop/flight.jfr",
-                        "3s"
-                )
+                runner.run(input, jfrOutput, recordingDuration)
         );
         thread.start();
 
@@ -41,7 +54,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         var jfrEventProcessor = new JFREventProcessor();
 
         try {
-            jfrEventProcessor.processEventsFromFile("/users/fedorfilippov/Desktop/flight.jfr", "output.xes");
+            jfrEventProcessor.processEventsFromFile(jfrOutput, xesOutput);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
