@@ -41,7 +41,7 @@ public class JFREventProcessor {
         }
     }
 
-    public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, String[] categories) throws IOException {
+    public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, List<String> categories) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new EventConverter();
 
@@ -54,7 +54,7 @@ public class JFREventProcessor {
 
                 if (eventDescriptions.containsKey(event.getEventType().getName())) {
                     if (new HashSet<>(event.getEventType().getCategoryNames())
-                            .containsAll(Arrays.stream(categories).toList())) {
+                            .stream().anyMatch(categories::contains)) {
                         logAllCollectedEventsFromJFRFile(event);
 
                         XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
@@ -70,6 +70,7 @@ public class JFREventProcessor {
     }
 
     private void logAllCollectedEventsFromJFRFile(RecordedEvent event) {
+        System.out.println("Categories " + event.getEventType().getCategoryNames());
         System.out.println("Event: " + event.getEventType().getName());
 
         List<ValueDescriptor> fields = event.getFields();

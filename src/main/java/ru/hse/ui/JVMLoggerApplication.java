@@ -7,6 +7,7 @@ import static picocli.CommandLine.Parameters;
 import picocli.CommandLine;
 import ru.hse.core.CommandExecutor;
 
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 @Command(name = "jvm-logger", description = "collects JVM events", version = "0.0.1", mixinStandardHelpOptions = true)
@@ -34,12 +35,16 @@ public class JVMLoggerApplication implements Callable<Integer> {
         return 0;
     }
 
-    // FIXME
     @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events")
-    Integer filterByCategories(@Parameters(description = "Names of categories of events separated by comma i.e Java Virtual Machine,GC")
-                                           String categories) {
-        var categoryArray = categories.split(",");
-        CommandExecutor.filteredByCatogoriesEventCollection(input, jfrOutput, recordingDuration, xesOutput, categoryArray);
+    Integer filterByCategories(@Parameters(description = "Names of categories of events separated by comma e.g Java Virtual Machine,Runtime")
+                                           String... categories) {
+        var categoryString = String.join(" ", categories);
+
+        var categoryArray = categoryString.split(",");
+
+        var strippedArray = Arrays.stream(categoryArray).map(String::strip).toList();
+
+        CommandExecutor.filteredByCatogoriesEventCollection(input, jfrOutput, recordingDuration, xesOutput, strippedArray);
         return 0;
     }
 }

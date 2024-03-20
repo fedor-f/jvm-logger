@@ -5,6 +5,7 @@ import ru.hse.eventProcessing.JFREventProcessor;
 import ru.hse.util.DurationUtil;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CommandExecutor {
     public static void normalEventCollection(String input, String jfrOutput,
@@ -39,7 +40,7 @@ public class CommandExecutor {
     }
 
     public static void filteredByCatogoriesEventCollection(String input, String jfrOutput,
-                                                           String recordingDuration, String xesOutput, String[] categories) {
+                                                           String recordingDuration, String xesOutput, List<String> categories) {
         var runner = new JarRunner();
 
         System.out.println("Executing .jar");
