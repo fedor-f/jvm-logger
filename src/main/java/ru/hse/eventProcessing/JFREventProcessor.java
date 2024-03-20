@@ -9,7 +9,6 @@ import ru.hse.config.EventDictionaryReader;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +54,33 @@ public class JFREventProcessor {
                 if (eventDescriptions.containsKey(event.getEventType().getName())) {
                     if (new HashSet<>(event.getEventType().getCategoryNames())
                             .stream().anyMatch(categories::contains)) {
+                        logAllCollectedEventsFromJFRFile(event);
+
+                        XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                        serializer.addEventToTrace(convertedEvent);
+                    }
+                }
+            }
+
+            serializer.serializeLog(outputXesFilePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void processEventsFromFileFilteredByNames(String filePath, String outputXesFilePath, List<String> names) throws IOException {
+        var serializer = new XESSerializerWrapper();
+        var converter = new EventConverter();
+
+        var configReader = new EventDictionaryReader();
+        Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
+
+        try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
+            while (recordingFile.hasMoreEvents()) {
+                RecordedEvent event = recordingFile.readEvent();
+
+                if (eventDescriptions.containsKey(event.getEventType().getName())) {
+                    if (names.contains(event.getEventType().getName())) {
                         logAllCollectedEventsFromJFRFile(event);
 
                         XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
