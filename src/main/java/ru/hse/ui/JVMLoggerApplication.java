@@ -35,7 +35,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         return 0;
     }
 
-    @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events")
+    @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events", mixinStandardHelpOptions = true)
     Integer filterByCategories(@Parameters(description = "Names of categories of events separated by comma e.g Java Virtual Machine,Runtime")
                                            String... categories) {
         System.out.println("filterByCategories");
@@ -49,7 +49,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
         return 0;
     }
 
-    @Command(name = "filter-by-names", description = "Enable collection of JVM events filtered by names of event types")
+    // TODO: add subcommand order
+    @Command(name = "filter-by-names", description = "Enable collection of JVM events filtered by names of event types", mixinStandardHelpOptions = true)
     Integer filterByNames(@Parameters(description = "Names of event types separated by comma e.g jdk.ModuleExport,jdk.SystemProcess")
                           String... names) {
         System.out.println("filterByNames");

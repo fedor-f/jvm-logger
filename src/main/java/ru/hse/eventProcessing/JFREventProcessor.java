@@ -17,6 +17,7 @@ public class JFREventProcessor {
     public void processEventsFromFile(String filePath, String outputXesFilePath) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new EventConverter();
+        long eventNumber = 0L;
 
         var configReader = new EventDictionaryReader();
         Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
@@ -26,7 +27,7 @@ public class JFREventProcessor {
                 RecordedEvent event = recordingFile.readEvent();
 
                 if (eventDescriptions.containsKey(event.getEventType().getName())) {
-
+                    eventNumber++;
                     logAllCollectedEventsFromJFRFile(event);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
@@ -35,6 +36,7 @@ public class JFREventProcessor {
             }
 
             serializer.serializeLog(outputXesFilePath);
+            System.out.println("EVENT NUMBER = " + eventNumber);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
