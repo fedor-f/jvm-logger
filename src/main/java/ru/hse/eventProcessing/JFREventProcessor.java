@@ -44,6 +44,7 @@ public class JFREventProcessor {
             serializer.serializeLog(outputXesFilePath);
 
             System.out.println("EVENT NUMBER = " + eventNumber);
+            eventNumber = 0;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -55,11 +56,17 @@ public class JFREventProcessor {
 
         var configReader = new EventDictionaryReader();
         Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
+        List<RecordedEvent> events = new ArrayList<>();
 
         try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
             while (recordingFile.hasMoreEvents()) {
                 RecordedEvent event = recordingFile.readEvent();
+                events.add(event);
+            }
 
+            events.sort(Comparator.comparing(RecordedEvent::getStartTime));
+
+            events.forEach(event -> {
                 if (eventDescriptions.containsKey(event.getEventType().getName())) {
                     if (new HashSet<>(event.getEventType().getCategoryNames())
                             .stream().anyMatch(categories::contains)) {
@@ -69,9 +76,12 @@ public class JFREventProcessor {
                         serializer.addEventToTrace(convertedEvent);
                     }
                 }
-            }
+            });
 
             serializer.serializeLog(outputXesFilePath);
+
+            System.out.println("EVENT NUMBER = " + eventNumber);
+            eventNumber = 0;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
