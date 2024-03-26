@@ -1,5 +1,7 @@
 package ru.hse.eventProcessing;
 
+import ext.org.deckfour.xes.extension.std.XConceptExtension;
+import ext.org.deckfour.xes.extension.std.XTimeExtension;
 import ext.org.deckfour.xes.factory.XFactory;
 import ext.org.deckfour.xes.factory.XFactoryBufferedImpl;
 import ext.org.deckfour.xes.model.XAttribute;
@@ -37,11 +39,11 @@ public class EventConverter {
 
     private void addTimestampAndConceptNameAttributes(RecordedEvent jfrEvent, XAttributeMap attributes) {
         var time = jfrEvent.getStartTime();
-        XAttributeTimestamp timeAttr = factory.createAttributeTimestamp("time:timestamp", Date.from(time), null);
+        XAttributeTimestamp timeAttr = factory.createAttributeTimestamp("time:timestamp", Date.from(time), XTimeExtension.instance());
         attributes.put("time:timestamp", timeAttr);
 
         var eventType = jfrEvent.getEventType().getName();
-        XAttribute attributeEventType = factory.createAttributeLiteral("concept:name", eventType, null);
+        XAttribute attributeEventType = factory.createAttributeLiteral("concept:name", eventType, XConceptExtension.instance());
         attributes.put("concept:name", attributeEventType);
     }
 
