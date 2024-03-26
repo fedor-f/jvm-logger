@@ -1,5 +1,7 @@
 package ru.hse.XESprocessor;
 
+import ext.org.deckfour.xes.extension.std.XConceptExtension;
+import ext.org.deckfour.xes.extension.std.XTimeExtension;
 import ext.org.deckfour.xes.factory.XFactory;
 import ext.org.deckfour.xes.factory.XFactoryBufferedImpl;
 import ext.org.deckfour.xes.model.XAttributeMap;
@@ -24,6 +26,10 @@ public class XESSerializerWrapper {
     public XESSerializerWrapper() {
         XFactory factory = new XFactoryBufferedImpl();
         this.log = factory.createLog();
+
+        this.log.getExtensions().add(XConceptExtension.instance());
+        this.log.getExtensions().add(XTimeExtension.instance());
+
         this.serializer = new XesXmlSerializer();
 
         XAttributeMap attributesTrace = new XAttributeMapImpl();
