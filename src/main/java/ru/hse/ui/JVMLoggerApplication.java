@@ -22,8 +22,11 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-d", "--duration"}, description = "Event recording duration", defaultValue = "2s")
     String recordingDuration;
 
-    @Option(names = {"-o", "--output"}, description = ".xes file output path", defaultValue = "./output.xes")
-    String xesOutput;
+    @Option(names = {"-f", "--format"}, description = "Output file format. Can be either .xes or .csv. Default: .xes", defaultValue = ".xes")
+    String format;
+
+    @Option(names = {"-o", "--output"}, description = "File output path", defaultValue = "./output.xes")
+    String output;
 
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
@@ -31,7 +34,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, xesOutput);
+        CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output);
         return 0;
     }
 
@@ -45,7 +48,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var strippedArray = Arrays.stream(categoryArray).map(String::strip).toList();
 
-        CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, xesOutput, strippedArray);
+        CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray);
         return 0;
     }
 
@@ -61,7 +64,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var strippedArray = Arrays.stream(nameArray).map(String::strip).toList();
 
-        CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, xesOutput, strippedArray);
+        CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray);
 
         return 0;
     }
