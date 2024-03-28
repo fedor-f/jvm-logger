@@ -1,6 +1,7 @@
 package ru.hse.eventProcessing;
 
 import ext.org.deckfour.xes.model.XEvent;
+import jdk.jfr.SettingDescriptor;
 import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordingFile;
@@ -13,6 +14,8 @@ import java.util.*;
 
 public class JFREventProcessor {
 
+    private static final String DURATION_EVENT = "Record event with duration above or equal to threshold";
+
     private long eventNumber = 0;
 
     public void processEventsFromFile(String filePath, String outputXesFilePath) throws IOException {
@@ -23,22 +26,28 @@ public class JFREventProcessor {
         Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
         List<RecordedEvent> events = new ArrayList<>();
 
+        int i = 0;
         try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
             while (recordingFile.hasMoreEvents()) {
                 RecordedEvent event = recordingFile.readEvent();
+
+                printSettingsInfo(i, event);
+
                 events.add(event);
             }
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
             events.forEach(event -> {
-                if (eventDescriptions.containsKey(event.getEventType().getName())) {
-                    eventNumber++;
-                    logAllCollectedEventsFromJFRFile(event);
+                event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+                    if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
+                        eventNumber++;
+                        logAllCollectedEventsFromJFRFile(event);
 
-                    XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
-                    serializer.addEventToTrace(convertedEvent);
-                }
+                        XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                        serializer.addEventToTrace(convertedEvent);
+                    }
+                });
             });
 
             serializer.serializeLog(outputXesFilePath);
@@ -47,6 +56,14 @@ public class JFREventProcessor {
             eventNumber = 0;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void printSettingsInfo(int i, RecordedEvent event) {
+        System.out.println("EVENT NO " + i++ + event.getEventType().getName() + " ID: " + event.getEventType().getId());
+        for (SettingDescriptor s : event.getEventType().getSettingDescriptors()) {
+            String def = " (default: " + s.getDefaultValue() + " " + s.getDescription() + " " + s.getTypeId() + ")";
+            System.out.println("  " + s.getLabel() + def);
         }
     }
 
