@@ -74,25 +74,31 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            events.forEach(event -> {
-                if (eventDescriptions.containsKey(event.getEventType().getName())) {
-                    if (new HashSet<>(event.getEventType().getCategoryNames())
-                            .stream().anyMatch(categories::contains)) {
-                        logAllCollectedEventsFromJFRFile(event);
-
-                        XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
-                        serializer.addEventToTrace(convertedEvent);
-                    }
-                }
-            });
-
-            serializer.serializeLog(outputXesFilePath);
+            saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer);
 
             System.out.println("EVENT NUMBER = " + eventNumber);
             eventNumber = 0;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void saveToXESFilteredByCategories(String outputXesFilePath, List<String> categories, List<RecordedEvent> events, JFRToXESEventConverter converter, XESSerializerWrapper serializer) throws IOException {
+        events.forEach(event -> {
+            event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+                if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
+                        new HashSet<>(event.getEventType().getCategoryNames())
+                                .stream().anyMatch(categories::contains)) {
+                    eventNumber++;
+                    logAllCollectedEventsFromJFRFile(event);
+
+                    XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                    serializer.addEventToTrace(convertedEvent);
+                }
+            });
+        });
+
+        serializer.serializeLog(outputXesFilePath);
     }
 
     public void processEventsFromFileFilteredByNames(String filePath, String outputXesFilePath, List<String> names) throws IOException {
