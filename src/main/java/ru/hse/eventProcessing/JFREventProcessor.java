@@ -5,7 +5,6 @@ import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordingFile;
 import ru.hse.XESprocessor.XESSerializerWrapper;
-import ru.hse.config.EventDictionaryReader;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -17,9 +16,10 @@ public class JFREventProcessor {
 
     private long eventNumber = 0;
 
-    public void processEventsFromFile(String filePath, String outputXesFilePath) throws IOException {
+    public Optional<Map<String, Integer>> processEventsFromFile(String filePath, String outputXesFilePath, boolean showStatistics) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
+        Optional<Map<String, Integer>> result;
 
         List<RecordedEvent> events = new ArrayList<>();
 
@@ -32,22 +32,24 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            // TODO: add switch statement whether to save in .xes or .csv
-            saveToXESFormat(outputXesFilePath, events, converter, serializer);
-
-            System.out.println("EVENT NUMBER = " + eventNumber);
-            eventNumber = 0;
+            result = saveToXESFormat(outputXesFilePath, events, converter, serializer, showStatistics);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return result;
     }
 
-    private void saveToXESFormat(String outputXesFilePath, List<RecordedEvent> events, JFRToXESEventConverter converter, XESSerializerWrapper serializer) throws IOException {
+    private Optional<Map<String, Integer>> saveToXESFormat(String outputXesFilePath, List<RecordedEvent> events,
+                                                           JFRToXESEventConverter converter, XESSerializerWrapper serializer, boolean showStatistics) throws IOException {
+        Map<String, Integer> eventMap = new HashMap<>();
+
         events.forEach(event -> {
             event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
                     eventNumber++;
                     logAllCollectedEventsFromJFRFile(event);
+                    getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
@@ -56,6 +58,23 @@ public class JFREventProcessor {
         });
 
         serializer.serializeLog(outputXesFilePath);
+
+        System.out.println("EVENT NUMBER = " + eventNumber);
+
+        if (showStatistics) {
+            return Optional.of(eventMap);
+        }
+        return Optional.empty();
+    }
+
+    private void getStatistics(RecordedEvent event, Map<String, Integer> eventMap) {
+        var eventKey = event.getEventType().getName();
+
+        if (!eventMap.containsKey(eventKey)) {
+            eventMap.put(eventKey, 1);
+        } else {
+            eventMap.put(eventKey, eventMap.get(eventKey) + 1);
+        }
     }
 
     public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, List<String> categories) throws IOException {

@@ -28,13 +28,21 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-o", "--output"}, description = "File output path", defaultValue = "./output.xes")
     String output;
 
+    @Option(names = {"-s", "--stat"}, description = "Display statistics of collected events")
+    boolean showStatistics;
+
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
     }
 
     @Override
     public Integer call() throws Exception {
-        CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output);
+        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, showStatistics);
+
+        opt.ifPresent(stringIntegerMap -> {
+            System.out.println("STATISTICS");
+            stringIntegerMap.forEach((key, value) -> System.out.println(key + "\t" + value));
+        });
         return 0;
     }
 

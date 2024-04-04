@@ -6,21 +6,27 @@ import ru.hse.util.DurationUtil;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class CommandExecutor {
-    public static void normalEventCollection(String input, String jfrOutput,
-                                             String recordingDuration, String xesOutput) {
+    public static Optional<Map<String, Integer>> normalEventCollection(String input, String jfrOutput,
+                                                                       String recordingDuration, String xesOutput,
+                                                                       boolean showStatistics) {
+        Optional<Map<String, Integer>> opt;
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
 
         var jfrEventProcessor = new JFREventProcessor();
 
         try {
-            jfrEventProcessor.processEventsFromFile(jfrOutput, xesOutput);
+            opt = jfrEventProcessor.processEventsFromFile(jfrOutput, xesOutput, showStatistics);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         thread.interrupt();
+
+        return opt;
     }
 
     private static Thread getThreadResponsibleForJarRunning(String input, String jfrOutput, String recordingDuration) {
