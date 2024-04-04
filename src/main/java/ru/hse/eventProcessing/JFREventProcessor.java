@@ -62,8 +62,6 @@ public class JFREventProcessor {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
 
-        var configReader = new EventDictionaryReader();
-        Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
         List<RecordedEvent> events = new ArrayList<>();
 
         try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
@@ -105,8 +103,6 @@ public class JFREventProcessor {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
 
-        var configReader = new EventDictionaryReader();
-        Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
         List<RecordedEvent> events = new ArrayList<>();
 
         try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
