@@ -45,7 +45,7 @@ public class JFREventProcessor {
         Map<String, Integer> eventMap = new HashMap<>();
 
         events.forEach(event -> {
-            event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+            for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
                     eventNumber++;
                     logAllCollectedEventsFromJFRFile(event);
@@ -53,8 +53,10 @@ public class JFREventProcessor {
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
+
+                    break;
                 }
-            });
+            }
         });
 
         serializer.serializeLog(outputXesFilePath);
@@ -113,7 +115,7 @@ public class JFREventProcessor {
         Map<String, Integer> eventMap = new HashMap<>();
 
         events.forEach(event -> {
-            event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+            for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         new HashSet<>(event.getEventType().getCategoryNames())
                                 .stream().anyMatch(categories::contains)) {
@@ -123,8 +125,10 @@ public class JFREventProcessor {
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
+
+                    break;
                 }
-            });
+            }
         });
 
         serializer.serializeLog(outputXesFilePath);
@@ -170,7 +174,7 @@ public class JFREventProcessor {
 
 
         events.forEach(event -> {
-            event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+            for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         names.contains(event.getEventType().getName())) {
                     eventNumber++;
@@ -179,8 +183,10 @@ public class JFREventProcessor {
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
+
+                    break;
                 }
-            });
+            }
         });
 
         serializer.serializeLog(outputXesFilePath);
