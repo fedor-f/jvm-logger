@@ -1,7 +1,6 @@
 package ru.hse.eventProcessing;
 
 import ext.org.deckfour.xes.model.XEvent;
-import jdk.jfr.SettingDescriptor;
 import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordingFile;
@@ -22,35 +21,19 @@ public class JFREventProcessor {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
 
-        var configReader = new EventDictionaryReader();
-        Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
         List<RecordedEvent> events = new ArrayList<>();
 
-        int i = 0;
         try (RecordingFile recordingFile = new RecordingFile(Paths.get(filePath))) {
             while (recordingFile.hasMoreEvents()) {
                 RecordedEvent event = recordingFile.readEvent();
-
-                printSettingsInfo(i, event);
 
                 events.add(event);
             }
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            events.forEach(event -> {
-                event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
-                    if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
-                        eventNumber++;
-                        logAllCollectedEventsFromJFRFile(event);
-
-                        XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
-                        serializer.addEventToTrace(convertedEvent);
-                    }
-                });
-            });
-
-            serializer.serializeLog(outputXesFilePath);
+            // TODO: add switch statement whether to save in .xes or .csv
+            saveToXESFormat(outputXesFilePath, events, converter, serializer);
 
             System.out.println("EVENT NUMBER = " + eventNumber);
             eventNumber = 0;
@@ -59,12 +42,20 @@ public class JFREventProcessor {
         }
     }
 
-    private void printSettingsInfo(int i, RecordedEvent event) {
-        System.out.println("EVENT NO " + i++ + event.getEventType().getName() + " ID: " + event.getEventType().getId());
-        for (SettingDescriptor s : event.getEventType().getSettingDescriptors()) {
-            String def = " (default: " + s.getDefaultValue() + " " + s.getDescription() + " " + s.getTypeId() + ")";
-            System.out.println("  " + s.getLabel() + def);
-        }
+    private void saveToXESFormat(String outputXesFilePath, List<RecordedEvent> events, JFRToXESEventConverter converter, XESSerializerWrapper serializer) throws IOException {
+        events.forEach(event -> {
+            event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+                if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
+                    eventNumber++;
+                    logAllCollectedEventsFromJFRFile(event);
+
+                    XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                    serializer.addEventToTrace(convertedEvent);
+                }
+            });
+        });
+
+        serializer.serializeLog(outputXesFilePath);
     }
 
     public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, List<String> categories) throws IOException {
