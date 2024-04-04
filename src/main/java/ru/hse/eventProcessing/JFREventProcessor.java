@@ -117,24 +117,30 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            events.forEach(event -> {
-                if (eventDescriptions.containsKey(event.getEventType().getName())) {
-                    if (names.contains(event.getEventType().getName())) {
-                        logAllCollectedEventsFromJFRFile(event);
-
-                        XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
-                        serializer.addEventToTrace(convertedEvent);
-                    }
-                }
-            });
-
-            serializer.serializeLog(outputXesFilePath);
+            saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer);
 
             System.out.println("EVENT NUMBER = " + eventNumber);
             eventNumber = 0;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void saveToXESFilteredByNames(String outputXesFilePath, List<String> names, List<RecordedEvent> events, JFRToXESEventConverter converter, XESSerializerWrapper serializer) throws IOException {
+        events.forEach(event -> {
+            event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
+                if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
+                        names.contains(event.getEventType().getName())) {
+                    eventNumber++;
+                    logAllCollectedEventsFromJFRFile(event);
+
+                    XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
+                    serializer.addEventToTrace(convertedEvent);
+                }
+            });
+        });
+
+        serializer.serializeLog(outputXesFilePath);
     }
 
     private void logAllCollectedEventsFromJFRFile(RecordedEvent event) {
