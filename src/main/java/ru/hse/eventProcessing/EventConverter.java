@@ -90,8 +90,6 @@ public class EventConverter {
         Long threadId = value.getValue("javaThreadId");
         XAttribute attributeEventThreadId = factory.createAttributeLiteral("eventThread.id", Objects.requireNonNullElse(String.valueOf(threadId), "null"), null);
         attributes.put("eventThread.id", attributeEventThreadId);
-
-        // TODO: add thread group processing
     }
 
     private void addPackageAttribute(XAttributeMap attributes, RecordedObject value) {

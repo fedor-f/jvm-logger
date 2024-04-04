@@ -10,23 +10,7 @@ import java.util.List;
 public class CommandExecutor {
     public static void normalEventCollection(String input, String jfrOutput,
                                              String recordingDuration, String xesOutput) {
-        var runner = new JarRunner();
-
-        System.out.println("Executing .jar");
-        var thread = new Thread(() ->
-                runner.run(input, jfrOutput, recordingDuration)
-        );
-        thread.start();
-
-        try {
-            Thread.sleep(DurationUtil.parseDuration(recordingDuration) * 1000 + 1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(".jfr file collected");
-
-        System.out.println("Collected events: ");
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -39,8 +23,7 @@ public class CommandExecutor {
         thread.interrupt();
     }
 
-    public static void filteredByCategoriesEventCollection(String input, String jfrOutput,
-                                                           String recordingDuration, String xesOutput, List<String> categories) {
+    private static Thread getThreadResponsibleForJarRunning(String input, String jfrOutput, String recordingDuration) {
         var runner = new JarRunner();
 
         System.out.println("Executing .jar");
@@ -58,6 +41,12 @@ public class CommandExecutor {
         System.out.println(".jfr file collected");
 
         System.out.println("Collected events: ");
+        return thread;
+    }
+
+    public static void filteredByCategoriesEventCollection(String input, String jfrOutput,
+                                                           String recordingDuration, String xesOutput, List<String> categories) {
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -72,23 +61,7 @@ public class CommandExecutor {
 
     public static void filteredByNamesEventCollection(String input, String jfrOutput,
                                                            String recordingDuration, String xesOutput, List<String> names) {
-        var runner = new JarRunner();
-
-        System.out.println("Executing .jar");
-        var thread = new Thread(() ->
-                runner.run(input, jfrOutput, recordingDuration)
-        );
-        thread.start();
-
-        try {
-            Thread.sleep(DurationUtil.parseDuration(recordingDuration) * 1000 + 1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(".jfr file collected");
-
-        System.out.println("Collected events: ");
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
 
         var jfrEventProcessor = new JFREventProcessor();
 
