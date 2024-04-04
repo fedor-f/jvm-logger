@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class EventConverter {
+public class JFRToXESEventConverter {
 
     private final XFactory factory;
 
-    public EventConverter() {
+    public JFRToXESEventConverter() {
         this.factory = new XFactoryBufferedImpl();
     }
 
@@ -83,7 +83,6 @@ public class EventConverter {
                     addClassAttributes(attributes, value);
                 }
             }
-            // TODO: add processing for java.lang.Class
         }
     }
 

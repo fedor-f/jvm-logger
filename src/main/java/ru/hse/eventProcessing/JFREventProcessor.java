@@ -20,7 +20,7 @@ public class JFREventProcessor {
 
     public void processEventsFromFile(String filePath, String outputXesFilePath) throws IOException {
         var serializer = new XESSerializerWrapper();
-        var converter = new EventConverter();
+        var converter = new JFRToXESEventConverter();
 
         var configReader = new EventDictionaryReader();
         Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
@@ -69,7 +69,7 @@ public class JFREventProcessor {
 
     public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, List<String> categories) throws IOException {
         var serializer = new XESSerializerWrapper();
-        var converter = new EventConverter();
+        var converter = new JFRToXESEventConverter();
 
         var configReader = new EventDictionaryReader();
         Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
@@ -106,7 +106,7 @@ public class JFREventProcessor {
 
     public void processEventsFromFileFilteredByNames(String filePath, String outputXesFilePath, List<String> names) throws IOException {
         var serializer = new XESSerializerWrapper();
-        var converter = new EventConverter();
+        var converter = new JFRToXESEventConverter();
 
         var configReader = new EventDictionaryReader();
         Map<String, Boolean> eventDescriptions = configReader.readEventDictionary();
