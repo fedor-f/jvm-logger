@@ -29,6 +29,46 @@ public class CommandExecutor {
         return opt;
     }
 
+    public static Optional<Map<String, Integer>> filteredByCategoriesEventCollection(String input, String jfrOutput,
+                                                           String recordingDuration, String xesOutput, List<String> categories,
+                                                                                     boolean showStatistics) {
+        Optional<Map<String, Integer>> opt;
+
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
+
+        var jfrEventProcessor = new JFREventProcessor();
+
+        try {
+            opt = jfrEventProcessor.processEventsFromFileFilteredByCategories(jfrOutput, xesOutput, categories, showStatistics);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        thread.interrupt();
+
+        return opt;
+    }
+
+    public static Optional<Map<String, Integer>> filteredByNamesEventCollection(String input, String jfrOutput,
+                                                           String recordingDuration, String xesOutput, List<String> names,
+                                                                                boolean showStatistics) {
+        Optional<Map<String, Integer>> opt;
+
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
+
+        var jfrEventProcessor = new JFREventProcessor();
+
+        try {
+            opt = jfrEventProcessor.processEventsFromFileFilteredByNames(jfrOutput, xesOutput, names, showStatistics);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        thread.interrupt();
+
+        return opt;
+    }
+
     private static Thread getThreadResponsibleForJarRunning(String input, String jfrOutput, String recordingDuration) {
         var runner = new JarRunner();
 
@@ -48,35 +88,5 @@ public class CommandExecutor {
 
         System.out.println("Collected events: ");
         return thread;
-    }
-
-    public static void filteredByCategoriesEventCollection(String input, String jfrOutput,
-                                                           String recordingDuration, String xesOutput, List<String> categories) {
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
-
-        var jfrEventProcessor = new JFREventProcessor();
-
-        try {
-            jfrEventProcessor.processEventsFromFileFilteredByCategories(jfrOutput, xesOutput, categories);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        thread.interrupt();
-    }
-
-    public static void filteredByNamesEventCollection(String input, String jfrOutput,
-                                                           String recordingDuration, String xesOutput, List<String> names) {
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
-
-        var jfrEventProcessor = new JFREventProcessor();
-
-        try {
-            jfrEventProcessor.processEventsFromFileFilteredByNames(jfrOutput, xesOutput, names);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        thread.interrupt();
     }
 }

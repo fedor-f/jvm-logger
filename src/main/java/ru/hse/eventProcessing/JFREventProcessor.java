@@ -77,9 +77,13 @@ public class JFREventProcessor {
         }
     }
 
-    public void processEventsFromFileFilteredByCategories(String filePath, String outputXesFilePath, List<String> categories) throws IOException {
+    public Optional<Map<String, Integer>> processEventsFromFileFilteredByCategories(String filePath,
+                                                                                    String outputXesFilePath,
+                                                                                    List<String> categories,
+                                                                                    boolean showStatistics) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
+        Optional<Map<String, Integer>> opt;
 
         List<RecordedEvent> events = new ArrayList<>();
 
@@ -91,16 +95,23 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer);
-
             System.out.println("EVENT NUMBER = " + eventNumber);
-            eventNumber = 0;
+            opt = saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer, showStatistics);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return opt;
     }
 
-    private void saveToXESFilteredByCategories(String outputXesFilePath, List<String> categories, List<RecordedEvent> events, JFRToXESEventConverter converter, XESSerializerWrapper serializer) throws IOException {
+    private Optional<Map<String, Integer>> saveToXESFilteredByCategories(String outputXesFilePath,
+                                                                         List<String> categories,
+                                                                         List<RecordedEvent> events,
+                                                                         JFRToXESEventConverter converter,
+                                                                         XESSerializerWrapper serializer,
+                                                                         boolean showStatistics) throws IOException {
+        Map<String, Integer> eventMap = new HashMap<>();
+
         events.forEach(event -> {
             event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
@@ -108,6 +119,7 @@ public class JFREventProcessor {
                                 .stream().anyMatch(categories::contains)) {
                     eventNumber++;
                     logAllCollectedEventsFromJFRFile(event);
+                    getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
@@ -116,11 +128,20 @@ public class JFREventProcessor {
         });
 
         serializer.serializeLog(outputXesFilePath);
+
+        if (showStatistics) {
+            return Optional.of(eventMap);
+        }
+        return Optional.empty();
     }
 
-    public void processEventsFromFileFilteredByNames(String filePath, String outputXesFilePath, List<String> names) throws IOException {
+    public Optional<Map<String, Integer>> processEventsFromFileFilteredByNames(String filePath,
+                                                                               String outputXesFilePath,
+                                                                               List<String> names,
+                                                                               boolean showStatistics) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
+        Optional<Map<String, Integer>> opt;
 
         List<RecordedEvent> events = new ArrayList<>();
 
@@ -132,22 +153,29 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer);
-
             System.out.println("EVENT NUMBER = " + eventNumber);
-            eventNumber = 0;
+            opt = saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer, showStatistics);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return opt;
     }
 
-    private void saveToXESFilteredByNames(String outputXesFilePath, List<String> names, List<RecordedEvent> events, JFRToXESEventConverter converter, XESSerializerWrapper serializer) throws IOException {
+    private Optional<Map<String, Integer>> saveToXESFilteredByNames(String outputXesFilePath, List<String> names,
+                                                                    List<RecordedEvent> events, JFRToXESEventConverter converter,
+                                                                    XESSerializerWrapper serializer,
+                                                                    boolean showStatistics) throws IOException {
+        Map<String, Integer> eventMap = new HashMap<>();
+
+
         events.forEach(event -> {
             event.getEventType().getSettingDescriptors().forEach(settingDescriptor -> {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         names.contains(event.getEventType().getName())) {
                     eventNumber++;
                     logAllCollectedEventsFromJFRFile(event);
+                    getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
@@ -156,6 +184,11 @@ public class JFREventProcessor {
         });
 
         serializer.serializeLog(outputXesFilePath);
+
+        if (showStatistics) {
+            return Optional.of(eventMap);
+        }
+        return Optional.empty();
     }
 
     private void logAllCollectedEventsFromJFRFile(RecordedEvent event) {
