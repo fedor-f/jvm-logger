@@ -77,9 +77,20 @@ public class EventConverter {
                 if (value != null) {
                     addThreadAttributes(attributes, value);
                 }
+            } else if (field.getTypeName().equals("java.lang.Class")) {
+                RecordedObject value = event.getValue(field.getName());
+                if (value != null) {
+                    addClassAttributes(attributes, value);
+                }
             }
             // TODO: add processing for java.lang.Class
         }
+    }
+
+    private void addClassAttributes(XAttributeMap attributes, RecordedObject value) {
+        String className = value.getValue("name");
+        XAttribute attributeEventClassName = factory.createAttributeLiteral("class.name", Objects.requireNonNullElse(className, "null"), null);
+        attributes.put("class.name", attributeEventClassName);
     }
 
     private void addThreadAttributes(XAttributeMap attributes, RecordedObject value) {
