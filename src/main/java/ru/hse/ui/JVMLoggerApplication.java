@@ -9,9 +9,12 @@ import ru.hse.core.CommandExecutor;
 
 import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.logging.Logger;
 
 @Command(name = "jvm-logger", description = "collects JVM events", version = "0.0.1", mixinStandardHelpOptions = true)
 public class JVMLoggerApplication implements Callable<Integer> {
+
+    private static final Logger LOGGER = Logger.getLogger(JVMLoggerApplication.class.getName());
 
     @Option(names = {"-i", "--input"}, description = "Input .jar file path", required = true)
     String input;
@@ -37,6 +40,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        logInputParams();
+
         var argsJar = String.join(" ", args);
 
         var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics);
@@ -48,14 +53,27 @@ public class JVMLoggerApplication implements Callable<Integer> {
         return 0;
     }
 
+    private void logInputParams() {
+        LOGGER.info("Input .jar file path is: " + input);
+        LOGGER.info("JFR events output file path is: " + jfrOutput);
+        LOGGER.info("Event recording duration: " + recordingDuration);
+        LOGGER.info("File output path is: " + output);
+        LOGGER.info("Is event statistic included: " + showStatistics);
+        LOGGER.info("String arguments for .jar: " + Arrays.toString(args));
+    }
+
     @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events", mixinStandardHelpOptions = true)
     Integer filterByCategories(@Parameters(description = "Names of categories of events separated by comma e.g Java Virtual Machine,Runtime")
                                            String... categories) {
+        logInputParams();
+
         var argsJar = String.join(" ", args);
 
         var categoryString = String.join(" ", categories);
 
         var categoryArray = categoryString.split(",");
+
+        LOGGER.info("Category array: " + Arrays.toString(categories));
 
         var strippedArray = Arrays.stream(categoryArray).map(String::strip).toList();
 
@@ -73,11 +91,14 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Command(name = "filter-by-names", description = "Enable collection of JVM events filtered by names of event types", mixinStandardHelpOptions = true)
     Integer filterByNames(@Parameters(description = "Names of event types separated by comma e.g jdk.ModuleExport,jdk.SystemProcess")
                           String... names) {
+        logInputParams();
         var argsJar = String.join(" ", args);
 
         var namesString = String.join(" ", names);
 
         var nameArray = namesString.split(",");
+
+        LOGGER.info("Name array: " + Arrays.toString(names));
 
         var strippedArray = Arrays.stream(nameArray).map(String::strip).toList();
 
