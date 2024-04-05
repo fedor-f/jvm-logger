@@ -67,6 +67,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
         LOGGER.info("File output path is: " + output);
         LOGGER.info("Is event statistic included: " + showStatistics);
         LOGGER.info("String arguments for .jar: " + Arrays.toString(args));
+        LOGGER.info("Is verbose logging: " + verbose);
+        LOGGER.info("JFC settings file path: " + jfrSettings);
     }
 
     @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events", mixinStandardHelpOptions = true)
