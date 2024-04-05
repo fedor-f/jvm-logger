@@ -17,7 +17,10 @@ public class JFREventProcessor {
 
     private static final Logger LOGGER = Logger.getLogger(JFREventProcessor.class.getName());
 
-    public Optional<Map<String, Integer>> processEventsFromFile(String filePath, String outputXesFilePath, boolean showStatistics) throws IOException {
+    public Optional<Map<String, Integer>> processEventsFromFile(String filePath,
+                                                                String outputXesFilePath,
+                                                                boolean showStatistics,
+                                                                boolean verbose) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
         Optional<Map<String, Integer>> result;
@@ -33,7 +36,7 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            result = saveToXESFormat(outputXesFilePath, events, converter, serializer, showStatistics);
+            result = saveToXESFormat(outputXesFilePath, events, converter, serializer, showStatistics, verbose);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,14 +44,20 @@ public class JFREventProcessor {
         return result;
     }
 
-    private Optional<Map<String, Integer>> saveToXESFormat(String outputXesFilePath, List<RecordedEvent> events,
-                                                           JFRToXESEventConverter converter, XESSerializerWrapper serializer, boolean showStatistics) throws IOException {
+    private Optional<Map<String, Integer>> saveToXESFormat(String outputXesFilePath,
+                                                           List<RecordedEvent> events,
+                                                           JFRToXESEventConverter converter,
+                                                           XESSerializerWrapper serializer,
+                                                           boolean showStatistics,
+                                                           boolean verbose) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
 
         events.forEach(event -> {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
-                    //logAllCollectedEventsFromJFRFile(event);
+                    if (verbose) {
+                        logAllCollectedEventsFromJFRFile(event);
+                    }
                     getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
@@ -80,7 +89,8 @@ public class JFREventProcessor {
     public Optional<Map<String, Integer>> processEventsFromFileFilteredByCategories(String filePath,
                                                                                     String outputXesFilePath,
                                                                                     List<String> categories,
-                                                                                    boolean showStatistics) throws IOException {
+                                                                                    boolean showStatistics,
+                                                                                    boolean verbose) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
         Optional<Map<String, Integer>> opt;
@@ -95,7 +105,7 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            opt = saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer, showStatistics);
+            opt = saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer, showStatistics, verbose);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -108,7 +118,8 @@ public class JFREventProcessor {
                                                                          List<RecordedEvent> events,
                                                                          JFRToXESEventConverter converter,
                                                                          XESSerializerWrapper serializer,
-                                                                         boolean showStatistics) throws IOException {
+                                                                         boolean showStatistics,
+                                                                         boolean verbose) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
 
         events.forEach(event -> {
@@ -116,7 +127,9 @@ public class JFREventProcessor {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         new HashSet<>(event.getEventType().getCategoryNames())
                                 .stream().anyMatch(categories::contains)) {
-                    //logAllCollectedEventsFromJFRFile(event);
+                    if (verbose) {
+                        logAllCollectedEventsFromJFRFile(event);
+                    }
                     getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
@@ -138,7 +151,8 @@ public class JFREventProcessor {
     public Optional<Map<String, Integer>> processEventsFromFileFilteredByNames(String filePath,
                                                                                String outputXesFilePath,
                                                                                List<String> names,
-                                                                               boolean showStatistics) throws IOException {
+                                                                               boolean showStatistics,
+                                                                               boolean verbose) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
         Optional<Map<String, Integer>> opt;
@@ -153,7 +167,7 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            opt = saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer, showStatistics);
+            opt = saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer, showStatistics, verbose);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -164,14 +178,18 @@ public class JFREventProcessor {
     private Optional<Map<String, Integer>> saveToXESFilteredByNames(String outputXesFilePath, List<String> names,
                                                                     List<RecordedEvent> events, JFRToXESEventConverter converter,
                                                                     XESSerializerWrapper serializer,
-                                                                    boolean showStatistics) throws IOException {
+                                                                    boolean showStatistics,
+                                                                    boolean verbose) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
 
         events.forEach(event -> {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         names.contains(event.getEventType().getName())) {
-                    //logAllCollectedEventsFromJFRFile(event);
+
+                    if (verbose) {
+                        logAllCollectedEventsFromJFRFile(event);
+                    }
                     getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);

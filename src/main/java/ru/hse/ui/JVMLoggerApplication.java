@@ -34,6 +34,9 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-a", "--args"}, arity = "1..*", description = "String arguments for .jar", defaultValue = "")
     String[] args;
 
+    @Option(names = {"-v", "--verbose"}, description = "Log events verbose?")
+    boolean verbose;
+
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
     }
@@ -44,7 +47,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var argsJar = String.join(" ", args);
 
-        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics);
+        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics, verbose);
 
         opt.ifPresent(stringIntegerMap -> {
             System.out.println();
@@ -78,7 +81,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         LOGGER.info("Category array: " + strippedArray);
 
-        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics);
+        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
 
         opt.ifPresent(result -> {
             System.out.println();
@@ -104,7 +107,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         LOGGER.info("Name array: " + strippedArray);
 
-        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics);
+        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
 
         opt.ifPresent(result -> {
             System.out.println();

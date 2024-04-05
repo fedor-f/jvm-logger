@@ -14,14 +14,15 @@ public class CommandExecutor {
                                                                        String recordingDuration,
                                                                        String xesOutput,
                                                                        String args,
-                                                                       boolean showStatistics) {
+                                                                       boolean showStatistics,
+                                                                       boolean verbose) {
         Optional<Map<String, Integer>> opt;
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
         try {
-            opt = jfrEventProcessor.processEventsFromFile(jfrOutput, xesOutput, showStatistics);
+            opt = jfrEventProcessor.processEventsFromFile(jfrOutput, xesOutput, showStatistics, verbose);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +36,8 @@ public class CommandExecutor {
                                                            String recordingDuration, String xesOutput,
                                                                                      List<String> categories,
                                                                                      String args,
-                                                                                     boolean showStatistics) {
+                                                                                     boolean showStatistics,
+                                                                                     boolean verbose) {
         Optional<Map<String, Integer>> opt;
 
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
@@ -43,7 +45,7 @@ public class CommandExecutor {
         var jfrEventProcessor = new JFREventProcessor();
 
         try {
-            opt = jfrEventProcessor.processEventsFromFileFilteredByCategories(jfrOutput, xesOutput, categories, showStatistics);
+            opt = jfrEventProcessor.processEventsFromFileFilteredByCategories(jfrOutput, xesOutput, categories, showStatistics, verbose);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,7 +61,8 @@ public class CommandExecutor {
                                                                                 String xesOutput,
                                                                                 List<String> names,
                                                                                 String args,
-                                                                                boolean showStatistics) {
+                                                                                boolean showStatistics,
+                                                                                boolean verbose) {
         Optional<Map<String, Integer>> opt;
 
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
@@ -67,7 +70,7 @@ public class CommandExecutor {
         var jfrEventProcessor = new JFREventProcessor();
 
         try {
-            opt = jfrEventProcessor.processEventsFromFileFilteredByNames(jfrOutput, xesOutput, names, showStatistics);
+            opt = jfrEventProcessor.processEventsFromFileFilteredByNames(jfrOutput, xesOutput, names, showStatistics, verbose);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
