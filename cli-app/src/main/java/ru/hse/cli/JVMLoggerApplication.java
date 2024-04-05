@@ -5,7 +5,7 @@ import static picocli.CommandLine.Option;
 import static picocli.CommandLine.Parameters;
 
 import picocli.CommandLine;
-import ru.hse.core.CommandExecutor;
+import ru.hse.api.CommandExecutor;
 
 import java.util.Arrays;
 import java.util.concurrent.Callable;

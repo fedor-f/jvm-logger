@@ -1,4 +1,4 @@
-package ru.hse.core;
+package ru.hse.api;
 
 import ru.hse.collector.JarRunner;
 import ru.hse.eventProcessing.JFREventProcessor;
