@@ -28,7 +28,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-s", "--stat"}, description = "Display statistics of collected events")
     boolean showStatistics;
 
-    @Option(names = {"-a", "--args"}, description = "String arguments for .jar", defaultValue = "")
+    @Option(names = {"-a", "--args"}, arity = "1..*", description = "String arguments for .jar", defaultValue = "")
     String[] args;
 
     public static void main(String[] args) {
