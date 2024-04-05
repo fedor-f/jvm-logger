@@ -15,6 +15,7 @@ import ext.org.deckfour.xes.out.XesXmlSerializer;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class XESSerializerWrapper {
     private final XLog log;
@@ -22,6 +23,8 @@ public class XESSerializerWrapper {
     private final XTrace trace;
 
     private final XSerializer serializer;
+
+    private static final Logger LOGGER = Logger.getLogger(XESSerializerWrapper.class.getName());
 
     public XESSerializerWrapper() {
         XFactory factory = new XFactoryBufferedImpl();
@@ -43,6 +46,7 @@ public class XESSerializerWrapper {
     }
 
     public void serializeLog(String path) throws IOException {
+        LOGGER.info("The size of serializing trace is: " + trace.getAttributes().size());
         log.add(trace);
         serializer.serialize(log, new FileOutputStream(path));
     }

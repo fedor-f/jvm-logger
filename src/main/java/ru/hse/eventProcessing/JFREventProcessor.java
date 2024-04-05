@@ -14,8 +14,6 @@ public class JFREventProcessor {
 
     private static final String DURATION_EVENT = "Record event with duration above or equal to threshold";
 
-    private long eventNumber = 0;
-
     public Optional<Map<String, Integer>> processEventsFromFile(String filePath, String outputXesFilePath, boolean showStatistics) throws IOException {
         var serializer = new XESSerializerWrapper();
         var converter = new JFRToXESEventConverter();
@@ -47,8 +45,7 @@ public class JFREventProcessor {
         events.forEach(event -> {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
-                    eventNumber++;
-                    logAllCollectedEventsFromJFRFile(event);
+                    //logAllCollectedEventsFromJFRFile(event);
                     getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
@@ -60,8 +57,6 @@ public class JFREventProcessor {
         });
 
         serializer.serializeLog(outputXesFilePath);
-
-        System.out.println("EVENT NUMBER = " + eventNumber);
 
         if (showStatistics) {
             return Optional.of(eventMap);
@@ -97,7 +92,6 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            System.out.println("EVENT NUMBER = " + eventNumber);
             opt = saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer, showStatistics);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -119,8 +113,7 @@ public class JFREventProcessor {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         new HashSet<>(event.getEventType().getCategoryNames())
                                 .stream().anyMatch(categories::contains)) {
-                    eventNumber++;
-                    logAllCollectedEventsFromJFRFile(event);
+                    //logAllCollectedEventsFromJFRFile(event);
                     getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
@@ -157,7 +150,6 @@ public class JFREventProcessor {
 
             events.sort(Comparator.comparing(RecordedEvent::getStartTime));
 
-            System.out.println("EVENT NUMBER = " + eventNumber);
             opt = saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer, showStatistics);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -172,13 +164,11 @@ public class JFREventProcessor {
                                                                     boolean showStatistics) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
 
-
         events.forEach(event -> {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         names.contains(event.getEventType().getName())) {
-                    eventNumber++;
-                    logAllCollectedEventsFromJFRFile(event);
+                    //logAllCollectedEventsFromJFRFile(event);
                     getStatistics(event, eventMap);
 
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
