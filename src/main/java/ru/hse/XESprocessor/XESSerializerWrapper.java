@@ -46,7 +46,6 @@ public class XESSerializerWrapper {
     }
 
     public void serializeLog(String path) throws IOException {
-        LOGGER.info("The size of serializing trace is: " + trace.getAttributes().size());
         log.add(trace);
         serializer.serialize(log, new FileOutputStream(path));
     }

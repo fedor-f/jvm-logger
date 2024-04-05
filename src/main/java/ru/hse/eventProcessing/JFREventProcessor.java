@@ -51,8 +51,9 @@ public class JFREventProcessor {
                                                            boolean showStatistics,
                                                            boolean verbose) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
+        var eventNumber = 0;
 
-        events.forEach(event -> {
+        for (var event : events) {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT)) {
                     if (verbose) {
@@ -63,11 +64,13 @@ public class JFREventProcessor {
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
 
+                    eventNumber++;
                     break;
                 }
             }
-        });
+        }
 
+        LOGGER.info("EVENT NUMBER = " + eventNumber);
         serializer.serializeLog(outputXesFilePath);
 
         if (showStatistics) {
@@ -121,8 +124,9 @@ public class JFREventProcessor {
                                                                          boolean showStatistics,
                                                                          boolean verbose) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
+        var eventNumber = 0;
 
-        events.forEach(event -> {
+        for (var event : events) {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         new HashSet<>(event.getEventType().getCategoryNames())
@@ -135,11 +139,13 @@ public class JFREventProcessor {
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
 
+                    eventNumber++;
                     break;
                 }
             }
-        });
+        }
 
+        LOGGER.info("EVENT NUMBER = " + eventNumber);
         serializer.serializeLog(outputXesFilePath);
 
         if (showStatistics) {
@@ -181,8 +187,8 @@ public class JFREventProcessor {
                                                                     boolean showStatistics,
                                                                     boolean verbose) throws IOException {
         Map<String, Integer> eventMap = new HashMap<>();
-
-        events.forEach(event -> {
+        var eventNumber = 0;
+        for (var event : events) {
             for (var settingDescriptor : event.getEventType().getSettingDescriptors()) {
                 if (settingDescriptor.getDescription().equals(DURATION_EVENT) &&
                         names.contains(event.getEventType().getName())) {
@@ -195,11 +201,13 @@ public class JFREventProcessor {
                     XEvent convertedEvent = converter.getConvertedEventFromJFRFile(event);
                     serializer.addEventToTrace(convertedEvent);
 
+                    eventNumber++;
                     break;
                 }
             }
-        });
+        }
 
+        LOGGER.info("EVENT NUMBER = " + eventNumber);
         serializer.serializeLog(outputXesFilePath);
 
         if (showStatistics) {
