@@ -1,4 +1,4 @@
-package ru.hse.ui;
+package ru.hse.cli;
 
 import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;

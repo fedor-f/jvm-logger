@@ -1,7 +1,6 @@
 package ru.hse.eventProcessing;
 
 import ext.org.deckfour.xes.model.XEvent;
-import jdk.jfr.ValueDescriptor;
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordingFile;
 import ru.hse.XESprocessor.XESSerializerWrapper;

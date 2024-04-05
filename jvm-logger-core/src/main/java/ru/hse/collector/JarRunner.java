@@ -3,7 +3,6 @@ package ru.hse.collector;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Optional;
 
 public class JarRunner {
     public void run(String pathToJar, String outputFilePath, String recordingDuration, String args) {
