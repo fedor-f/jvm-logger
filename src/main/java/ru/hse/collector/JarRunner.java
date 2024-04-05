@@ -3,15 +3,17 @@ package ru.hse.collector;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 public class JarRunner {
-    public void run(String pathToJar, String outputFilePath, String recordingDuration) {
+    public void run(String pathToJar, String outputFilePath, String recordingDuration, String args) {
         try {
-            // TODO: add string args for executable jar
+
             ProcessBuilder pb = new ProcessBuilder("java",
                     String.format("-XX:StartFlightRecording=duration=%s,filename=%s", recordingDuration, outputFilePath),
                     "-jar",
-                    pathToJar
+                    pathToJar,
+                    args
             );
 
             Process process = pb.start();

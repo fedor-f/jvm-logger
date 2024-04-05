@@ -28,13 +28,18 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-s", "--stat"}, description = "Display statistics of collected events")
     boolean showStatistics;
 
+    @Option(names = {"-a", "--args"}, description = "String arguments for .jar", defaultValue = "")
+    String[] args;
+
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
     }
 
     @Override
     public Integer call() throws Exception {
-        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, showStatistics);
+        var argsJar = String.join(" ", args);
+
+        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics);
 
         opt.ifPresent(stringIntegerMap -> {
             System.out.println("STATISTICS");
@@ -46,13 +51,15 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events", mixinStandardHelpOptions = true)
     Integer filterByCategories(@Parameters(description = "Names of categories of events separated by comma e.g Java Virtual Machine,Runtime")
                                            String... categories) {
+        var argsJar = String.join(" ", args);
+
         var categoryString = String.join(" ", categories);
 
         var categoryArray = categoryString.split(",");
 
         var strippedArray = Arrays.stream(categoryArray).map(String::strip).toList();
 
-        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, showStatistics);
+        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics);
 
         opt.ifPresent(result -> {
             System.out.println("STATISTICS");
@@ -66,13 +73,15 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Command(name = "filter-by-names", description = "Enable collection of JVM events filtered by names of event types", mixinStandardHelpOptions = true)
     Integer filterByNames(@Parameters(description = "Names of event types separated by comma e.g jdk.ModuleExport,jdk.SystemProcess")
                           String... names) {
+        var argsJar = String.join(" ", args);
+
         var namesString = String.join(" ", names);
 
         var nameArray = namesString.split(",");
 
         var strippedArray = Arrays.stream(nameArray).map(String::strip).toList();
 
-        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, showStatistics);
+        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics);
 
         opt.ifPresent(result -> {
             System.out.println("STATISTICS");

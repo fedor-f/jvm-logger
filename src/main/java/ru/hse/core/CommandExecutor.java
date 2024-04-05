@@ -11,10 +11,12 @@ import java.util.Optional;
 
 public class CommandExecutor {
     public static Optional<Map<String, Integer>> normalEventCollection(String input, String jfrOutput,
-                                                                       String recordingDuration, String xesOutput,
+                                                                       String recordingDuration,
+                                                                       String xesOutput,
+                                                                       String args,
                                                                        boolean showStatistics) {
         Optional<Map<String, Integer>> opt;
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -30,11 +32,13 @@ public class CommandExecutor {
     }
 
     public static Optional<Map<String, Integer>> filteredByCategoriesEventCollection(String input, String jfrOutput,
-                                                           String recordingDuration, String xesOutput, List<String> categories,
+                                                           String recordingDuration, String xesOutput,
+                                                                                     List<String> categories,
+                                                                                     String args,
                                                                                      boolean showStatistics) {
         Optional<Map<String, Integer>> opt;
 
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -49,12 +53,16 @@ public class CommandExecutor {
         return opt;
     }
 
-    public static Optional<Map<String, Integer>> filteredByNamesEventCollection(String input, String jfrOutput,
-                                                           String recordingDuration, String xesOutput, List<String> names,
+    public static Optional<Map<String, Integer>> filteredByNamesEventCollection(String input,
+                                                                                String jfrOutput,
+                                                                                String recordingDuration,
+                                                                                String xesOutput,
+                                                                                List<String> names,
+                                                                                String args,
                                                                                 boolean showStatistics) {
         Optional<Map<String, Integer>> opt;
 
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -69,12 +77,15 @@ public class CommandExecutor {
         return opt;
     }
 
-    private static Thread getThreadResponsibleForJarRunning(String input, String jfrOutput, String recordingDuration) {
+    private static Thread getThreadResponsibleForJarRunning(String input,
+                                                            String jfrOutput,
+                                                            String recordingDuration,
+                                                            String args) {
         var runner = new JarRunner();
 
         System.out.println("Executing .jar");
         var thread = new Thread(() ->
-                runner.run(input, jfrOutput, recordingDuration)
+                runner.run(input, jfrOutput, recordingDuration, args)
         );
         thread.start();
 
