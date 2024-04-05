@@ -47,6 +47,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics);
 
         opt.ifPresent(stringIntegerMap -> {
+            System.out.println();
             System.out.println("STATISTICS");
             stringIntegerMap.forEach((key, value) -> System.out.println(key + "\t" + value));
         });
@@ -73,13 +74,14 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var categoryArray = categoryString.split(",");
 
-        LOGGER.info("Category array: " + Arrays.toString(categories));
-
         var strippedArray = Arrays.stream(categoryArray).map(String::strip).toList();
+
+        LOGGER.info("Category array: " + strippedArray);
 
         var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics);
 
         opt.ifPresent(result -> {
+            System.out.println();
             System.out.println("STATISTICS");
             result.forEach((key, value) -> System.out.println(key + "\t" + value));
         });
@@ -98,13 +100,14 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var nameArray = namesString.split(",");
 
-        LOGGER.info("Name array: " + Arrays.toString(names));
-
         var strippedArray = Arrays.stream(nameArray).map(String::strip).toList();
+
+        LOGGER.info("Name array: " + strippedArray);
 
         var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics);
 
         opt.ifPresent(result -> {
+            System.out.println();
             System.out.println("STATISTICS");
             result.forEach((key, value) -> System.out.println(key + "\t" + value));
         });
