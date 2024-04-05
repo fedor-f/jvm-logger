@@ -8,8 +8,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class CommandExecutor {
+
+    private static final Logger LOGGER = Logger.getLogger(CommandExecutor.class.getName());
+
     public static Optional<Map<String, Integer>> normalEventCollection(String input, String jfrOutput,
                                                                        String recordingDuration,
                                                                        String xesOutput,
@@ -29,6 +33,7 @@ public class CommandExecutor {
 
         thread.interrupt();
 
+        LOGGER.info("Events collected");
         return opt;
     }
 
@@ -52,6 +57,7 @@ public class CommandExecutor {
 
         thread.interrupt();
 
+        LOGGER.info("Events collected");
         return opt;
     }
 
@@ -77,6 +83,7 @@ public class CommandExecutor {
 
         thread.interrupt();
 
+        LOGGER.info("Events collected");
         return opt;
     }
 
@@ -86,7 +93,7 @@ public class CommandExecutor {
                                                             String args) {
         var runner = new JarRunner();
 
-        System.out.println("Executing .jar");
+        LOGGER.info("Executing .jar");
         var thread = new Thread(() ->
                 runner.run(input, jfrOutput, recordingDuration, args)
         );
@@ -98,9 +105,8 @@ public class CommandExecutor {
             throw new RuntimeException(e);
         }
 
-        System.out.println(".jfr file collected");
+        LOGGER.info(".jfr file collected");
 
-        System.out.println("Collected events: ");
         return thread;
     }
 }
