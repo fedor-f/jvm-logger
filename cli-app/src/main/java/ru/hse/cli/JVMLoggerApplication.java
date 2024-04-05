@@ -37,6 +37,9 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-v", "--verbose"}, description = "Log events verbose?")
     boolean verbose;
 
+    @Option(names = "--jfr-settings", description = "Path to .jfc file with Java Flight Recorder Settings", defaultValue = "")
+    String jfrSettings;
+
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
     }
@@ -47,7 +50,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var argsJar = String.join(" ", args);
 
-        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics, verbose);
+        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, jfrSettings, showStatistics, verbose);
 
         opt.ifPresent(stringIntegerMap -> {
             System.out.println();
@@ -81,7 +84,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         LOGGER.info("Category array: " + strippedArray);
 
-        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
+        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
 
         opt.ifPresent(result -> {
             System.out.println();
@@ -107,7 +110,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         LOGGER.info("Name array: " + strippedArray);
 
-        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
+        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
 
         opt.ifPresent(result -> {
             System.out.println();

@@ -5,11 +5,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class JarRunner {
-    public void run(String pathToJar, String outputFilePath, String recordingDuration, String args) {
-        try {
+    public void run(String pathToJar, String outputFilePath, String recordingDuration, String args, String settings) {
+        String startFlightRecording;
 
+        if (settings.isEmpty()) {
+            startFlightRecording = String.format("-XX:StartFlightRecording=duration=%s,filename=%s", recordingDuration, outputFilePath);
+        } else {
+            startFlightRecording = String.format("-XX:StartFlightRecording=duration=%s,filename=%s,settings=%s", recordingDuration, outputFilePath, settings);
+        }
+
+        try {
             ProcessBuilder pb = new ProcessBuilder("java",
-                    String.format("-XX:StartFlightRecording=duration=%s,filename=%s", recordingDuration, outputFilePath),
+                    startFlightRecording,
                     "-jar",
                     pathToJar,
                     args
