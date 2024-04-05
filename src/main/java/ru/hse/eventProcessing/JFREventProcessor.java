@@ -9,10 +9,13 @@ import ru.hse.XESprocessor.XESSerializerWrapper;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class JFREventProcessor {
 
     private static final String DURATION_EVENT = "Record event with duration above or equal to threshold";
+
+    private static final Logger LOGGER = Logger.getLogger(JFREventProcessor.class.getName());
 
     public Optional<Map<String, Integer>> processEventsFromFile(String filePath, String outputXesFilePath, boolean showStatistics) throws IOException {
         var serializer = new XESSerializerWrapper();
@@ -188,15 +191,7 @@ public class JFREventProcessor {
     }
 
     private void logAllCollectedEventsFromJFRFile(RecordedEvent event) {
-        System.out.println("Categories " + event.getEventType().getCategoryNames());
-        System.out.println("Event: " + event.getEventType().getName());
-
-        List<ValueDescriptor> fields = event.getFields();
-
-        for (ValueDescriptor field : fields) {
-            Object value = event.getValue(field.getName());
-
-            System.out.println("  " + field.getName() + " (" + field.getTypeName() + "): " + value);
-        }
+        LOGGER.info("Categories " + event.getEventType().getCategoryNames());
+        LOGGER.info("Event: " + event.getEventType().getName());
     }
 }
