@@ -23,4 +23,5 @@ collects JVM events
 ```
 filter-by-categories  	Enable collection of JVM events filtered by categories of events
 filter-by-names       	Enable collection of JVM events filtered by names of event types
+get-event-docs          Gets a link to Event documentation
 ```
