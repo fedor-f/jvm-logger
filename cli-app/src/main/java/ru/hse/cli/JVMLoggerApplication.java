@@ -78,7 +78,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
     Integer getEventDocumentation() throws MalformedURLException {
         var docURL = new URL("https://github.com/fedor-f/jvm-logger/blob/main/docs/Event%20Documentation.pdf");
 
-        System.out.println("The event documentation is stored here: " +
+        System.out.println("The event documentation is stored here:\n" +
                 docURL);
 
         return 0;
