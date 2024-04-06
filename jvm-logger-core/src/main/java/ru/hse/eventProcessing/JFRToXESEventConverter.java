@@ -78,18 +78,19 @@ public class JFRToXESEventConverter {
                     addThreadAttributes(attributes, value);
                 }
             } else if (field.getTypeName().equals("java.lang.Class")) {
-                RecordedObject value = event.getValue(field.getName());
+                var fieldName = field.getName();
+                RecordedObject value = event.getValue(fieldName);
                 if (value != null) {
-                    addClassAttributes(attributes, value);
+                    addClassAttributes(attributes, value, fieldName);
                 }
             }
         }
     }
 
-    private void addClassAttributes(XAttributeMap attributes, RecordedObject value) {
+    private void addClassAttributes(XAttributeMap attributes, RecordedObject value, String fieldName) {
         String className = value.getValue("name");
-        XAttribute attributeEventClassName = factory.createAttributeLiteral("class.name", Objects.requireNonNullElse(className, "null"), null);
-        attributes.put("class.name", attributeEventClassName);
+        XAttribute attributeEventClassName = factory.createAttributeLiteral(String.format("%s.name", fieldName), Objects.requireNonNullElse(className, "null"), null);
+        attributes.put(String.format("%s.name", fieldName), attributeEventClassName);
     }
 
     private void addThreadAttributes(XAttributeMap attributes, RecordedObject value) {
