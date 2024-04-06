@@ -37,6 +37,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-v", "--verbose"}, description = "Log events verbose?")
     boolean verbose;
 
+    // TODO: extend if possible
     @Option(names = "--jfr-settings", description = "Path to .jfc file with Java Flight Recorder Settings", defaultValue = "")
     String jfrSettings;
 
