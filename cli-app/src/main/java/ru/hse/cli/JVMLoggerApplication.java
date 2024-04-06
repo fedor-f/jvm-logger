@@ -7,6 +7,8 @@ import static picocli.CommandLine.Parameters;
 import picocli.CommandLine;
 import ru.hse.api.CommandExecutor;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
@@ -70,6 +72,16 @@ public class JVMLoggerApplication implements Callable<Integer> {
         LOGGER.info("String arguments for .jar: " + Arrays.toString(args));
         LOGGER.info("Is verbose logging: " + verbose);
         LOGGER.info("JFC settings file path: " + jfrSettings);
+    }
+
+    @Command(name = "get-event-docs", description = "Gets a link to Event documentation", mixinStandardHelpOptions = true)
+    Integer getEventDocumentation() throws MalformedURLException {
+        var docURL = new URL("https://github.com/fedor-f/jvm-logger/blob/main/docs/Event%20Documentation.pdf");
+
+        System.out.println("The event documentation is stored here: " +
+                docURL);
+
+        return 0;
     }
 
     @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events", mixinStandardHelpOptions = true)
