@@ -14,6 +14,19 @@ public class CommandExecutor {
 
     private static final Logger LOGGER = Logger.getLogger(CommandExecutor.class.getName());
 
+    /**
+     * Collect JVM events into .xes file.
+     * @param input Path to .jar file.
+     * @param jfrOutput .jfr file output path.
+     * @param recordingDuration Event recording duration.
+     * @param xesOutput Output path to .xes file of collected events.
+     * @param args String arguments for .jar file. An empty string can be passed if arguments are not used.
+     * @param settings JFR settings. Can be a file path to .jfc file.
+     * @param showStatistics Boolean flag for showing statistics after collecting events.
+     * @param verbose Boolean flag to enable verbose logging.
+     * @return Optional object that can contain a map of String and integers describing event collection statistics.
+     * If statistics are not enabled empty optional is returned.
+     */
     public static Optional<Map<String, Integer>> normalEventCollection(String input,
                                                                        String jfrOutput,
                                                                        String recordingDuration,
@@ -39,6 +52,20 @@ public class CommandExecutor {
         return opt;
     }
 
+    /**
+     * Collect JVM events filtered by categories into .xes file.
+     * @param input Path to .jar file.
+     * @param jfrOutput .jfr file output path.
+     * @param recordingDuration Event recording duration.
+     * @param xesOutput Output path to .xes file of collected events.
+     * @param categories List of categories to filter.
+     * @param args String arguments for .jar file. An empty string can be passed if arguments are not used.
+     * @param settings JFR settings. Can be a file path to .jfc file.
+     * @param showStatistics Boolean flag for showing statistics after collecting events.
+     * @param verbose Boolean flag to enable verbose logging.
+     * @return Optional object that can contain a map of String and integers describing event collection statistics.
+     * If statistics are not enabled empty optional is returned.
+     */
     public static Optional<Map<String, Integer>> filteredByCategoriesEventCollection(String input,
                                                                                      String jfrOutput,
                                                                                      String recordingDuration,
@@ -66,6 +93,20 @@ public class CommandExecutor {
         return opt;
     }
 
+    /**
+     * Collect JVM events filtered by event type names into .xes file.
+     * @param input Path to .jar file.
+     * @param jfrOutput .jfr file output path.
+     * @param recordingDuration Event recording duration.
+     * @param xesOutput Output path to .xes file of collected events.
+     * @param names List of event type names to filter.
+     * @param args String arguments for .jar file. An empty string can be passed if arguments are not used.
+     * @param settings JFR settings. Can be a file path to .jfc file.
+     * @param showStatistics Boolean flag for showing statistics after collecting events.
+     * @param verbose Boolean flag to enable verbose logging.
+     * @return Optional object that can contain a map of String and integers describing event collection statistics.
+     * If statistics are not enabled empty optional is returned.
+     */
     public static Optional<Map<String, Integer>> filteredByNamesEventCollection(String input,
                                                                                 String jfrOutput,
                                                                                 String recordingDuration,
