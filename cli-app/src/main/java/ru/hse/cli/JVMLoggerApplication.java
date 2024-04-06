@@ -16,9 +16,10 @@ import java.util.logging.Logger;
 @Command(name = "jvm-logger", description = "collects JVM events", version = "0.0.1", mixinStandardHelpOptions = true)
 public class JVMLoggerApplication implements Callable<Integer> {
 
+    private static final String EVENT_DOC_LINK = "https://github.com/fedor-f/jvm-logger/blob/main/docs/Event%20Documentation.pdf";
     private static final Logger LOGGER = Logger.getLogger(JVMLoggerApplication.class.getName());
 
-    @Option(names = {"-i", "--input"}, description = "Input .jar file path", required = true)
+    @Option(names = {"-i", "--input"}, description = "Input .jar file path")
     String input;
 
     @Option(names = {"-jfr", "--jfr-output"}, description = "JFR events output file path", defaultValue = "./flight.jfr")
@@ -49,6 +50,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        checkInputParam();
+
         logInputParams();
 
         var argsJar = String.join(" ", args);
@@ -76,7 +79,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
     @Command(name = "get-event-docs", description = "Gets a link to Event documentation", mixinStandardHelpOptions = true)
     Integer getEventDocumentation() throws MalformedURLException {
-        var docURL = new URL("https://github.com/fedor-f/jvm-logger/blob/main/docs/Event%20Documentation.pdf");
+        var docURL = new URL(EVENT_DOC_LINK);
 
         System.out.println("The event documentation is stored here:\n" +
                 docURL);
@@ -87,6 +90,13 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Command(name = "filter-by-categories", description = "Enable collection of JVM events filtered by categories of events", mixinStandardHelpOptions = true)
     Integer filterByCategories(@Parameters(description = "Names of categories of events separated by comma e.g Java Virtual Machine,Runtime")
                                            String... categories) {
+        checkInputParam();
+
+        if (categories.length == 0) {
+            throw new CommandLine.ParameterException(new CommandLine(this),
+                    "The parameters categories is empty. Example: Java Virtual Machine,Runtime");
+        }
+
         logInputParams();
 
         var argsJar = String.join(" ", args);
@@ -114,7 +124,15 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Command(name = "filter-by-names", description = "Enable collection of JVM events filtered by names of event types", mixinStandardHelpOptions = true)
     Integer filterByNames(@Parameters(description = "Names of event types separated by comma e.g jdk.ModuleExport,jdk.SystemProcess")
                           String... names) {
+        checkInputParam();
+
+        if (names.length == 0) {
+            throw new CommandLine.ParameterException(new CommandLine(this),
+                    "The parameters names is empty. Example: jdk.ModuleExport,jdk.SystemProcess");
+        }
+
         logInputParams();
+
         var argsJar = String.join(" ", args);
 
         var namesString = String.join(" ", names);
@@ -134,5 +152,12 @@ public class JVMLoggerApplication implements Callable<Integer> {
         });
 
         return 0;
+    }
+
+    private void checkInputParam() {
+        if (input == null) {
+            throw new CommandLine.ParameterException(new CommandLine(this),
+                    "The input parameter -i is required");
+        }
     }
 }
