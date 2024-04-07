@@ -28,6 +28,10 @@ public class JVMLoggerView {
 
     private VBox vBox;
 
+    private Button stopButton;
+
+    private Button executeButton;
+
     private final JVMLoggerController controller;
 
     public JVMLoggerView(Stage stage) {
@@ -41,17 +45,19 @@ public class JVMLoggerView {
         grid.setVgap(8);
         grid.setHgap(10);
 
+        executeButton = new Button("Execute");
+        stopButton = new Button("Interrupt");
+
         setInputFileField(stage);
         setupDurationField();
         setupOutputFilePathField(stage);
         setupJarArgsField();
         setupStatisticsArea();
+        setupStopButton();
         setupExecuteButton();
     }
 
     private void setupExecuteButton() {
-        Button executeButton = new Button("Execute");
-
         controller.executeNormalEventCollection(executeButton,
                 inputFileField.getText(),
                 // TODO: remove mock
@@ -60,10 +66,19 @@ public class JVMLoggerView {
                 outputFileField,
                 argsField.getText(),
                 "",
-                statsArea
+                statsArea,
+                stopButton
         );
 
         grid.add(executeButton, 1, 5);
+    }
+
+    private void setupStopButton() {
+        stopButton.setDisable(true);
+
+        controller.interruptExecution(stopButton, executeButton);
+
+        grid.add(stopButton, 2, 5);
     }
 
     private void setupStatisticsArea() {

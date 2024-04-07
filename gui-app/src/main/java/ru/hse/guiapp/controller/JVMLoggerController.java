@@ -1,5 +1,6 @@
 package ru.hse.guiapp.controller;
 
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -10,6 +11,8 @@ import ru.hse.guiapp.service.JVMLoggerService;
 public class JVMLoggerController {
 
     private final JVMLoggerService service;
+
+    private Service<Void> task;
 
     public JVMLoggerController() {
         service = new JVMLoggerService();
@@ -30,19 +33,56 @@ public class JVMLoggerController {
                                              TextField xesOutput,
                                              String args,
                                              String settings,
-                                             TextArea textField) {
+                                             TextArea textField,
+                                             Button stopButton) {
 
         executeButton.setOnAction(e -> {
-            Task<Void> task = new Task<>() {
+            task = new Service<>() {
                 @Override
-                protected Void call() {
-                    service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration.getText(), xesOutput.getText() + "/output.xes",
-                            args, settings, true, false, textField);
-                    return null;
+                protected Task<Void> createTask() {
+                    return new Task<>() {
+                        @Override
+                        protected Void call() {
+                            service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration.getText(), xesOutput.getText() + "/output.xes",
+                                    args, settings, true, false, textField);
+                            return null;
+                        }
+                    };
+                }
+
+                @Override
+                protected void succeeded() {
+                    updateUIAfterAction(executeButton, stopButton);
+                }
+
+                @Override
+                protected void cancelled() {
+                    resetUIAfterCancellation(executeButton, stopButton);
+                    textField.clear();
                 }
             };
 
-            new Thread(task).start();
+            task.restart();
+            stopButton.setDisable(false);
+            executeButton.setDisable(true);
         });
+    }
+
+    public void interruptExecution(Button interruptButton, Button executeButton) {
+        interruptButton.setOnAction(e -> {
+            task.cancel();
+            executeButton.setDisable(false);
+            interruptButton.setDisable(true);
+        });
+    }
+
+    private void updateUIAfterAction(Button startButton, Button stopButton) {
+        startButton.setDisable(false);
+        stopButton.setDisable(true);
+    }
+
+    private void resetUIAfterCancellation(Button startButton, Button stopButton) {
+        startButton.setDisable(false);
+        stopButton.setDisable(true);
     }
 }
