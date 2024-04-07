@@ -1,5 +1,6 @@
 package ru.hse.guiapp.service;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -36,8 +37,15 @@ public class JVMLoggerService {
                                              String args,
                                              String settings,
                                              boolean showStatistics,
-                                             boolean verbose) {
+                                             boolean verbose,
+                                             TextArea textField) {
+        textField.clear();
+        textField.setText("Executing .jar...");
+
         CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
                 args, settings, showStatistics, verbose);
+
+        textField.appendText("\nEvents collected successfully");
+
     }
 }

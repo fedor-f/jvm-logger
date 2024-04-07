@@ -1,6 +1,7 @@
 package ru.hse.guiapp.controller;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.hse.guiapp.service.JVMLoggerService;
@@ -24,13 +25,14 @@ public class JVMLoggerController {
     public void executeNormalEventCollection(Button executeButton,
                                              String jarInput,
                                              String jfrOutput,
-                                             String recordingDuration,
-                                             String xesOutput,
+                                             TextField recordingDuration,
+                                             TextField xesOutput,
                                              String args,
-                                             String settings) {
+                                             String settings,
+                                             TextArea textField) {
         executeButton.setOnAction(e -> {
-            service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
-                    args, settings, true, false);
+            service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration.getText(), xesOutput.getText() + "/output.xes",
+                    args, settings, true, false, textField);
         });
     }
 }

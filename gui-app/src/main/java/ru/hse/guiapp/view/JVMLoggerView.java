@@ -45,8 +45,8 @@ public class JVMLoggerView {
         setupDurationField();
         setupOutputFilePathField(stage);
         setupJarArgsField();
-        setupExecuteButton();
         setupStatisticsArea();
+        setupExecuteButton();
     }
 
     private void setupExecuteButton() {
@@ -54,11 +54,13 @@ public class JVMLoggerView {
 
         controller.executeNormalEventCollection(executeButton,
                 inputFileField.getText(),
-                "./flight.jfr",
-                durationField.getText(),
-                outputFileField.getText() + "output.xes",
+                // TODO: remove mock
+                "/Users/fedorfilippov/Desktop/logger/flight.jfr",
+                durationField,
+                outputFileField,
                 argsField.getText(),
-                ""
+                "",
+                statsArea
         );
 
         grid.add(executeButton, 1, 5);
