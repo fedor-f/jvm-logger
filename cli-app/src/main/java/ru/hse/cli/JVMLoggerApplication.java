@@ -120,7 +120,6 @@ public class JVMLoggerApplication implements Callable<Integer> {
         return 0;
     }
 
-    // TODO: add subcommand order
     @Command(name = "filter-by-names", description = "Enable collection of JVM events filtered by names of event types", mixinStandardHelpOptions = true)
     Integer filterByNames(@Parameters(description = "Names of event types separated by comma e.g jdk.ModuleExport,jdk.SystemProcess")
                           String... names) {

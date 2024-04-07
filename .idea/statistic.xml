@@ -3,7 +3,7 @@
   <component name="Statistic">
     <option name="excludedDirectories">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ext" />
+        <option value="$PROJECT_DIR$/jvm-logger-core/src/main/java/ext" />
       </list>
     </option>
   </component>
