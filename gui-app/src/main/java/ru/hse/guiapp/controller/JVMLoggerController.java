@@ -20,4 +20,17 @@ public class JVMLoggerController {
     public void chooseDirectory(Button inputDirButton, TextField inputDirField, Stage stage) {
         inputDirButton.setOnAction(e -> service.openDirFileDialog(stage, inputDirField));
     }
+
+    public void executeNormalEventCollection(Button executeButton,
+                                             String jarInput,
+                                             String jfrOutput,
+                                             String recordingDuration,
+                                             String xesOutput,
+                                             String args,
+                                             String settings) {
+        executeButton.setOnAction(e -> {
+            service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
+                    args, settings, true, false);
+        });
+    }
 }

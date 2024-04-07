@@ -14,6 +14,14 @@ public class JVMLoggerView {
 
     private GridPane grid;
 
+    private TextField inputFileField;
+
+    private TextField durationField;
+
+    private TextField outputFileField;
+
+    private TextField argsField;
+
     private final JVMLoggerController controller;
 
     public JVMLoggerView(Stage stage) {
@@ -31,23 +39,39 @@ public class JVMLoggerView {
         setupDurationField();
         setupOutputFilePathField(stage);
         setupJarArgsField();
+        setupExecuteButton();
+    }
+
+    private void setupExecuteButton() {
+        Button executeButton = new Button("Execute");
+
+        controller.executeNormalEventCollection(executeButton,
+                inputFileField.getText(),
+                "./flight.jfr",
+                durationField.getText(),
+                outputFileField.getText() + "output.xes",
+                argsField.getText(),
+                "");
+
+        grid.add(executeButton, 1, 5);
     }
 
     private void setupJarArgsField() {
         Label argsLabel = new Label("String arguments for .jar");
         grid.add(argsLabel, 0, 0);
-        TextField argsField = new TextField();
+        argsField = new TextField();
         grid.add(argsField, 1, 0);
     }
 
     private void setupOutputFilePathField(Stage stage) {
         Label outputFileLabel = new Label(".xes File output path");
         grid.add(outputFileLabel, 0, 2);
-        TextField outputFileField = new TextField();
+        outputFileField = new TextField();
         outputFileField.setPromptText("Default path is current directory");
         grid.add(outputFileField, 1, 2);
 
         Button inputFileButton = new Button("Browse...");
+        outputFileField.setEditable(false);
 
         controller.chooseDirectory(inputFileButton, outputFileField, stage);
 
@@ -57,7 +81,7 @@ public class JVMLoggerView {
     private void setupDurationField() {
         Label durationLabel = new Label("Event recording duration:");
         grid.add(durationLabel, 0, 1);
-        TextField durationField = new TextField();
+        durationField = new TextField();
         durationField.setPromptText("example: 2s, 1m10s");
         grid.add(durationField, 1, 1);
     }
@@ -65,7 +89,7 @@ public class JVMLoggerView {
     private void setInputFileField(Stage stage) {
         Label inputFileLabel = new Label("Input .jar file path:");
         grid.add(inputFileLabel, 0, 3);
-        TextField inputFileField = new TextField();
+        inputFileField = new TextField();
         inputFileField.setEditable(false);
         grid.add(inputFileField, 1, 3);
 
