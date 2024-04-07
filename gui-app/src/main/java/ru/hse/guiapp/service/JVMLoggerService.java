@@ -1,6 +1,7 @@
 package ru.hse.guiapp.service;
 
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -14,6 +15,16 @@ public class JVMLoggerService {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             inputFileField.setText(selectedFile.getAbsolutePath());
+        }
+    }
+
+    public void openDirFileDialog(Stage stage, TextField inputDirField) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+
+        File selectedDirectory = directoryChooser.showDialog(stage);
+
+        if (selectedDirectory != null) {
+            inputDirField.setText(selectedDirectory.getAbsolutePath());
         }
     }
 }

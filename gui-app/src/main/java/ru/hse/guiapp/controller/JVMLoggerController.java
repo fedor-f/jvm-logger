@@ -16,4 +16,8 @@ public class JVMLoggerController {
     public void chooseJar(Button inputFileButton, TextField inputFileField, Stage stage) {
         inputFileButton.setOnAction(e -> service.openJarFileDialog(stage, inputFileField));
     }
+
+    public void chooseDirectory(Button inputDirButton, TextField inputDirField, Stage stage) {
+        inputDirButton.setOnAction(e -> service.openDirFileDialog(stage, inputDirField));
+    }
 }

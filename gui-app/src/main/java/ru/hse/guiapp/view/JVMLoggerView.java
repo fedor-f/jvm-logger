@@ -29,6 +29,29 @@ public class JVMLoggerView {
 
         setInputFileField(stage);
         setupDurationField();
+        setupOutputFilePathField(stage);
+        setupJarArgsField();
+    }
+
+    private void setupJarArgsField() {
+        Label argsLabel = new Label("String arguments for .jar");
+        grid.add(argsLabel, 0, 0);
+        TextField argsField = new TextField();
+        grid.add(argsField, 1, 0);
+    }
+
+    private void setupOutputFilePathField(Stage stage) {
+        Label outputFileLabel = new Label(".xes File output path");
+        grid.add(outputFileLabel, 0, 2);
+        TextField outputFileField = new TextField();
+        outputFileField.setPromptText("Default path is current directory");
+        grid.add(outputFileField, 1, 2);
+
+        Button inputFileButton = new Button("Browse...");
+
+        controller.chooseDirectory(inputFileButton, outputFileField, stage);
+
+        grid.add(inputFileButton, 2, 2);
     }
 
     private void setupDurationField() {
