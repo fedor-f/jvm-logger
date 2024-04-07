@@ -4,8 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ru.hse.guiapp.controller.JVMLoggerController;
 
@@ -21,6 +23,10 @@ public class JVMLoggerView {
     private TextField outputFileField;
 
     private TextField argsField;
+
+    private TextArea statsArea;
+
+    private VBox vBox;
 
     private final JVMLoggerController controller;
 
@@ -40,6 +46,7 @@ public class JVMLoggerView {
         setupOutputFilePathField(stage);
         setupJarArgsField();
         setupExecuteButton();
+        setupStatisticsArea();
     }
 
     private void setupExecuteButton() {
@@ -51,9 +58,17 @@ public class JVMLoggerView {
                 durationField.getText(),
                 outputFileField.getText() + "output.xes",
                 argsField.getText(),
-                "");
+                ""
+        );
 
         grid.add(executeButton, 1, 5);
+    }
+
+    private void setupStatisticsArea() {
+        statsArea = new TextArea();
+        statsArea.setEditable(false);
+        vBox = new VBox();
+        vBox.getChildren().addAll(grid, statsArea);
     }
 
     private void setupJarArgsField() {
@@ -101,6 +116,6 @@ public class JVMLoggerView {
     }
 
     public Scene getScene() {
-        return new Scene(grid);
+        return new Scene(vBox);
     }
 }
