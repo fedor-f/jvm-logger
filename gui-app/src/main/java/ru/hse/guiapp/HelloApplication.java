@@ -9,16 +9,16 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         stage.setTitle("JVM Logger GUI Application");
 
-        JVMLoggerView view = new JVMLoggerView();
+        JVMLoggerView view = new JVMLoggerView(stage);
 
         stage.setScene(view.getScene());
         stage.show();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
