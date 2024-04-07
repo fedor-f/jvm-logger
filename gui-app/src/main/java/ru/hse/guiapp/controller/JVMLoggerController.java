@@ -43,8 +43,16 @@ public class JVMLoggerController {
                     return new Task<>() {
                         @Override
                         protected Void call() {
-                            service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration.getText(), xesOutput.getText() + "/output.xes",
-                                    args, settings, true, false, textField);
+                            service.executeNormalEventCollection(jarInput,
+                                    jfrOutput,
+                                    recordingDuration.getText(),
+                                    xesOutput.getText() + "/output.xes",
+                                    args,
+                                    settings,
+                                    true,
+                                    false,
+                                    textField
+                            );
                             return null;
                         }
                     };

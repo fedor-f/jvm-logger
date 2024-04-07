@@ -1,14 +1,14 @@
 package ru.hse.guiapp.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 import ru.hse.guiapp.controller.JVMLoggerController;
 
 
@@ -32,6 +32,14 @@ public class JVMLoggerView {
 
     private Button executeButton;
 
+    private CheckBox filterByCategoriesCheckbox;
+
+    private CheckBox filterByNamesCheckbox;
+
+    private CheckComboBox<String> choiceBoxNames;
+
+    private CheckComboBox<String> choiceBoxCategories;
+
     private final JVMLoggerController controller;
 
     public JVMLoggerView(Stage stage) {
@@ -48,6 +56,24 @@ public class JVMLoggerView {
         executeButton = new Button("Execute");
         stopButton = new Button("Interrupt");
 
+        filterByCategoriesCheckbox = new CheckBox("Filter events by categories?");
+        filterByNamesCheckbox = new CheckBox("Filter events by event type names?");
+
+        // TODO: extend and remove mock
+        ObservableList<String> list = FXCollections.observableArrayList("jdk.JavaMonitorWait", "jdk.ActiveSetting");
+        choiceBoxNames = new CheckComboBox<>(list);
+        ObservableList<String> list2 = FXCollections.observableArrayList("GC", "Java Virtual Machine");
+        choiceBoxCategories = new CheckComboBox<>(list2);
+
+        choiceBoxNames.setVisible(false);
+        choiceBoxCategories.setVisible(false);
+
+        grid.add(choiceBoxCategories, 1, 5);
+        grid.add(choiceBoxNames, 1, 6);
+
+        grid.add(filterByCategoriesCheckbox, 0, 5);
+        grid.add(filterByNamesCheckbox, 0, 6);
+
         setInputFileField(stage);
         setupDurationField();
         setupOutputFilePathField(stage);
@@ -55,6 +81,34 @@ public class JVMLoggerView {
         setupStatisticsArea();
         setupStopButton();
         setupExecuteButton();
+        setupCheckboxFilterNames();
+        setupCheckboxFilterCategories();
+    }
+
+    private void setupCheckboxFilterNames() {
+        filterByNamesCheckbox.setOnAction(e -> {
+            if (filterByNamesCheckbox.isSelected()) {
+                choiceBoxCategories.setVisible(false);
+                choiceBoxNames.setVisible(true);
+
+                filterByCategoriesCheckbox.setSelected(false);
+            } else {
+                choiceBoxNames.setVisible(false);
+            }
+        });
+    }
+
+    private void setupCheckboxFilterCategories() {
+        filterByCategoriesCheckbox.setOnAction(e -> {
+            if (filterByCategoriesCheckbox.isSelected()) {
+                choiceBoxCategories.setVisible(true);
+                choiceBoxNames.setVisible(false);
+
+                filterByNamesCheckbox.setSelected(false);
+            } else {
+                choiceBoxCategories.setVisible(false);
+            }
+        });
     }
 
     private void setupExecuteButton() {
@@ -70,7 +124,7 @@ public class JVMLoggerView {
                 stopButton
         );
 
-        grid.add(executeButton, 1, 5);
+        grid.add(executeButton, 1, 7);
     }
 
     private void setupStopButton() {
@@ -78,7 +132,7 @@ public class JVMLoggerView {
 
         controller.interruptExecution(stopButton, executeButton);
 
-        grid.add(stopButton, 2, 5);
+        grid.add(stopButton, 2, 7);
     }
 
     private void setupStatisticsArea() {
