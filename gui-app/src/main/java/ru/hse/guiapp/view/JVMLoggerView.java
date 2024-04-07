@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
+import ru.hse.guiapp.config.EventInfo;
 import ru.hse.guiapp.controller.JVMLoggerController;
 
 
@@ -59,10 +60,9 @@ public class JVMLoggerView {
         filterByCategoriesCheckbox = new CheckBox("Filter events by categories?");
         filterByNamesCheckbox = new CheckBox("Filter events by event type names?");
 
-        // TODO: extend and remove mock
-        ObservableList<String> list = FXCollections.observableArrayList("jdk.JavaMonitorWait", "jdk.ActiveSetting");
+        ObservableList<String> list = FXCollections.observableArrayList(EventInfo.EVENT_NAME_LIST);
         choiceBoxNames = new CheckComboBox<>(list);
-        ObservableList<String> list2 = FXCollections.observableArrayList("GC", "Java Virtual Machine");
+        ObservableList<String> list2 = FXCollections.observableArrayList(EventInfo.CATEGORY_LIST);
         choiceBoxCategories = new CheckComboBox<>(list2);
 
         choiceBoxNames.setVisible(false);
