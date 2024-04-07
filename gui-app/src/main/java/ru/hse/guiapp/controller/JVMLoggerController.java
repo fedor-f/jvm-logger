@@ -1,5 +1,6 @@
 package ru.hse.guiapp.controller;
 
+import javafx.concurrent.Task;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,9 +31,18 @@ public class JVMLoggerController {
                                              String args,
                                              String settings,
                                              TextArea textField) {
+
         executeButton.setOnAction(e -> {
-            service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration.getText(), xesOutput.getText() + "/output.xes",
-                    args, settings, true, false, textField);
+            Task<Void> task = new Task<>() {
+                @Override
+                protected Void call() {
+                    service.executeNormalEventCollection(jarInput, jfrOutput, recordingDuration.getText(), xesOutput.getText() + "/output.xes",
+                            args, settings, true, false, textField);
+                    return null;
+                }
+            };
+
+            new Thread(task).start();
         });
     }
 }
