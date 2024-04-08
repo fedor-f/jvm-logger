@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/view/JVMLoggerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/view/JVMLoggerView.java" afterDir="false" />
-    </list>
+    <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712504464469</updated>
-      <workItem from="1712504466069" duration="7468000" />
+      <workItem from="1712504466069" duration="7522000" />
     </task>
     <servers />
   </component>
