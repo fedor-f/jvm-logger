@@ -98,19 +98,6 @@ public class JVMLoggerController {
         task = new Service<>() {
             @Override
             protected Task<Void> createTask() {
-                service.executeEventCollectionFilteringByCategories(
-                        jarInput,
-                        jfrOutput,
-                        recordingDuration.getText(),
-                        xesOutput.getText() + "/output.xes",
-                        comboBoxCategories.getItems(),
-                        args,
-                        settings,
-                        true,
-                        false,
-                        textField,
-                        tableView
-                );
                 return new Task<>() {
                     @Override
                     protected Void call() {
@@ -119,7 +106,7 @@ public class JVMLoggerController {
                                 jfrOutput,
                                 recordingDuration.getText(),
                                 xesOutput.getText() + "/output.xes",
-                                comboBoxCategories.getItems(),
+                                comboBoxCategories.getCheckModel().getCheckedItems(),
                                 args,
                                 settings,
                                 true,
@@ -159,7 +146,7 @@ public class JVMLoggerController {
                                 jfrOutput,
                                 recordingDuration.getText(),
                                 xesOutput.getText() + "/output.xes",
-                                comboBoxNames.getItems(),
+                                comboBoxNames.getCheckModel().getCheckedItems(),
                                 args,
                                 settings,
                                 true,
