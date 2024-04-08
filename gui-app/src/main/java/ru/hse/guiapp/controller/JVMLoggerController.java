@@ -2,10 +2,9 @@ package ru.hse.guiapp.controller;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.service.JVMLoggerService;
 
 public class JVMLoggerController {
@@ -34,7 +33,8 @@ public class JVMLoggerController {
                                              String args,
                                              String settings,
                                              TextArea textField,
-                                             Button stopButton) {
+                                             Button stopButton,
+                                             TableView<EventStatistic> tableView) {
 
         executeButton.setOnAction(e -> {
             task = new Service<>() {
@@ -51,7 +51,8 @@ public class JVMLoggerController {
                                     settings,
                                     true,
                                     false,
-                                    textField
+                                    textField,
+                                    tableView
                             );
                             return null;
                         }

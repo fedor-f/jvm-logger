@@ -5,12 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 import ru.hse.guiapp.config.EventInfo;
 import ru.hse.guiapp.controller.JVMLoggerController;
+import ru.hse.guiapp.model.EventStatistic;
 
 
 public class JVMLoggerView {
@@ -40,6 +42,8 @@ public class JVMLoggerView {
     private CheckComboBox<String> choiceBoxNames;
 
     private CheckComboBox<String> choiceBoxCategories;
+
+    private TableView<EventStatistic> tableView;
 
     private final JVMLoggerController controller;
 
@@ -121,7 +125,8 @@ public class JVMLoggerView {
                 argsField.getText(),
                 "",
                 statsArea,
-                stopButton
+                stopButton,
+                tableView
         );
 
         grid.add(executeButton, 1, 7);
@@ -138,8 +143,27 @@ public class JVMLoggerView {
     private void setupStatisticsArea() {
         statsArea = new TextArea();
         statsArea.setEditable(false);
+
+        tableView = new TableView<>();
+        tableView.setPrefWidth(700);
+        tableView.setPrefHeight(200);
+
+        TableColumn<EventStatistic, String> columnName = new TableColumn<>("Event Name");
+        columnName.setPrefWidth(120);
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableView.getColumns().add(columnName);
+
+        TableColumn<EventStatistic, Integer> frequencyColumn = new TableColumn<>("Frequency");
+        frequencyColumn.setCellValueFactory(new PropertyValueFactory<>("frequency"));
+        tableView.getColumns().add(frequencyColumn);
+
+        TableColumn<EventStatistic, String> descColumn = new TableColumn<>("Description");
+        descColumn.setPrefWidth(600);
+        descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tableView.getColumns().add(descColumn);
+
         vBox = new VBox();
-        vBox.getChildren().addAll(grid, statsArea);
+        vBox.getChildren().addAll(grid, statsArea, tableView);
     }
 
     private void setupJarArgsField() {

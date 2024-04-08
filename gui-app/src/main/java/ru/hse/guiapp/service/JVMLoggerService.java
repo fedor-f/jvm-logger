@@ -1,15 +1,24 @@
 package ru.hse.guiapp.service;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ru.hse.api.CommandExecutor;
 import ru.hse.guiapp.config.EventInfo;
+import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.util.JoinMapUtil;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JVMLoggerService {
 
@@ -40,7 +49,8 @@ public class JVMLoggerService {
                                              String settings,
                                              boolean showStatistics,
                                              boolean verbose,
-                                             TextArea textField) {
+                                             TextArea textField, TableView<EventStatistic> tableView) {
+        tableView.getItems().clear();
         textField.clear();
         textField.setText("Executing .jar...");
 
@@ -49,14 +59,18 @@ public class JVMLoggerService {
 
         textField.appendText("\nEvents collected successfully\n");
 
-        optMap.ifPresent(stringIntegerMap -> {
+        if (optMap.isPresent()) {
+            var stringIntegerMap = optMap.get();
             var map = JoinMapUtil.innerJoin(EventInfo.EVENT_NAME_MAP, stringIntegerMap);
 
-            textField.appendText("STATISTICS:\n\n");
-            textField.appendText("Event Name\tFrequency\tDescription\n");
+            List<EventStatistic> list = new ArrayList<>();
             map.forEach((key, value) -> {
-                textField.appendText(key + "\t" + value.first() + "\t" + value.second() + "\n");
+                list.add(new EventStatistic(key, value.first(), value.second()));
             });
-        });
+
+            ObservableList<EventStatistic> observableList = FXCollections.observableList(list);
+
+            tableView.getItems().addAll(observableList);
+        }
     }
 }
