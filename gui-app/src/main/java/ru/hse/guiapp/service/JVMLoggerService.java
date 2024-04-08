@@ -6,6 +6,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ru.hse.api.CommandExecutor;
+import ru.hse.guiapp.config.EventInfo;
+import ru.hse.guiapp.util.JoinMapUtil;
 
 import java.io.File;
 
@@ -42,10 +44,19 @@ public class JVMLoggerService {
         textField.clear();
         textField.setText("Executing .jar...");
 
-        CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
+        var optMap = CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
                 args, settings, showStatistics, verbose);
 
-        textField.appendText("\nEvents collected successfully");
+        textField.appendText("\nEvents collected successfully\n");
 
+        optMap.ifPresent(stringIntegerMap -> {
+            var map = JoinMapUtil.innerJoin(EventInfo.EVENT_NAME_MAP, stringIntegerMap);
+
+            textField.appendText("STATISTICS:\n\n");
+            textField.appendText("Event Name\tFrequency\tDescription\n");
+            map.forEach((key, value) -> {
+                textField.appendText(key + "\t" + value.first() + "\t" + value.second() + "\n");
+            });
+        });
     }
 }
