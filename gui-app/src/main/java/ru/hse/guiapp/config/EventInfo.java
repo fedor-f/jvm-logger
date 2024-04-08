@@ -2,10 +2,11 @@ package ru.hse.guiapp.config;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EventInfo {
 
-    public static final List<String> CATEGORY_LIST = List.of(
+    public static final Set<String> CATEGORY_LIST = Set.of(
             "Flight Recorder",
             "Java Application",
             "Java Development Kit",
@@ -24,7 +25,7 @@ public class EventInfo {
             "Operating System"
     );
 
-    public static final Map<String, String> EVENT_NAME_LIST = Map.ofEntries(
+    public static final Map<String, String> EVENT_NAME_MAP = Map.ofEntries(
             Map.entry("jdk.ActiveSetting", "Применение настроек для каждого типа событий при запуске пользовательского приложения."),
             Map.entry("jdk.ActiveRecording", "Информация о запущенной записи событий Java Flight Recorder"),
             Map.entry("jdk.JavaMonitorWait", "Ожидание потоком (объектом Thread) монитора"),

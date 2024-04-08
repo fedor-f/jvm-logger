@@ -60,7 +60,7 @@ public class JVMLoggerView {
         filterByCategoriesCheckbox = new CheckBox("Filter events by categories?");
         filterByNamesCheckbox = new CheckBox("Filter events by event type names?");
 
-        ObservableList<String> list = FXCollections.observableArrayList(EventInfo.EVENT_NAME_LIST.keySet());
+        ObservableList<String> list = FXCollections.observableArrayList(EventInfo.EVENT_NAME_MAP.keySet());
         choiceBoxNames = new CheckComboBox<>(list);
         ObservableList<String> list2 = FXCollections.observableArrayList(EventInfo.CATEGORY_LIST);
         choiceBoxCategories = new CheckComboBox<>(list2);
