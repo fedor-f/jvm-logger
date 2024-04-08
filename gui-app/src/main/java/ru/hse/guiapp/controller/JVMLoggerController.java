@@ -4,8 +4,10 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.service.JVMLoggerService;
+
 
 public class JVMLoggerController {
 
@@ -25,56 +27,185 @@ public class JVMLoggerController {
         inputDirButton.setOnAction(e -> service.openDirFileDialog(stage, inputDirField));
     }
 
-    public void executeNormalEventCollection(Button executeButton,
-                                             String jarInput,
-                                             String jfrOutput,
-                                             TextField recordingDuration,
-                                             TextField xesOutput,
-                                             String args,
-                                             String settings,
-                                             TextArea textField,
-                                             Button stopButton,
-                                             TableView<EventStatistic> tableView) {
+    public void executeButtonLogic(Button executeButton,
+                                   String jarInput,
+                                   String jfrOutput,
+                                   TextField recordingDuration,
+                                   TextField xesOutput,
+                                   String args,
+                                   String settings,
+                                   TextArea textField,
+                                   Button stopButton,
+                                   TableView<EventStatistic> tableView,
+                                   CheckBox checkboxNames,
+                                   CheckBox checkboxCategories,
+                                   CheckComboBox<String> comboBoxNames,
+                                   CheckComboBox<String> comboBoxCategories) {
 
         executeButton.setOnAction(e -> {
-            task = new Service<>() {
-                @Override
-                protected Task<Void> createTask() {
-                    return new Task<>() {
-                        @Override
-                        protected Void call() {
-                            service.executeNormalEventCollection(jarInput,
-                                    jfrOutput,
-                                    recordingDuration.getText(),
-                                    xesOutput.getText() + "/output.xes",
-                                    args,
-                                    settings,
-                                    true,
-                                    false,
-                                    textField,
-                                    tableView
-                            );
-                            return null;
-                        }
-                    };
-                }
+            if (!checkboxNames.isSelected() && !checkboxCategories.isSelected()) {
+                handleNormalEventExecution(executeButton,
+                        jarInput,
+                        jfrOutput,
+                        recordingDuration,
+                        xesOutput,
+                        args,
+                        settings,
+                        textField,
+                        stopButton,
+                        tableView
+                );
 
-                @Override
-                protected void succeeded() {
-                    updateUIAfterAction(executeButton, stopButton);
-                }
+                return;
+            }
 
-                @Override
-                protected void cancelled() {
-                    resetUIAfterCancellation(executeButton, stopButton);
-                    textField.clear();
-                }
-            };
+            if (checkboxNames.isSelected()) {
+                handleEventExecutionWhenFilteringByNames(executeButton,
+                        jarInput,
+                        jfrOutput,
+                        recordingDuration,
+                        xesOutput,
+                        args,
+                        settings,
+                        textField,
+                        stopButton,
+                        tableView,
+                        comboBoxNames
+                );
 
-            task.restart();
-            stopButton.setDisable(false);
-            executeButton.setDisable(true);
+                return;
+            }
+
+            if (checkboxCategories.isSelected()) {
+                handleEventExecutionWhenFilteringByCategories(
+                        executeButton,
+                        jarInput,
+                        jfrOutput,
+                        recordingDuration,
+                        xesOutput,
+                        args,
+                        settings,
+                        textField,
+                        stopButton,
+                        tableView,
+                        comboBoxCategories
+                );
+            }
         });
+    }
+
+    private void handleEventExecutionWhenFilteringByCategories(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView, CheckComboBox<String> comboBoxCategories) {
+        task = new Service<>() {
+            @Override
+            protected Task<Void> createTask() {
+                service.executeEventCollectionFilteringByCategories(
+                        jarInput,
+                        jfrOutput,
+                        recordingDuration.getText(),
+                        xesOutput + "/output.xes",
+                        comboBoxCategories.getItems(),
+                        args,
+                        settings,
+                        true,
+                        false,
+                        textField,
+                        tableView
+                );
+                return null;
+            }
+
+            @Override
+            protected void cancelled() {
+                resetUIAfterCancellation(executeButton, stopButton);
+                textField.clear();
+            }
+
+            @Override
+            protected void succeeded() {
+                updateUIAfterAction(executeButton, stopButton);
+            }
+        };
+
+        task.restart();
+        stopButton.setDisable(false);
+        executeButton.setDisable(true);
+    }
+
+    private void handleEventExecutionWhenFilteringByNames(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView, CheckComboBox<String> comboBoxNames) {
+        task = new Service<>() {
+            @Override
+            protected Task<Void> createTask() {
+                service.executeEventCollectionFilteringByNames(
+                        jarInput,
+                        jfrOutput,
+                        recordingDuration.getText(),
+                        xesOutput + "/output.xes",
+                        comboBoxNames.getItems(),
+                        args,
+                        settings,
+                        true,
+                        false,
+                        textField,
+                        tableView
+                );
+                return null;
+            }
+
+            @Override
+            protected void cancelled() {
+                resetUIAfterCancellation(executeButton, stopButton);
+                textField.clear();
+            }
+
+            @Override
+            protected void succeeded() {
+                updateUIAfterAction(executeButton, stopButton);
+            }
+        };
+
+        task.restart();
+        stopButton.setDisable(false);
+        executeButton.setDisable(true);
+    }
+
+    private void handleNormalEventExecution(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView) {
+        task = new Service<>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<>() {
+                    @Override
+                    protected Void call() {
+                        service.executeNormalEventCollection(jarInput,
+                                jfrOutput,
+                                recordingDuration.getText(),
+                                xesOutput.getText() + "/output.xes",
+                                args,
+                                settings,
+                                true,
+                                false,
+                                textField,
+                                tableView
+                        );
+                        return null;
+                    }
+                };
+            }
+
+            @Override
+            protected void succeeded() {
+                updateUIAfterAction(executeButton, stopButton);
+            }
+
+            @Override
+            protected void cancelled() {
+                resetUIAfterCancellation(executeButton, stopButton);
+                textField.clear();
+            }
+        };
+
+        task.restart();
+        stopButton.setDisable(false);
+        executeButton.setDisable(true);
     }
 
     public void interruptExecution(Button interruptButton, Button executeButton) {

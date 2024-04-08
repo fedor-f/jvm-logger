@@ -66,7 +66,7 @@ public class JVMLoggerView {
 
         ObservableList<String> list = FXCollections.observableArrayList(EventInfo.EVENT_NAME_MAP.keySet());
         choiceBoxNames = new CheckComboBox<>(list);
-        ObservableList<String> list2 = FXCollections.observableArrayList(EventInfo.CATEGORY_LIST);
+        ObservableList<String> list2 = FXCollections.observableArrayList(EventInfo.CATEGORY_SET);
         choiceBoxCategories = new CheckComboBox<>(list2);
 
         choiceBoxNames.setVisible(false);
@@ -116,7 +116,7 @@ public class JVMLoggerView {
     }
 
     private void setupExecuteButton() {
-        controller.executeNormalEventCollection(executeButton,
+        controller.executeButtonLogic(executeButton,
                 inputFileField.getText(),
                 // TODO: remove mock
                 "/Users/fedorfilippov/Desktop/logger/flight.jfr",
@@ -126,7 +126,11 @@ public class JVMLoggerView {
                 "",
                 statsArea,
                 stopButton,
-                tableView
+                tableView,
+                filterByNamesCheckbox,
+                filterByCategoriesCheckbox,
+                choiceBoxNames,
+                choiceBoxCategories
         );
 
         grid.add(executeButton, 1, 7);

@@ -1,12 +1,11 @@
 package ru.hse.guiapp.config;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class EventInfo {
 
-    public static final Set<String> CATEGORY_LIST = Set.of(
+    public static final Set<String> CATEGORY_SET = Set.of(
             "Flight Recorder",
             "Java Application",
             "Java Development Kit",

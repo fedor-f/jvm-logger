@@ -2,12 +2,9 @@ package ru.hse.guiapp.service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -19,6 +16,7 @@ import ru.hse.guiapp.util.JoinMapUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class JVMLoggerService {
 
@@ -57,20 +55,91 @@ public class JVMLoggerService {
         var optMap = CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
                 args, settings, showStatistics, verbose);
 
-        textField.appendText("\nEvents collected successfully\n");
+        textField.appendText("\nEvents collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
-            var map = JoinMapUtil.innerJoin(EventInfo.EVENT_NAME_MAP, stringIntegerMap);
-
-            List<EventStatistic> list = new ArrayList<>();
-            map.forEach((key, value) -> {
-                list.add(new EventStatistic(key, value.first(), value.second()));
-            });
-
-            ObservableList<EventStatistic> observableList = FXCollections.observableList(list);
-
-            tableView.getItems().addAll(observableList);
+            fillTable(tableView, stringIntegerMap);
         }
+    }
+
+    public void executeEventCollectionFilteringByNames(String jarInput,
+                                                       String jfrOutput,
+                                                       String recordingDuration,
+                                                       String xesOutput,
+                                                       List<String> names,
+                                                       String args,
+                                                       String settings,
+                                                       boolean showStatistics,
+                                                       boolean verbose,
+                                                       TextArea textField,
+                                                       TableView<EventStatistic> tableView) {
+        tableView.getItems().clear();
+        textField.clear();
+        textField.setText("Executing .jar...");
+
+        var optMap = CommandExecutor.filteredByNamesEventCollection(jarInput,
+                jfrOutput,
+                recordingDuration,
+                xesOutput,
+                names,
+                args,
+                settings,
+                showStatistics,
+                verbose
+        );
+
+        textField.appendText("\nEvents collected successfully");
+
+        if (optMap.isPresent()) {
+            var stringIntegerMap = optMap.get();
+            fillTable(tableView, stringIntegerMap);
+        }
+    }
+
+    public void executeEventCollectionFilteringByCategories(String jarInput,
+                                                            String jfrOutput,
+                                                            String recordingDuration,
+                                                            String xesOutput,
+                                                            List<String> categories,
+                                                            String args,
+                                                            String settings,
+                                                            boolean showStatistics,
+                                                            boolean verbose,
+                                                            TextArea textField,
+                                                            TableView<EventStatistic> tableView) {
+        tableView.getItems().clear();
+        textField.clear();
+        textField.setText("Executing .jar...");
+
+        var optMap = CommandExecutor.filteredByCategoriesEventCollection(
+                jarInput,
+                jfrOutput,
+                recordingDuration,
+                xesOutput,
+                categories,
+                args,
+                settings,
+                showStatistics,
+                verbose
+        );
+
+        textField.appendText("\nEvents collected successfully");
+
+        if (optMap.isPresent()) {
+            var stringIntegerMap = optMap.get();
+            fillTable(tableView, stringIntegerMap);
+        }
+    }
+
+    private void fillTable(TableView<EventStatistic> tableView, Map<String, Integer> stringIntegerMap) {
+        var map = JoinMapUtil.innerJoin(EventInfo.EVENT_NAME_MAP, stringIntegerMap);
+
+        List<EventStatistic> list = new ArrayList<>();
+        map.forEach((key, value) -> list.add(new EventStatistic(key, value.first(), value.second())));
+
+        ObservableList<EventStatistic> observableList = FXCollections.observableList(list);
+
+        tableView.getItems().addAll(observableList);
     }
 }
