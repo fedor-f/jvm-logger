@@ -102,7 +102,7 @@ public class JVMLoggerController {
                         jarInput,
                         jfrOutput,
                         recordingDuration.getText(),
-                        xesOutput + "/output.xes",
+                        xesOutput.getText() + "/output.xes",
                         comboBoxCategories.getItems(),
                         args,
                         settings,
@@ -111,7 +111,25 @@ public class JVMLoggerController {
                         textField,
                         tableView
                 );
-                return null;
+                return new Task<>() {
+                    @Override
+                    protected Void call() {
+                        service.executeEventCollectionFilteringByCategories(
+                                jarInput,
+                                jfrOutput,
+                                recordingDuration.getText(),
+                                xesOutput.getText() + "/output.xes",
+                                comboBoxCategories.getItems(),
+                                args,
+                                settings,
+                                true,
+                                false,
+                                textField,
+                                tableView
+                        );
+                        return null;
+                    }
+                };
             }
 
             @Override
@@ -127,28 +145,31 @@ public class JVMLoggerController {
         };
 
         task.restart();
-        stopButton.setDisable(false);
-        executeButton.setDisable(true);
     }
 
     private void handleEventExecutionWhenFilteringByNames(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView, CheckComboBox<String> comboBoxNames) {
         task = new Service<>() {
             @Override
             protected Task<Void> createTask() {
-                service.executeEventCollectionFilteringByNames(
-                        jarInput,
-                        jfrOutput,
-                        recordingDuration.getText(),
-                        xesOutput + "/output.xes",
-                        comboBoxNames.getItems(),
-                        args,
-                        settings,
-                        true,
-                        false,
-                        textField,
-                        tableView
-                );
-                return null;
+                return new Task<>() {
+                    @Override
+                    protected Void call() {
+                        service.executeEventCollectionFilteringByNames(
+                                jarInput,
+                                jfrOutput,
+                                recordingDuration.getText(),
+                                xesOutput.getText() + "/output.xes",
+                                comboBoxNames.getItems(),
+                                args,
+                                settings,
+                                true,
+                                false,
+                                textField,
+                                tableView
+                        );
+                        return null;
+                    }
+                };
             }
 
             @Override
@@ -164,8 +185,6 @@ public class JVMLoggerController {
         };
 
         task.restart();
-        stopButton.setDisable(false);
-        executeButton.setDisable(true);
     }
 
     private void handleNormalEventExecution(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView) {
@@ -204,8 +223,6 @@ public class JVMLoggerController {
         };
 
         task.restart();
-        stopButton.setDisable(false);
-        executeButton.setDisable(true);
     }
 
     public void interruptExecution(Button interruptButton, Button executeButton) {
