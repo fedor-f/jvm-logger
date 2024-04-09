@@ -13,6 +13,9 @@ public class JVMLoggerGUIApplication extends Application {
         JVMLoggerView view = new JVMLoggerView(stage);
 
         stage.setScene(view.getScene());
+
+        stage.setMinHeight(600);
+        stage.setMinWidth(600);
         stage.show();
     }
 
