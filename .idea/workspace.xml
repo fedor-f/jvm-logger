@@ -68,10 +68,11 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.hse.eventProcessing" />
       <recent name="ru.hse.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DurationUtilTest">
+  <component name="RunManager" selected="JUnit.JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile">
     <configuration name="DurationUtilTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jvm-logger-core" />
       <extension name="coverage">
@@ -83,38 +84,6 @@
       <option name="PACKAGE_NAME" value="ru.hse.util" />
       <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DurationUtilTest.testDays" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.util" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
-      <option name="METHOD_NAME" value="testDays" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DurationUtilTest.testHours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.util" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
-      <option name="METHOD_NAME" value="testHours" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -151,13 +120,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JFRToXESEventConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
+      <option name="METHOD_NAME" value="testGetConvertedEventFromJFRFile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile" />
+        <item itemvalue="JUnit.JFRToXESEventConverterTest" />
         <item itemvalue="JUnit.DurationUtilTest" />
         <item itemvalue="JUnit.DurationUtilTest.testUnknown2" />
         <item itemvalue="JUnit.DurationUtilTest.testUnknown" />
-        <item itemvalue="JUnit.DurationUtilTest.testDays" />
-        <item itemvalue="JUnit.DurationUtilTest.testHours" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +173,7 @@
       <workItem from="1712599714807" duration="10122000" />
       <workItem from="1712655595017" duration="937000" />
       <workItem from="1712660690792" duration="1692000" />
-      <workItem from="1712663333487" duration="719000" />
+      <workItem from="1712663333487" duration="3574000" />
     </task>
     <servers />
   </component>
@@ -183,5 +183,10 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/jvm_logger$DurationUtilTest.ic" NAME="DurationUtilTest Coverage Results" MODIFIED="1712664162925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.hse.util.*</FILTER>
+    </SUITE>
   </component>
 </project>
