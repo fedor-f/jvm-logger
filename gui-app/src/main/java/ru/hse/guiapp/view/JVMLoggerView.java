@@ -166,8 +166,19 @@ public class JVMLoggerView {
         descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         tableView.getColumns().add(descColumn);
 
+        MenuBar menuBar = new MenuBar();
+        Menu docMenu = new Menu("Docs");
+
+        MenuItem menuItemDoc = new MenuItem("Event documentation link");
+
+        docMenu.getItems().add(menuItemDoc);
+
+        controller.setVisitDocLink(menuItemDoc);
+
+        menuBar.getMenus().add(docMenu);
+
         vBox = new VBox();
-        vBox.getChildren().addAll(grid, statsArea, tableView);
+        vBox.getChildren().addAll(menuBar, grid, statsArea, tableView);
     }
 
     private void setupJarArgsField() {

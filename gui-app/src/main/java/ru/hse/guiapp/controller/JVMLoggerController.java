@@ -3,13 +3,24 @@ package ru.hse.guiapp.controller;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.service.JVMLoggerService;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 
 public class JVMLoggerController {
+
+    private static final String DOC_LINK = "https://github.com/fedor-f/jvm-logger/blob/main/docs/Event%20Documentation.pdf";
 
     private final JVMLoggerService service;
 
@@ -228,5 +239,17 @@ public class JVMLoggerController {
     private void resetUIAfterCancellation(Button startButton, Button stopButton) {
         startButton.setDisable(false);
         stopButton.setDisable(true);
+    }
+
+    public void setVisitDocLink(MenuItem menuItem) {
+        menuItem.setOnAction(e -> {
+            try {
+                URI uri = new URI(DOC_LINK);
+
+                service.browse(uri);
+            } catch (URISyntaxException | IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
     }
 }
