@@ -1,8 +1,11 @@
 package ru.hse.guiapp;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ru.hse.guiapp.view.JVMLoggerView;
+
+import java.util.Objects;
 
 public class JVMLoggerGUIApplication extends Application {
 
@@ -16,6 +19,7 @@ public class JVMLoggerGUIApplication extends Application {
 
         stage.setMinHeight(600);
         stage.setMinWidth(600);
+        stage.getIcons().add(new Image(Objects.requireNonNull(JVMLoggerGUIApplication.class.getResourceAsStream("/logo.png"))));
         stage.show();
     }
 
