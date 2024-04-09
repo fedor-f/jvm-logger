@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import ru.hse.guiapp.view.JVMLoggerView;
 
-import java.io.IOException;
-
-public class HelloApplication extends Application {
+public class JVMLoggerGUIApplication extends Application {
 
     @Override
     public void start(Stage stage) {

@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/controller/JVMLoggerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/controller/JVMLoggerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/service/JVMLoggerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/service/JVMLoggerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/view/JVMLoggerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/view/JVMLoggerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui-app/src/main/resources/ru/hse/guiapp/view/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +57,12 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gui-app/src/main/resources/ru/hse/guiapp" />
+      <recent name="$PROJECT_DIR$/gui-app/src/main/resources" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.hse.guiapp.HelloApplication" />
@@ -90,7 +95,7 @@
       <workItem from="1712504466069" duration="7522000" />
       <workItem from="1712599714807" duration="10122000" />
       <workItem from="1712655595017" duration="937000" />
-      <workItem from="1712660690792" duration="681000" />
+      <workItem from="1712660690792" duration="1692000" />
     </task>
     <servers />
   </component>
