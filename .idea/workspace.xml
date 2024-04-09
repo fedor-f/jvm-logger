@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/test/java/ru/hse/eventProcessing/JFRToXESEventConverterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/test/java/ru/hse/eventProcessing/JFRToXESEventConverterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-logger-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/eventProcessing/JFREventProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/eventProcessing/JFREventProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +56,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.statistic.project.settings",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -73,7 +74,70 @@
       <recent name="ru.hse.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JFRToXESEventConverterTest">
+  <component name="RunManager" selected="JUnit.JFREventProcessorTest">
+    <configuration name="JFREventProcessorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JFREventProcessorTest.testProcessEventsFromFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
+      <option name="METHOD_NAME" value="testProcessEventsFromFile(java.nio.file.Path)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JFREventProcessorTest.testProcessEventsFromFileByCategories" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
+      <option name="METHOD_NAME" value="testProcessEventsFromFileByCategories(java.nio.file.Path)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JFREventProcessorTest.testProcessEventsFromFileByNames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
+      <option name="METHOD_NAME" value="testProcessEventsFromFileByNames(java.nio.file.Path)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JFRToXESEventConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jvm-logger-core" />
       <extension name="coverage">
@@ -89,77 +153,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JFRToXESEventConverterTest.testActiveRecordingEventAttrs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
-      <option name="METHOD_NAME" value="testActiveRecordingEventAttrs" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JFRToXESEventConverterTest.testActiveSettingEventAttrs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
-      <option name="METHOD_NAME" value="testActiveSettingEventAttrs" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
-      <option name="METHOD_NAME" value="testGetConvertedEventFromJFRFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JFRToXESEventConverterTest.testRealEventsConverting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
-      <option name="METHOD_NAME" value="testRealEventsConverting" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JFREventProcessorTest" />
+        <item itemvalue="JUnit.JFREventProcessorTest.testProcessEventsFromFileByCategories" />
+        <item itemvalue="JUnit.JFREventProcessorTest.testProcessEventsFromFileByNames" />
+        <item itemvalue="JUnit.JFREventProcessorTest.testProcessEventsFromFile" />
         <item itemvalue="JUnit.JFRToXESEventConverterTest" />
-        <item itemvalue="JUnit.JFRToXESEventConverterTest.testActiveRecordingEventAttrs" />
-        <item itemvalue="JUnit.JFRToXESEventConverterTest.testActiveSettingEventAttrs" />
-        <item itemvalue="JUnit.JFRToXESEventConverterTest.testRealEventsConverting" />
-        <item itemvalue="JUnit.JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile" />
       </list>
     </recent_temporary>
   </component>
@@ -175,7 +175,7 @@
       <workItem from="1712599714807" duration="10122000" />
       <workItem from="1712655595017" duration="937000" />
       <workItem from="1712660690792" duration="1692000" />
-      <workItem from="1712663333487" duration="5248000" />
+      <workItem from="1712663333487" duration="6448000" />
     </task>
     <servers />
   </component>
@@ -191,6 +191,9 @@
       <FILTER>ru.hse.util.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/jvm_logger$JFRToXESEventConverterTest_testGetConvertedEventFromJFRFile.ic" NAME="JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile Coverage Results" MODIFIED="1712667113430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.hse.eventProcessing.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/jvm_logger$JFRToXESEventConverterTest.ic" NAME="JFRToXESEventConverterTest Coverage Results" MODIFIED="1712668841296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ru.hse.eventProcessing.*</FILTER>
     </SUITE>
   </component>
