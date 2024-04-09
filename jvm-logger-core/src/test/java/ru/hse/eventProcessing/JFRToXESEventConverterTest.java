@@ -7,12 +7,16 @@ import ext.org.deckfour.xes.factory.XFactoryBufferedImpl;
 import ext.org.deckfour.xes.model.XEvent;
 import jdk.jfr.EventType;
 import jdk.jfr.consumer.RecordedEvent;
+import jdk.jfr.consumer.RecordingFile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -43,13 +47,13 @@ class JFRToXESEventConverterTest {
     private JFRToXESEventConverter converter;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         factory = new XFactoryBufferedImpl();
         converter = new JFRToXESEventConverter();
     }
 
     @Test
-    void testGetConvertedEventFromJFRFile() {
+    public void testGetConvertedEventFromJFRFile() {
         var time = Instant.now();
         when(jfrEvent.getStartTime()).thenReturn(time);
         when(jfrEvent.getEventType()).thenReturn(eventType);
@@ -72,4 +76,91 @@ class JFRToXESEventConverterTest {
         assertTrue(xEvent.getExtensions().contains(XConceptExtension.instance()));
     }
 
+    @Test
+    public void testRealEventsConverting() {
+        Path path = Paths.get("src/main/resources/flight.jfr");
+
+        RecordedEvent eventMonitor = null;
+        try (RecordingFile recordingFile = new RecordingFile(path)) {
+            while (recordingFile.hasMoreEvents()) {
+                RecordedEvent event = recordingFile.readEvent();
+
+                if (event.getEventType().getName().equals("jdk.JavaMonitorWait")) {
+                    eventMonitor = event;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        XEvent xEvent = converter.getConvertedEventFromJFRFile(eventMonitor);
+
+        assertTrue(xEvent.getAttributes().containsKey("duration"));
+        assertTrue(xEvent.getAttributes().containsKey("eventThread.name"));
+        assertTrue(xEvent.getAttributes().containsKey("eventThread.id"));
+        assertTrue(xEvent.getAttributes().containsKey("monitorClass.name"));
+        assertTrue(xEvent.getAttributes().containsKey("timeout"));
+        assertTrue(xEvent.getAttributes().containsKey("timedOut"));
+        assertTrue(xEvent.getAttributes().containsKey("address"));
+    }
+
+    @Test
+    public void testActiveSettingEventAttrs() {
+        Path path = Paths.get("src/main/resources/flight.jfr");
+
+        RecordedEvent eventActiveSetting = null;
+        try (RecordingFile recordingFile = new RecordingFile(path)) {
+            while (recordingFile.hasMoreEvents()) {
+                RecordedEvent event = recordingFile.readEvent();
+
+                if (event.getEventType().getName().equals("jdk.ActiveSetting")) {
+                    eventActiveSetting = event;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        XEvent xEvent = converter.getConvertedEventFromJFRFile(eventActiveSetting);
+
+        System.out.println(xEvent.getAttributes());
+        assertTrue(xEvent.getAttributes().containsKey("duration"));
+        assertTrue(xEvent.getAttributes().containsKey("eventThread.name"));
+        assertTrue(xEvent.getAttributes().containsKey("eventThread.id"));
+        assertTrue(xEvent.getAttributes().containsKey("name"));
+        assertTrue(xEvent.getAttributes().containsKey("value"));
+    }
+
+    @Test
+    public void testActiveRecordingEventAttrs() {
+        Path path = Paths.get("src/main/resources/flight.jfr");
+
+        RecordedEvent eventActiveRecording = null;
+        try (RecordingFile recordingFile = new RecordingFile(path)) {
+            while (recordingFile.hasMoreEvents()) {
+                RecordedEvent event = recordingFile.readEvent();
+
+                if (event.getEventType().getName().equals("jdk.ActiveRecording")) {
+                    eventActiveRecording = event;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        XEvent xEvent = converter.getConvertedEventFromJFRFile(eventActiveRecording);
+
+        assertTrue(xEvent.getAttributes().containsKey("duration"));
+        assertTrue(xEvent.getAttributes().containsKey("eventThread.name"));
+        assertTrue(xEvent.getAttributes().containsKey("eventThread.id"));
+        assertTrue(xEvent.getAttributes().containsKey("id"));
+        assertTrue(xEvent.getAttributes().containsKey("name"));
+        assertTrue(xEvent.getAttributes().containsKey("destination"));
+        assertTrue(xEvent.getAttributes().containsKey("maxAge"));
+        assertTrue(xEvent.getAttributes().containsKey("flushInterval"));
+        assertTrue(xEvent.getAttributes().containsKey("flushInterval"));
+        assertTrue(xEvent.getAttributes().containsKey("maxSize"));
+        assertTrue(xEvent.getAttributes().containsKey("recordingStart"));
+        assertTrue(xEvent.getAttributes().containsKey("recordingDuration"));
+    }
 }
