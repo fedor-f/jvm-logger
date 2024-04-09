@@ -12,7 +12,6 @@ import org.controlsfx.control.CheckComboBox;
 import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.service.JVMLoggerService;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -143,6 +142,8 @@ public class JVMLoggerController {
         };
 
         task.restart();
+        stopButton.setDisable(false);
+        executeButton.setDisable(true);
     }
 
     private void handleEventExecutionWhenFilteringByNames(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView, CheckComboBox<String> comboBoxNames) {
@@ -183,6 +184,8 @@ public class JVMLoggerController {
         };
 
         task.restart();
+        stopButton.setDisable(false);
+        executeButton.setDisable(true);
     }
 
     private void handleNormalEventExecution(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView) {
@@ -221,6 +224,8 @@ public class JVMLoggerController {
         };
 
         task.restart();
+        stopButton.setDisable(false);
+        executeButton.setDisable(true);
     }
 
     public void interruptExecution(Button interruptButton, Button executeButton) {

@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-logger-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/eventProcessing/JFREventProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/eventProcessing/JFREventProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/controller/JVMLoggerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/controller/JVMLoggerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,26 +39,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/jvm-logger-core/src/main/resources" />
@@ -70,70 +69,38 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.hse.guiapp.util" />
       <recent name="ru.hse.eventProcessing" />
       <recent name="ru.hse.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JFREventProcessorTest">
-    <configuration name="JFREventProcessorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
+  <component name="RunManager" selected="Application.JVMLoggerGUIApplication">
+    <configuration name="JVMLoggerGUIApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.hse.guiapp.JVMLoggerGUIApplication" />
+      <module name="gui-app" />
+      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
+          <option name="PATTERN" value="ru.hse.guiapp.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DurationUtilTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JFREventProcessorTest.testProcessEventsFromFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
-      <option name="METHOD_NAME" value="testProcessEventsFromFile(java.nio.file.Path)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JFREventProcessorTest.testProcessEventsFromFileByCategories" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
-      <option name="METHOD_NAME" value="testProcessEventsFromFileByCategories(java.nio.file.Path)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JFREventProcessorTest.testProcessEventsFromFileByNames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jvm-logger-core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.hse.eventProcessing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
-      <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFREventProcessorTest" />
-      <option name="METHOD_NAME" value="testProcessEventsFromFileByNames(java.nio.file.Path)" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -148,17 +115,58 @@
       </extension>
       <option name="PACKAGE_NAME" value="ru.hse.eventProcessing" />
       <option name="MAIN_CLASS_NAME" value="ru.hse.eventProcessing.JFRToXESEventConverterTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JoinMapUtilTest.testInnerJoin (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="gui-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.guiapp.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.guiapp.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.guiapp.util.JoinMapUtilTest" />
+      <option name="METHOD_NAME" value="testInnerJoin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JoinMapUtilTest.testInnerJoin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="gui-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.guiapp.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.guiapp.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.guiapp.util.JoinMapUtilTest" />
+      <option name="METHOD_NAME" value="testInnerJoin" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea --module-path $USER_HOME$/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.JVMLoggerGUIApplication" />
+      <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin (1)" />
+      <item itemvalue="JUnit.DurationUtilTest" />
+      <item itemvalue="JUnit.JFRToXESEventConverterTest" />
+      <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.JFREventProcessorTest" />
-        <item itemvalue="JUnit.JFREventProcessorTest.testProcessEventsFromFileByCategories" />
-        <item itemvalue="JUnit.JFREventProcessorTest.testProcessEventsFromFileByNames" />
-        <item itemvalue="JUnit.JFREventProcessorTest.testProcessEventsFromFile" />
+        <item itemvalue="Application.JVMLoggerGUIApplication" />
+        <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin (1)" />
+        <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin" />
+        <item itemvalue="JUnit.DurationUtilTest" />
         <item itemvalue="JUnit.JFRToXESEventConverterTest" />
       </list>
     </recent_temporary>
@@ -175,7 +183,9 @@
       <workItem from="1712599714807" duration="10122000" />
       <workItem from="1712655595017" duration="937000" />
       <workItem from="1712660690792" duration="1692000" />
-      <workItem from="1712663333487" duration="6448000" />
+      <workItem from="1712663333487" duration="7374000" />
+      <workItem from="1712671067230" duration="343000" />
+      <workItem from="1712681273842" duration="359000" />
     </task>
     <servers />
   </component>
@@ -191,6 +201,9 @@
       <FILTER>ru.hse.util.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/jvm_logger$JFRToXESEventConverterTest_testGetConvertedEventFromJFRFile.ic" NAME="JFRToXESEventConverterTest.testGetConvertedEventFromJFRFile Coverage Results" MODIFIED="1712667113430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.hse.eventProcessing.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/jvm_logger$JFREventProcessorTest.ic" NAME="JFREventProcessorTest Coverage Results" MODIFIED="1712670243680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ru.hse.eventProcessing.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/jvm_logger$JFRToXESEventConverterTest.ic" NAME="JFRToXESEventConverterTest Coverage Results" MODIFIED="1712668841296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
