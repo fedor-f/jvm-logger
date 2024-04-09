@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/resources/ru/hse/guiapp/view/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-logger-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +18,7 @@
       <list>
         <option value="Record" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -39,48 +39,125 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.statistic.project.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.statistic.project.settings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/gui-app/src/main/resources/ru/hse/guiapp" />
       <recent name="$PROJECT_DIR$/gui-app/src/main/resources" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.hse.util" />
+    </key>
   </component>
-  <component name="RunManager">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ru.hse.guiapp.HelloApplication" />
-      <module name="gui-app" />
-      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml" />
+  <component name="RunManager" selected="JUnit.DurationUtilTest">
+    <configuration name="DurationUtilTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.hse.guiapp.*" />
+          <option name="PATTERN" value="ru.hse.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DurationUtilTest.testDays" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
+      <option name="METHOD_NAME" value="testDays" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DurationUtilTest.testHours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
+      <option name="METHOD_NAME" value="testHours" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DurationUtilTest.testUnknown" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
+      <option name="METHOD_NAME" value="testUnknown" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DurationUtilTest.testUnknown2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jvm-logger-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hse.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.hse.util" />
+      <option name="MAIN_CLASS_NAME" value="ru.hse.util.DurationUtilTest" />
+      <option name="METHOD_NAME" value="testUnknown2" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="JUnit.DurationUtilTest" />
+        <item itemvalue="JUnit.DurationUtilTest.testUnknown2" />
+        <item itemvalue="JUnit.DurationUtilTest.testUnknown" />
+        <item itemvalue="JUnit.DurationUtilTest.testDays" />
+        <item itemvalue="JUnit.DurationUtilTest.testHours" />
       </list>
     </recent_temporary>
   </component>
@@ -96,6 +173,7 @@
       <workItem from="1712599714807" duration="10122000" />
       <workItem from="1712655595017" duration="937000" />
       <workItem from="1712660690792" duration="1692000" />
+      <workItem from="1712663333487" duration="719000" />
     </task>
     <servers />
   </component>
