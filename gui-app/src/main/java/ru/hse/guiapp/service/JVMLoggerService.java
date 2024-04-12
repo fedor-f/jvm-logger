@@ -13,6 +13,7 @@ import ru.hse.api.CommandExecutor;
 import ru.hse.guiapp.config.EventInfo;
 import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.util.JoinMapUtil;
+import ru.hse.util.DurationUtil;
 
 import java.awt.*;
 import java.io.File;

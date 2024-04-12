@@ -151,9 +151,25 @@ public class JVMLoggerController {
             }
         };
 
+        if (checkIfFieldsEmpty(jarInput, xesOutput)) return;
+
         task.restart();
         stopButton.setDisable(false);
         executeButton.setDisable(true);
+    }
+
+    private boolean checkIfFieldsEmpty(TextField jarInput, TextField xesOutput) {
+        if (jarInput.getText().trim().isEmpty() || xesOutput.getText().trim().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Empty fields");
+            alert.setContentText("Both .jar input path and .xes output directory have to be specified");
+
+            alert.showAndWait();
+
+            return true;
+        }
+        return false;
     }
 
     private void handleEventExecutionWhenFilteringByNames(Button executeButton,
@@ -203,6 +219,8 @@ public class JVMLoggerController {
             }
         };
 
+        if (checkIfFieldsEmpty(jarInput, xesOutput)) return;
+
         task.restart();
         stopButton.setDisable(false);
         executeButton.setDisable(true);
@@ -251,6 +269,8 @@ public class JVMLoggerController {
                 textField.clear();
             }
         };
+
+        if (checkIfFieldsEmpty(jarInput, xesOutput)) return;
 
         task.restart();
         stopButton.setDisable(false);
