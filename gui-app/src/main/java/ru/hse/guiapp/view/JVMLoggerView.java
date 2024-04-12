@@ -118,7 +118,7 @@ public class JVMLoggerView {
     private void setupExecuteButton() {
         controller.executeButtonLogic(executeButton,
                 inputFileField,
-                "/flight.jfr",
+                "./flight.jfr",
                 durationField,
                 outputFileField,
                 argsField,

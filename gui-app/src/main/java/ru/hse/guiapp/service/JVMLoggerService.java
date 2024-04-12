@@ -59,7 +59,7 @@ public class JVMLoggerService {
         var optMap = CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
                 args, settings, showStatistics, verbose);
 
-        textField.appendText("\n ✅ Events collected successfully");
+        textField.appendText("\n✅ Events collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
@@ -93,7 +93,7 @@ public class JVMLoggerService {
                 verbose
         );
 
-        textField.appendText("\n ✅ Events collected successfully");
+        textField.appendText("\n✅ Events collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
@@ -128,7 +128,7 @@ public class JVMLoggerService {
                 verbose
         );
 
-        textField.appendText("\n ✅ Events collected successfully");
+        textField.appendText("\n✅ Events collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
