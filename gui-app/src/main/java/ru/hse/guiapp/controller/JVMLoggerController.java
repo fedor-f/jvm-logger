@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 import ru.hse.guiapp.model.EventStatistic;
 import ru.hse.guiapp.service.JVMLoggerService;
+import ru.hse.util.DurationUtil;
 
 import java.io.IOException;
 import java.net.URI;
@@ -153,6 +154,8 @@ public class JVMLoggerController {
 
         if (checkIfFieldsEmpty(jarInput, xesOutput)) return;
 
+        if (checkDurationFormat(recordingDuration)) return;
+
         task.restart();
         stopButton.setDisable(false);
         executeButton.setDisable(true);
@@ -221,6 +224,8 @@ public class JVMLoggerController {
 
         if (checkIfFieldsEmpty(jarInput, xesOutput)) return;
 
+        if (checkDurationFormat(recordingDuration)) return;
+
         task.restart();
         stopButton.setDisable(false);
         executeButton.setDisable(true);
@@ -272,9 +277,38 @@ public class JVMLoggerController {
 
         if (checkIfFieldsEmpty(jarInput, xesOutput)) return;
 
+        if (checkDurationFormat(recordingDuration)) return;
+
         task.restart();
         stopButton.setDisable(false);
         executeButton.setDisable(true);
+    }
+
+    private boolean checkDurationFormat(TextField recordingDuration) {
+        try {
+            var sec = DurationUtil.parseDuration(recordingDuration.getText());
+
+            if (sec == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Incorrect duration format");
+                alert.setContentText("Incorrect duration format. Try 10s, 1m1s etc.");
+
+                alert.showAndWait();
+
+                return true;
+            }
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Incorrect duration format");
+            alert.setContentText("Incorrect duration format. Try 10s, 1m1s etc.");
+
+            alert.showAndWait();
+
+            return true;
+        }
+        return false;
     }
 
     public void interruptExecution(Button interruptButton, Button executeButton) {
