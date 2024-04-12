@@ -54,12 +54,12 @@ public class JVMLoggerService {
                                              TextArea textField, TableView<EventStatistic> tableView) {
         tableView.getItems().clear();
         textField.clear();
-        textField.setText("Executing .jar...");
+        textField.setText("\uD83D\uDD04 Executing .jar...");
 
         var optMap = CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
                 args, settings, showStatistics, verbose);
 
-        textField.appendText("\nEvents collected successfully");
+        textField.appendText("\n ✅ Events collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
@@ -80,7 +80,7 @@ public class JVMLoggerService {
                                                        TableView<EventStatistic> tableView) {
         tableView.getItems().clear();
         textField.clear();
-        textField.setText("Executing .jar...");
+        textField.setText("\uD83D\uDD04 Executing .jar...");
 
         var optMap = CommandExecutor.filteredByNamesEventCollection(jarInput,
                 jfrOutput,
@@ -93,7 +93,7 @@ public class JVMLoggerService {
                 verbose
         );
 
-        textField.appendText("\nEvents collected successfully");
+        textField.appendText("\n ✅ Events collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
@@ -114,7 +114,7 @@ public class JVMLoggerService {
                                                             TableView<EventStatistic> tableView) {
         tableView.getItems().clear();
         textField.clear();
-        textField.setText("Executing .jar...");
+        textField.setText("\uD83D\uDD04 Executing .jar...");
 
         var optMap = CommandExecutor.filteredByCategoriesEventCollection(
                 jarInput,
@@ -128,7 +128,7 @@ public class JVMLoggerService {
                 verbose
         );
 
-        textField.appendText("\nEvents collected successfully");
+        textField.appendText("\n ✅ Events collected successfully");
 
         if (optMap.isPresent()) {
             var stringIntegerMap = optMap.get();
