@@ -7,9 +7,12 @@ import static picocli.CommandLine.Parameters;
 import picocli.CommandLine;
 import ru.hse.api.CommandExecutor;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -56,7 +59,16 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         var argsJar = String.join(" ", args);
 
-        var opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, jfrSettings, showStatistics, verbose);
+        if (!new File(input).isFile()) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Input file does not exist by the given path: " + input);
+        }
+
+        Optional<Map<String, Integer>> opt;
+        try {
+            opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, jfrSettings, showStatistics, verbose);
+        } catch (IllegalArgumentException e) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
+        }
 
         opt.ifPresent(stringIntegerMap -> {
             System.out.println();
@@ -92,6 +104,10 @@ public class JVMLoggerApplication implements Callable<Integer> {
                                            String... categories) {
         checkInputParam();
 
+        if (!new File(input).isFile()) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Input file does not exist by the given path: " + input);
+        }
+
         if (categories.length == 0) {
             throw new CommandLine.ParameterException(new CommandLine(this),
                     "The parameters categories is empty. Example: Java Virtual Machine,Runtime");
@@ -109,7 +125,13 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         LOGGER.info("Category array: " + strippedArray);
 
-        var opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
+        Optional<Map<String, Integer>> opt;
+
+        try {
+            opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
+        } catch (IllegalArgumentException e) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
+        }
 
         opt.ifPresent(result -> {
             System.out.println();
@@ -124,6 +146,10 @@ public class JVMLoggerApplication implements Callable<Integer> {
     Integer filterByNames(@Parameters(description = "Names of event types separated by comma e.g jdk.ModuleExport,jdk.SystemProcess")
                           String... names) {
         checkInputParam();
+
+        if (!new File(input).isFile()) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Input file does not exist by the given path: " + input);
+        }
 
         if (names.length == 0) {
             throw new CommandLine.ParameterException(new CommandLine(this),
@@ -142,7 +168,13 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         LOGGER.info("Name array: " + strippedArray);
 
-        var opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
+        Optional<Map<String, Integer>> opt;
+
+        try {
+            opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
+        } catch (IllegalArgumentException e) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
+        }
 
         opt.ifPresent(result -> {
             System.out.println();
