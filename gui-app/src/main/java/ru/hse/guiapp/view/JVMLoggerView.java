@@ -117,12 +117,11 @@ public class JVMLoggerView {
 
     private void setupExecuteButton() {
         controller.executeButtonLogic(executeButton,
-                inputFileField.getText(),
-                // TODO: remove mock
-                "/Users/fedorfilippov/Desktop/logger/flight.jfr",
+                inputFileField,
+                "/flight.jfr",
                 durationField,
                 outputFileField,
-                argsField.getText(),
+                argsField,
                 "",
                 statsArea,
                 stopButton,

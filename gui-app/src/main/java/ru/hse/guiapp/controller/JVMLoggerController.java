@@ -38,11 +38,11 @@ public class JVMLoggerController {
     }
 
     public void executeButtonLogic(Button executeButton,
-                                   String jarInput,
+                                   TextField jarInput,
                                    String jfrOutput,
                                    TextField recordingDuration,
                                    TextField xesOutput,
-                                   String args,
+                                   TextField args,
                                    String settings,
                                    TextArea textField,
                                    Button stopButton,
@@ -104,7 +104,17 @@ public class JVMLoggerController {
         });
     }
 
-    private void handleEventExecutionWhenFilteringByCategories(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView, CheckComboBox<String> comboBoxCategories) {
+    private void handleEventExecutionWhenFilteringByCategories(Button executeButton,
+                                                               TextField jarInput,
+                                                               String jfrOutput,
+                                                               TextField recordingDuration,
+                                                               TextField xesOutput,
+                                                               TextField args,
+                                                               String settings,
+                                                               TextArea textField,
+                                                               Button stopButton,
+                                                               TableView<EventStatistic> tableView,
+                                                               CheckComboBox<String> comboBoxCategories) {
         task = new Service<>() {
             @Override
             protected Task<Void> createTask() {
@@ -112,12 +122,12 @@ public class JVMLoggerController {
                     @Override
                     protected Void call() {
                         service.executeEventCollectionFilteringByCategories(
-                                jarInput,
+                                jarInput.getText(),
                                 jfrOutput,
                                 recordingDuration.getText(),
                                 xesOutput.getText() + "/output.xes",
                                 comboBoxCategories.getCheckModel().getCheckedItems(),
-                                args,
+                                args.getText(),
                                 settings,
                                 true,
                                 false,
@@ -146,7 +156,17 @@ public class JVMLoggerController {
         executeButton.setDisable(true);
     }
 
-    private void handleEventExecutionWhenFilteringByNames(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView, CheckComboBox<String> comboBoxNames) {
+    private void handleEventExecutionWhenFilteringByNames(Button executeButton,
+                                                          TextField jarInput,
+                                                          String jfrOutput,
+                                                          TextField recordingDuration,
+                                                          TextField xesOutput,
+                                                          TextField args,
+                                                          String settings,
+                                                          TextArea textField,
+                                                          Button stopButton,
+                                                          TableView<EventStatistic> tableView,
+                                                          CheckComboBox<String> comboBoxNames) {
         task = new Service<>() {
             @Override
             protected Task<Void> createTask() {
@@ -154,12 +174,12 @@ public class JVMLoggerController {
                     @Override
                     protected Void call() {
                         service.executeEventCollectionFilteringByNames(
-                                jarInput,
+                                jarInput.getText(),
                                 jfrOutput,
                                 recordingDuration.getText(),
                                 xesOutput.getText() + "/output.xes",
                                 comboBoxNames.getCheckModel().getCheckedItems(),
-                                args,
+                                args.getText(),
                                 settings,
                                 true,
                                 false,
@@ -188,18 +208,27 @@ public class JVMLoggerController {
         executeButton.setDisable(true);
     }
 
-    private void handleNormalEventExecution(Button executeButton, String jarInput, String jfrOutput, TextField recordingDuration, TextField xesOutput, String args, String settings, TextArea textField, Button stopButton, TableView<EventStatistic> tableView) {
+    private void handleNormalEventExecution(Button executeButton,
+                                            TextField jarInput,
+                                            String jfrOutput,
+                                            TextField recordingDuration,
+                                            TextField xesOutput,
+                                            TextField args,
+                                            String settings,
+                                            TextArea textField,
+                                            Button stopButton,
+                                            TableView<EventStatistic> tableView) {
         task = new Service<>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<>() {
                     @Override
                     protected Void call() {
-                        service.executeNormalEventCollection(jarInput,
+                        service.executeNormalEventCollection(jarInput.getText(),
                                 jfrOutput,
                                 recordingDuration.getText(),
                                 xesOutput.getText() + "/output.xes",
-                                args,
+                                args.getText(),
                                 settings,
                                 true,
                                 false,
