@@ -43,6 +43,9 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-v", "--verbose"}, description = "Log events verbose?")
     boolean verbose;
 
+    @Option(names = {"-gc", "--garbage-collector"}, description = "Garbage collector implementation. Could be -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC, -XX:+UseShenandoahGC, -XX:+UseEpsilonGC. Default option is -XX:+UseG1GC", defaultValue = "-XX:+UseG1GC")
+    String gc;
+
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
     }
@@ -61,7 +64,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         Optional<Map<String, Integer>> opt;
         try {
-            opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics, verbose);
+            opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, gc, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
         }
@@ -123,7 +126,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         Optional<Map<String, Integer>> opt;
 
         try {
-            opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
+            opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, gc, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
         }
@@ -166,7 +169,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         Optional<Map<String, Integer>> opt;
 
         try {
-            opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
+            opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, gc, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
         }

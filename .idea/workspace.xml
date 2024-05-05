@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli-app/src/main/java/ru/hse/cli/JVMLoggerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/cli-app/src/main/java/ru/hse/cli/JVMLoggerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/api/CommandExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/api/CommandExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/collector/JarRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/collector/JarRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,6 +198,7 @@
       <workItem from="1713291324598" duration="3313000" />
       <workItem from="1713356195701" duration="267000" />
       <workItem from="1713427211171" duration="789000" />
+      <workItem from="1714899135674" duration="896000" />
     </task>
     <servers />
   </component>

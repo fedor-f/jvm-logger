@@ -31,10 +31,11 @@ public class CommandExecutor {
                                                                        String recordingDuration,
                                                                        String xesOutput,
                                                                        String args,
+                                                                       String gc,
                                                                        boolean showStatistics,
                                                                        boolean verbose) {
         Optional<Map<String, Integer>> opt;
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, gc);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -69,11 +70,12 @@ public class CommandExecutor {
                                                                                      String xesOutput,
                                                                                      List<String> categories,
                                                                                      String args,
+                                                                                     String gc,
                                                                                      boolean showStatistics,
                                                                                      boolean verbose) {
         Optional<Map<String, Integer>> opt;
 
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, gc);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -108,11 +110,12 @@ public class CommandExecutor {
                                                                                 String xesOutput,
                                                                                 List<String> names,
                                                                                 String args,
+                                                                                String gc,
                                                                                 boolean showStatistics,
                                                                                 boolean verbose) {
         Optional<Map<String, Integer>> opt;
 
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, gc);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -131,12 +134,13 @@ public class CommandExecutor {
     private static Thread getThreadResponsibleForJarRunning(String input,
                                                             String jfrOutput,
                                                             String recordingDuration,
-                                                            String args) {
+                                                            String args,
+                                                            String gc) {
         var runner = new JarRunner();
 
         LOGGER.info("Executing .jar");
         var thread = new Thread(() ->
-                runner.run(input, jfrOutput, recordingDuration, args)
+                runner.run(input, jfrOutput, recordingDuration, args, gc)
         );
         thread.start();
 

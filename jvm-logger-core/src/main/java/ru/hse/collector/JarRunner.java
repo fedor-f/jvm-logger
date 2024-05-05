@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class JarRunner {
-    public void run(String pathToJar, String outputFilePath, String recordingDuration, String args) {
+    public void run(String pathToJar, String outputFilePath, String recordingDuration, String args, String gc) {
         String startFlightRecording;
 
         startFlightRecording = String.format("-XX:StartFlightRecording=duration=%s,filename=%s", recordingDuration, outputFilePath);
@@ -13,6 +13,7 @@ public class JarRunner {
         try {
             ProcessBuilder pb = new ProcessBuilder("java",
                     startFlightRecording,
+                    gc,
                     "-jar",
                     pathToJar,
                     args
