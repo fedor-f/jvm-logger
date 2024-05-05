@@ -9,10 +9,12 @@ collects JVM events
 ```
 -a, --args=<args>...                    String arguments for .jar
 -d, --duration=<recordingDuration>      Event recording duration
+-gc, --garbage-collector=<gc>           Garbage collector implementation. 
+                                        Could be -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC. 
+                                        Default option is -XX:+UseG1GC
 -h, --help                              Show this help message and exit.
 -i, --input=<input>                     Input .jar file path
 -jfr, --jfr-output=<jfrOutput>          JFR events output file path
---jfr-settings=<jfrSettings>            Path to .jfc file with JFR Settings
 -o, --output=<output>                   File output path
 -s, --stat                              Display statistics of collected events
 -v, --verbose                           Log events verbose?
