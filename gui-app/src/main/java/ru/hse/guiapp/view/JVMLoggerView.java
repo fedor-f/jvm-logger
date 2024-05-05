@@ -47,6 +47,8 @@ public class JVMLoggerView {
 
     private final JVMLoggerController controller;
 
+    private final String gc = "-XX:+UseG1GC";
+
     public JVMLoggerView(Stage stage) {
         controller = new JVMLoggerController();
         init(stage);
@@ -122,6 +124,7 @@ public class JVMLoggerView {
                 durationField,
                 outputFileField,
                 argsField,
+                gc,
                 statsArea,
                 stopButton,
                 tableView,

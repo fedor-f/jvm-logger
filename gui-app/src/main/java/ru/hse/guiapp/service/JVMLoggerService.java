@@ -49,6 +49,7 @@ public class JVMLoggerService {
                                              String recordingDuration,
                                              String xesOutput,
                                              String args,
+                                             String gc,
                                              boolean showStatistics,
                                              boolean verbose,
                                              TextArea textField, TableView<EventStatistic> tableView) {
@@ -57,7 +58,7 @@ public class JVMLoggerService {
         textField.setText("\uD83D\uDD04 Executing .jar...");
 
         var optMap = CommandExecutor.normalEventCollection(jarInput, jfrOutput, recordingDuration, xesOutput,
-                args, showStatistics, verbose);
+                args, gc, showStatistics, verbose);
 
         textField.appendText("\n✅ Events collected successfully");
 
@@ -73,6 +74,7 @@ public class JVMLoggerService {
                                                        String xesOutput,
                                                        List<String> names,
                                                        String args,
+                                                       String gc,
                                                        boolean showStatistics,
                                                        boolean verbose,
                                                        TextArea textField,
@@ -87,6 +89,7 @@ public class JVMLoggerService {
                 xesOutput,
                 names,
                 args,
+                gc,
                 showStatistics,
                 verbose
         );
@@ -105,6 +108,7 @@ public class JVMLoggerService {
                                                             String xesOutput,
                                                             List<String> categories,
                                                             String args,
+                                                            String gc,
                                                             boolean showStatistics,
                                                             boolean verbose,
                                                             TextArea textField,
@@ -120,6 +124,7 @@ public class JVMLoggerService {
                 xesOutput,
                 categories,
                 args,
+                gc,
                 showStatistics,
                 verbose
         );
