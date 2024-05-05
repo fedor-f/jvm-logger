@@ -10,9 +10,7 @@ import ru.hse.api.CommandExecutor;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -62,6 +60,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
             throw new CommandLine.ParameterException(new CommandLine(this), "Input file does not exist by the given path: " + input);
         }
 
+        validateGCOption(gc);
+
         Optional<Map<String, Integer>> opt;
         try {
             opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, gc, showStatistics, verbose);
@@ -77,6 +77,14 @@ public class JVMLoggerApplication implements Callable<Integer> {
         return 0;
     }
 
+    private void validateGCOption(String gc) {
+        List<String> gcOptions = List.of("-XX:+UseSerialGC", "-XX:+UseParallelGC", "-XX:+UseG1GC", "-XX:+UseZGC", "-XX:+UseShenandoahGC", "-XX:+UseEpsilonGC");
+
+        if (!gcOptions.contains(gc)) {
+            throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect garbage collection option. It could be one the following statements: -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC, -XX:+UseShenandoahGC, -XX:+UseEpsilonGC");
+        }
+    }
+
     private void logInputParams() {
         LOGGER.info("Input .jar file path is: " + input);
         LOGGER.info("JFR events output file path is: " + jfrOutput);
@@ -85,6 +93,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         LOGGER.info("Is event statistic included: " + showStatistics);
         LOGGER.info("String arguments for .jar: " + Arrays.toString(args));
         LOGGER.info("Is verbose logging: " + verbose);
+        LOGGER.info("GC Implementation: " + gc);
     }
 
     @Command(name = "get-event-docs", description = "Gets a link to Event documentation", mixinStandardHelpOptions = true)
@@ -122,6 +131,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
         var strippedArray = Arrays.stream(categoryArray).map(String::strip).toList();
 
         LOGGER.info("Category array: " + strippedArray);
+
+        validateGCOption(gc);
 
         Optional<Map<String, Integer>> opt;
 
@@ -165,6 +176,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
         var strippedArray = Arrays.stream(nameArray).map(String::strip).toList();
 
         LOGGER.info("Name array: " + strippedArray);
+
+        validateGCOption(gc);
 
         Optional<Map<String, Integer>> opt;
 
