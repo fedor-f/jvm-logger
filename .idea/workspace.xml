@@ -60,6 +60,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/models" />
       <recent name="$PROJECT_DIR$/jvm-logger-core/src/main/resources" />
       <recent name="$PROJECT_DIR$/gui-app/src/main/resources/ru/hse/guiapp" />
       <recent name="$PROJECT_DIR$/gui-app/src/main/resources" />
@@ -155,10 +156,10 @@
     </configuration>
     <list>
       <item itemvalue="Application.JVMLoggerGUIApplication" />
-      <item itemvalue="JUnit.JoinMapUtilTest.test" />
-      <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin (1)" />
       <item itemvalue="JUnit.DurationUtilTest" />
+      <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin (1)" />
       <item itemvalue="JUnit.JoinMapUtilTest.testInnerJoin" />
+      <item itemvalue="JUnit.JoinMapUtilTest.test" />
     </list>
     <recent_temporary>
       <list>
@@ -193,6 +194,7 @@
       <workItem from="1713114737233" duration="3722000" />
       <workItem from="1713291324598" duration="3313000" />
       <workItem from="1713356195701" duration="267000" />
+      <workItem from="1713427211171" duration="789000" />
     </task>
     <servers />
   </component>
