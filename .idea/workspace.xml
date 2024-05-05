@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec6795dc-3fb3-4d53-9fad-bc7eeca1387d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cli-app/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/cli-app/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +61,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/artifacts" />
       <recent name="$PROJECT_DIR$/docs/models" />
       <recent name="$PROJECT_DIR$/jvm-logger-core/src/main/resources" />
       <recent name="$PROJECT_DIR$/gui-app/src/main/resources/ru/hse/guiapp" />
@@ -196,7 +198,7 @@
       <workItem from="1713356195701" duration="267000" />
       <workItem from="1713427211171" duration="789000" />
       <workItem from="1714899135674" duration="5488000" />
-      <workItem from="1714926041578" duration="340000" />
+      <workItem from="1714926041578" duration="666000" />
     </task>
     <servers />
   </component>

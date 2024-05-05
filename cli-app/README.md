@@ -1,5 +1,9 @@
 # CLI application
 
+**How to run:**
+1. Change the directory to [jvm-logger/artifacts](https://github.com/fedor-f/jvm-logger/tree/main/artifacts)
+2. Run ```java -jar jvm-logger-cli.jar <options...> <subcommands...>```
+
 **Usage:** jvm-logger [-hsvV] [-d=\<recordingDuration\>] -i=\<input\> <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-jfr=\<jfrOutput\>] [--jfr-settings=\<jfrSettings\>] <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-o=\<output\>] [-a=\<args\>...]... [COMMAND] <br>
