@@ -47,7 +47,7 @@ public class JVMLoggerView {
 
     private final JVMLoggerController controller;
 
-    private final String gc = "-XX:+UseG1GC";
+    private ComboBox<String> comboBoxGC;
 
     public JVMLoggerView(Stage stage) {
         controller = new JVMLoggerController();
@@ -63,6 +63,20 @@ public class JVMLoggerView {
         executeButton = new Button("Execute");
         stopButton = new Button("Interrupt");
 
+        setFilters();
+        setGCOptions();
+        setInputFileField(stage);
+        setupDurationField();
+        setupOutputFilePathField(stage);
+        setupJarArgsField();
+        setupStatisticsArea();
+        setupStopButton();
+        setupExecuteButton();
+        setupCheckboxFilterNames();
+        setupCheckboxFilterCategories();
+    }
+
+    private void setFilters() {
         filterByCategoriesCheckbox = new CheckBox("Filter events by categories?");
         filterByNamesCheckbox = new CheckBox("Filter events by event type names?");
 
@@ -79,16 +93,6 @@ public class JVMLoggerView {
 
         grid.add(filterByCategoriesCheckbox, 0, 5);
         grid.add(filterByNamesCheckbox, 0, 6);
-
-        setInputFileField(stage);
-        setupDurationField();
-        setupOutputFilePathField(stage);
-        setupJarArgsField();
-        setupStatisticsArea();
-        setupStopButton();
-        setupExecuteButton();
-        setupCheckboxFilterNames();
-        setupCheckboxFilterCategories();
     }
 
     private void setupCheckboxFilterNames() {
@@ -124,7 +128,7 @@ public class JVMLoggerView {
                 durationField,
                 outputFileField,
                 argsField,
-                gc,
+                comboBoxGC,
                 statsArea,
                 stopButton,
                 tableView,
@@ -193,7 +197,6 @@ public class JVMLoggerView {
         Label outputFileLabel = new Label(".xes File output path");
         grid.add(outputFileLabel, 0, 2);
         outputFileField = new TextField();
-        outputFileField.setPromptText("Default path is current directory");
         grid.add(outputFileField, 1, 2);
 
         Button inputFileButton = new Button("Browse...");
@@ -224,6 +227,17 @@ public class JVMLoggerView {
         controller.chooseJar(inputFileButton, inputFileField, stage);
 
         grid.add(inputFileButton, 2, 3);
+    }
+
+    private void setGCOptions() {
+        Label inputFileLabel = new Label("GC implementation option");
+        grid.add(inputFileLabel, 0, 4);
+
+        ObservableList<String> listGC = FXCollections.observableArrayList("-XX:+UseSerialGC", "-XX:+UseParallelGC", "-XX:+UseG1GC", "-XX:+UseZGC");
+        comboBoxGC = new ComboBox<>(listGC);
+        comboBoxGC.setValue("-XX:+UseG1GC");
+
+        grid.add(comboBoxGC, 1, 4);
     }
 
     public Scene getScene() {
