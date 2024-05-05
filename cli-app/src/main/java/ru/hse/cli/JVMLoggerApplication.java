@@ -43,10 +43,6 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-v", "--verbose"}, description = "Log events verbose?")
     boolean verbose;
 
-    // TODO: extend if possible
-    @Option(names = "--jfr-settings", description = "Path to .jfc file with Java Flight Recorder Settings", defaultValue = "")
-    String jfrSettings;
-
     public static void main(String[] args) {
         new CommandLine(new JVMLoggerApplication()).execute(args);
     }
@@ -65,7 +61,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
 
         Optional<Map<String, Integer>> opt;
         try {
-            opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, jfrSettings, showStatistics, verbose);
+            opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
         }
@@ -86,7 +82,6 @@ public class JVMLoggerApplication implements Callable<Integer> {
         LOGGER.info("Is event statistic included: " + showStatistics);
         LOGGER.info("String arguments for .jar: " + Arrays.toString(args));
         LOGGER.info("Is verbose logging: " + verbose);
-        LOGGER.info("JFC settings file path: " + jfrSettings);
     }
 
     @Command(name = "get-event-docs", description = "Gets a link to Event documentation", mixinStandardHelpOptions = true)
@@ -128,7 +123,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         Optional<Map<String, Integer>> opt;
 
         try {
-            opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
+            opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
         }
@@ -171,7 +166,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
         Optional<Map<String, Integer>> opt;
 
         try {
-            opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, jfrSettings, showStatistics, verbose);
+            opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
         }

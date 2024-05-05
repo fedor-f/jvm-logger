@@ -21,7 +21,6 @@ public class CommandExecutor {
      * @param recordingDuration Event recording duration.
      * @param xesOutput Output path to .xes file of collected events.
      * @param args String arguments for .jar file. An empty string can be passed if arguments are not used.
-     * @param settings JFR settings. Can be a file path to .jfc file.
      * @param showStatistics Boolean flag for showing statistics after collecting events.
      * @param verbose Boolean flag to enable verbose logging.
      * @return Optional object that can contain a map of String and integers describing event collection statistics.
@@ -32,11 +31,10 @@ public class CommandExecutor {
                                                                        String recordingDuration,
                                                                        String xesOutput,
                                                                        String args,
-                                                                       String settings,
                                                                        boolean showStatistics,
                                                                        boolean verbose) {
         Optional<Map<String, Integer>> opt;
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, settings);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -60,7 +58,6 @@ public class CommandExecutor {
      * @param xesOutput Output path to .xes file of collected events.
      * @param categories List of categories to filter.
      * @param args String arguments for .jar file. An empty string can be passed if arguments are not used.
-     * @param settings JFR settings. Can be a file path to .jfc file.
      * @param showStatistics Boolean flag for showing statistics after collecting events.
      * @param verbose Boolean flag to enable verbose logging.
      * @return Optional object that can contain a map of String and integers describing event collection statistics.
@@ -72,12 +69,11 @@ public class CommandExecutor {
                                                                                      String xesOutput,
                                                                                      List<String> categories,
                                                                                      String args,
-                                                                                     String settings,
                                                                                      boolean showStatistics,
                                                                                      boolean verbose) {
         Optional<Map<String, Integer>> opt;
 
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, settings);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -101,7 +97,6 @@ public class CommandExecutor {
      * @param xesOutput Output path to .xes file of collected events.
      * @param names List of event type names to filter.
      * @param args String arguments for .jar file. An empty string can be passed if arguments are not used.
-     * @param settings JFR settings. Can be a file path to .jfc file.
      * @param showStatistics Boolean flag for showing statistics after collecting events.
      * @param verbose Boolean flag to enable verbose logging.
      * @return Optional object that can contain a map of String and integers describing event collection statistics.
@@ -113,12 +108,11 @@ public class CommandExecutor {
                                                                                 String xesOutput,
                                                                                 List<String> names,
                                                                                 String args,
-                                                                                String settings,
                                                                                 boolean showStatistics,
                                                                                 boolean verbose) {
         Optional<Map<String, Integer>> opt;
 
-        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, settings);
+        var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args);
 
         var jfrEventProcessor = new JFREventProcessor();
 
@@ -137,13 +131,12 @@ public class CommandExecutor {
     private static Thread getThreadResponsibleForJarRunning(String input,
                                                             String jfrOutput,
                                                             String recordingDuration,
-                                                            String args,
-                                                            String settings) {
+                                                            String args) {
         var runner = new JarRunner();
 
         LOGGER.info("Executing .jar");
         var thread = new Thread(() ->
-                runner.run(input, jfrOutput, recordingDuration, args, settings)
+                runner.run(input, jfrOutput, recordingDuration, args)
         );
         thread.start();
 

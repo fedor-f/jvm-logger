@@ -122,7 +122,6 @@ public class JVMLoggerView {
                 durationField,
                 outputFileField,
                 argsField,
-                "",
                 statsArea,
                 stopButton,
                 tableView,
