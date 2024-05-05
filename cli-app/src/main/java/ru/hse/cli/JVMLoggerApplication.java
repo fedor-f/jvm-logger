@@ -41,7 +41,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
     @Option(names = {"-v", "--verbose"}, description = "Log events verbose?")
     boolean verbose;
 
-    @Option(names = {"-gc", "--garbage-collector"}, description = "Garbage collector implementation. Could be -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC, -XX:+UseShenandoahGC, -XX:+UseEpsilonGC. Default option is -XX:+UseG1GC", defaultValue = "-XX:+UseG1GC")
+    @Option(names = {"-gc", "--garbage-collector"}, description = "Garbage collector implementation. Could be -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC. Default option is -XX:+UseG1GC", defaultValue = "-XX:+UseG1GC")
     String gc;
 
     public static void main(String[] args) {
@@ -78,10 +78,10 @@ public class JVMLoggerApplication implements Callable<Integer> {
     }
 
     private void validateGCOption(String gc) {
-        List<String> gcOptions = List.of("-XX:+UseSerialGC", "-XX:+UseParallelGC", "-XX:+UseG1GC", "-XX:+UseZGC", "-XX:+UseShenandoahGC", "-XX:+UseEpsilonGC");
+        List<String> gcOptions = List.of("-XX:+UseSerialGC", "-XX:+UseParallelGC", "-XX:+UseG1GC", "-XX:+UseZGC");
 
         if (!gcOptions.contains(gc)) {
-            throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect garbage collection option. It could be one the following statements: -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC, -XX:+UseShenandoahGC, -XX:+UseEpsilonGC");
+            throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect garbage collection option. It could be one the following statements: -XX:+UseSerialGC, -XX:+UseParallelGC, -XX:+UseG1GC, -XX:+UseZGC");
         }
     }
 
