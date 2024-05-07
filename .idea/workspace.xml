@@ -8,10 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/artifacts/jvm-logger-cli.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cli-app/src/main/java/ru/hse/cli/JVMLoggerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/cli-app/src/main/java/ru/hse/cli/JVMLoggerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/controller/JVMLoggerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/controller/JVMLoggerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/service/JVMLoggerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gui-app/src/main/java/ru/hse/guiapp/service/JVMLoggerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/api/CommandExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/api/CommandExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/eventProcessing/JFREventProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-logger-core/src/main/java/ru/hse/eventProcessing/JFREventProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +203,7 @@
       <workItem from="1714928629571" duration="236000" />
       <workItem from="1714988341627" duration="361000" />
       <workItem from="1714990250535" duration="329000" />
-      <workItem from="1715083717404" duration="1159000" />
+      <workItem from="1715083717404" duration="2347000" />
     </task>
     <servers />
   </component>

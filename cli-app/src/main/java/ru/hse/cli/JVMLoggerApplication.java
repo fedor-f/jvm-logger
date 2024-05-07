@@ -118,7 +118,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
             throw new CommandLine.ParameterException(new CommandLine(this), "Input file does not exist by the given path: " + input);
         }
 
-        if (categories.length == 0) {
+        if (categories == null) {
             throw new CommandLine.ParameterException(new CommandLine(this),
                     "The parameters categories is empty. Example: Java Virtual Machine,Runtime");
         }
@@ -165,7 +165,7 @@ public class JVMLoggerApplication implements Callable<Integer> {
             throw new CommandLine.ParameterException(new CommandLine(this), "Input file does not exist by the given path: " + input);
         }
 
-        if (names.length == 0) {
+        if (names == null) {
             throw new CommandLine.ParameterException(new CommandLine(this),
                     "The parameters names is empty. Example: jdk.ModuleExport,jdk.SystemProcess");
         }
