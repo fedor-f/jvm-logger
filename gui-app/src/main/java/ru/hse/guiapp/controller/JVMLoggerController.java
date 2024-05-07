@@ -121,7 +121,7 @@ public class JVMLoggerController {
             protected Task<Void> createTask() {
                 return new Task<>() {
                     @Override
-                    protected Void call() {
+                    protected Void call() throws IOException {
                         service.executeEventCollectionFilteringByCategories(
                                 jarInput.getText(),
                                 jfrOutput,
@@ -191,7 +191,7 @@ public class JVMLoggerController {
             protected Task<Void> createTask() {
                 return new Task<>() {
                     @Override
-                    protected Void call() {
+                    protected Void call() throws IOException {
                         service.executeEventCollectionFilteringByNames(
                                 jarInput.getText(),
                                 jfrOutput,
@@ -246,7 +246,7 @@ public class JVMLoggerController {
             protected Task<Void> createTask() {
                 return new Task<>() {
                     @Override
-                    protected Void call() {
+                    protected Void call() throws IOException {
                         service.executeNormalEventCollection(jarInput.getText(),
                                 jfrOutput,
                                 recordingDuration.getText(),

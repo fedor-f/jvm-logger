@@ -8,6 +8,7 @@ import picocli.CommandLine;
 import ru.hse.api.CommandExecutor;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -67,6 +68,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
             opt = CommandExecutor.normalEventCollection(input, jfrOutput, recordingDuration, output, argsJar, gc, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
+        } catch (IOException e) {
+            throw new CommandLine.ParameterException(new CommandLine(this), e.getMessage());
         }
 
         opt.ifPresent(stringIntegerMap -> {
@@ -140,6 +143,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
             opt = CommandExecutor.filteredByCategoriesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, gc, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
+        } catch (IOException e) {
+            throw new CommandLine.ParameterException(new CommandLine(this), e.getMessage());
         }
 
         opt.ifPresent(result -> {
@@ -185,6 +190,8 @@ public class JVMLoggerApplication implements Callable<Integer> {
             opt = CommandExecutor.filteredByNamesEventCollection(input, jfrOutput, recordingDuration, output, strippedArray, argsJar, gc, showStatistics, verbose);
         } catch (IllegalArgumentException e) {
             throw new CommandLine.ParameterException(new CommandLine(this), "Incorrect format of recording duration. Try 1s, 1m1s, 1h etc.");
+        } catch (IOException e) {
+            throw new CommandLine.ParameterException(new CommandLine(this), e.getMessage());
         }
 
         opt.ifPresent(result -> {

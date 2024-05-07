@@ -33,7 +33,7 @@ public class CommandExecutor {
                                                                        String args,
                                                                        String gc,
                                                                        boolean showStatistics,
-                                                                       boolean verbose) {
+                                                                       boolean verbose) throws IOException {
         Optional<Map<String, Integer>> opt;
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, gc);
 
@@ -42,10 +42,10 @@ public class CommandExecutor {
         try {
             opt = jfrEventProcessor.processEventsFromFile(jfrOutput, xesOutput, showStatistics, verbose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e.getMessage());
+        } finally {
+            thread.interrupt();
         }
-
-        thread.interrupt();
 
         LOGGER.info("Events collected");
         return opt;
@@ -72,7 +72,7 @@ public class CommandExecutor {
                                                                                      String args,
                                                                                      String gc,
                                                                                      boolean showStatistics,
-                                                                                     boolean verbose) {
+                                                                                     boolean verbose) throws IOException {
         Optional<Map<String, Integer>> opt;
 
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, gc);
@@ -82,10 +82,10 @@ public class CommandExecutor {
         try {
             opt = jfrEventProcessor.processEventsFromFileFilteredByCategories(jfrOutput, xesOutput, categories, showStatistics, verbose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e.getMessage());
+        } finally {
+            thread.interrupt();
         }
-
-        thread.interrupt();
 
         LOGGER.info("Events collected");
         return opt;
@@ -112,7 +112,7 @@ public class CommandExecutor {
                                                                                 String args,
                                                                                 String gc,
                                                                                 boolean showStatistics,
-                                                                                boolean verbose) {
+                                                                                boolean verbose) throws IOException {
         Optional<Map<String, Integer>> opt;
 
         var thread = getThreadResponsibleForJarRunning(input, jfrOutput, recordingDuration, args, gc);
@@ -122,10 +122,10 @@ public class CommandExecutor {
         try {
             opt = jfrEventProcessor.processEventsFromFileFilteredByNames(jfrOutput, xesOutput, names, showStatistics, verbose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e.getMessage());
+        } finally {
+            thread.interrupt();
         }
-
-        thread.interrupt();
 
         LOGGER.info("Events collected");
         return opt;

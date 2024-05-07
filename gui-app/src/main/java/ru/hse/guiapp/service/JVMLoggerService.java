@@ -51,7 +51,7 @@ public class JVMLoggerService {
                                              String gc,
                                              boolean showStatistics,
                                              boolean verbose,
-                                             TextArea textField, TableView<EventStatistic> tableView) {
+                                             TextArea textField, TableView<EventStatistic> tableView) throws IOException {
         tableView.getItems().clear();
         textField.clear();
         textField.setText("\uD83D\uDD04 Executing .jar...");
@@ -77,7 +77,7 @@ public class JVMLoggerService {
                                                        boolean showStatistics,
                                                        boolean verbose,
                                                        TextArea textField,
-                                                       TableView<EventStatistic> tableView) {
+                                                       TableView<EventStatistic> tableView) throws IOException {
         tableView.getItems().clear();
         textField.clear();
         textField.setText("\uD83D\uDD04 Executing .jar...");
@@ -111,7 +111,7 @@ public class JVMLoggerService {
                                                             boolean showStatistics,
                                                             boolean verbose,
                                                             TextArea textField,
-                                                            TableView<EventStatistic> tableView) {
+                                                            TableView<EventStatistic> tableView) throws IOException {
         tableView.getItems().clear();
         textField.clear();
         textField.setText("\uD83D\uDD04 Executing .jar...");

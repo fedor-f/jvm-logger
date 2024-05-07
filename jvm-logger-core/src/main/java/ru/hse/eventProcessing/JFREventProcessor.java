@@ -37,7 +37,7 @@ public class JFREventProcessor {
 
             result = saveToXESFormat(outputXesFilePath, events, converter, serializer, showStatistics, verbose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e.getMessage());
         }
 
         return result;
@@ -109,7 +109,7 @@ public class JFREventProcessor {
 
             opt = saveToXESFilteredByCategories(outputXesFilePath, categories, events, converter, serializer, showStatistics, verbose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e.getMessage());
         }
 
         return opt;
@@ -174,7 +174,7 @@ public class JFREventProcessor {
 
             opt = saveToXESFilteredByNames(outputXesFilePath, names, events, converter, serializer, showStatistics, verbose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e.getMessage());
         }
 
         return opt;
